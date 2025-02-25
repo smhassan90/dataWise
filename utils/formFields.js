@@ -28,3 +28,21 @@ export const signInFields = [
     label: "CONFIRM PASSWORD",
   },
 ];
+
+
+export  const loginFields  =[
+    {
+      type: "email",
+      name: "email",
+      placeholder: "comvi-dashboard@gmail.com",
+      required: true,
+      label: "EMAIL",
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "********",
+      required: true,
+      label: "PASSWORD",
+    },
+]
