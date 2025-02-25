@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
+import { Axios, summary } from "@/config/summaryAPI";
 
 const LoginPage = () => {
   const {
@@ -19,8 +20,17 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("Form Data:", data);
+    try {
+        const response = await Axios({
+          ...summary.login,
+          data:data
+        })
+        console.log(response)
+    } catch (error) {
+        
+    }
   };
 
   const [showPassword, setShowPassword] = useState({

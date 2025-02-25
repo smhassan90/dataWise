@@ -1,10 +1,17 @@
 export const signInFields = [
   {
     type: "text",
-    name: "name",
+    name: "firstName",
     placeholder: "Dominik Doudny",
     required: true,
-    label: "NAME",
+    label: "FIRST NAME",
+  },
+  {
+    type: "text",
+    name: "lastName",
+    placeholder: "Dominik Doudny",
+    required: true,
+    label: "LAST NAME",
   },
   {
     type: "email",
@@ -12,6 +19,13 @@ export const signInFields = [
     placeholder: "comvi-dashboard@gmail.com",
     required: true,
     label: "EMAIL",
+  },
+  {
+    type: "text",
+    name: "companyName",
+    placeholder: "Fortune Tower",
+    required: true,
+    label: "COMPANY NAME",
   },
   {
     type: "password",

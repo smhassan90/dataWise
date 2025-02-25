@@ -7,15 +7,29 @@ import { Button } from "@/utils/button";
 import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
-import Link from 'next/link';
-
+import Link from "next/link";
+import { Axios, summary } from "@/config/summaryAPI";
+import { AxiosError } from "@/utils/axiosError";
 
 const SignUpPage = () => {
-  const { register, handleSubmit, formState: { errors }} = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(signInSchema),
   });
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("Form Data:", data);
+    try {
+        const response = await Axios({
+            ...summary.register,
+            data:data
+        })
+        console.log(response.data)
+    } catch (error) {
+        AxiosError(error)
+    }
   };
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -23,7 +37,7 @@ const SignUpPage = () => {
   });
   return (
     <div className=" bg-background min-h-screen flex justify-center items-center">
-      <div className="bg-white md:w-550 m-auto rounded-xl shadow-md py-8">
+      <div className="bg-white md:w-550 m-auto rounded-xl shadow-md py-4">
         <h2 className="text-[32px] font-semibold text-center md:text-h1">
           LOGO
         </h2>
@@ -38,17 +52,24 @@ const SignUpPage = () => {
         <form
           action=""
           onSubmit={handleSubmit(onSubmit)}
-          className="px-4 m-auto flex flex-col gap-3 mt-5 md:w-3/4 md:px-0 md:gap-4"
+          className="px-4 m-auto flex flex-col gap-3 mt-5 md:w-5/6 md:px-0 md:gap-4"
         >
-          {signInFields.map((input, index) => (
-            <div className="flex flex-col gap-1 md:gap-2 justify-start w-full relative"
-              key={index}
-            >
-              <label htmlFor="" className="text-sm text-gray font-medium mx-2 md:text-base">
-                {input.label}
-              </label>
-                <input type={
-                    (input.name === "password" || input.name === "confirmPassword") && showPassword[input.name]
+            {signInFields.map((input, index) => (
+              <div
+                className={`flex flex-col gap-1 md:gap-2 justify-start relative`}
+                key={index}
+              >
+                <label
+                  htmlFor=""
+                  className="text-sm text-gray font-medium mx-2 md:text-base"
+                >
+                  {input.label}
+                </label>
+                <input
+                  type={
+                    (input.name === "password" ||
+                      input.name === "confirmPassword") &&
+                    showPassword[input.name]
                       ? "text"
                       : input.type
                   }
@@ -56,29 +77,36 @@ const SignUpPage = () => {
                   {...register(input.name)}
                   className="h-[40px] border border-[#EBF0ED] rounded-md bg-background  px-3 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
                 />
-                {(input.name === "password" || input.name === "confirmPassword") && (
-                  <span onClick={() => setShowPassword((prev) => ({
+                {(input.name === "password" ||
+                  input.name === "confirmPassword") && (
+                  <span
+                    onClick={() =>
+                      setShowPassword((prev) => ({
                         ...prev,
                         [input.name]: !prev[input.name],
                       }))
                     }
                     className="cursor-pointer absolute bottom-[11px] md:bottom-[13px] right-3"
                   >
-                    {showPassword[input.name] ? <FaRegEye className="text-lg md:text-xl"/> : <FaRegEyeSlash className="text-lg md:text-xl"/>}
+                    {showPassword[input.name] ? (
+                      <FaRegEye className="text-lg md:text-xl" />
+                    ) : (
+                      <FaRegEyeSlash className="text-lg md:text-xl" />
+                    )}
                   </span>
                 )}
-              {errors[input.name] && (
-                <span className="text-red-500 text-sm">
-                  {errors[input.name]?.message}
-                </span>
-              )}
-            </div>
-          ))}
+                {errors[input.name] && (
+                  <span className="text-red-500 text-sm">
+                    {errors[input.name]?.message}
+                  </span>
+                )}
+              </div>
+            ))}
           <Button>Create an Account</Button>
           <p className="text-center text-gray md:text-lg tracking-tighter">
             Already have an Account? &nbsp;&nbsp;
             <Link href="/login">
-                <span className="font-medium md:text-lg text-button">SignIn</span>
+              <span className="font-medium md:text-lg text-button">SignIn</span>
             </Link>
           </p>
         </form>
