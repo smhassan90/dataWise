@@ -60,3 +60,60 @@ export  const loginFields  =[
       label: "PASSWORD",
     },
 ]
+
+
+export const addStory = [
+  {
+    type: "text",
+    name: "storyName",
+    placeholder: "Story Board Name",
+    require: true,
+  },
+  {
+    type: "text",
+    name: "Descriptions",
+    placeholder: "Descriptions",
+    require: true,
+  },
+  {
+    type: "select",
+    name: "category",
+    placeholder: "Select Category",
+    require: true,
+    options: [
+      { label: "Adventure", value: "adventure" },
+      { label: "Horror", value: "horror" },
+      { label: "Fantasy", value: "fantasy" },
+      { label: "Sci-Fi", value: "sci-fi" },
+    ],
+  },
+];
+
+
+export const editStory = [
+  {
+    type: "text",
+    name: "storyName",
+    placeholder: "Story Board Name",
+    require: true,
+  },
+  {
+    type: "text",
+    name: "Descriptions",
+    placeholder: "Descriptions",
+    require: true,
+  },
+  {
+    type: "select",
+    name: "category",
+    placeholder: "Select Category",
+    require: true,
+    options: [
+      { label: "Adventure", value: "adventure" },
+      { label: "Horror", value: "horror" },
+      { label: "Fantasy", value: "fantasy" },
+      { label: "Sci-Fi", value: "sci-fi" },
+    ],
+  },
+];
+
