@@ -8,8 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
+        background: "#FFFEEC",
+        button: "#021A22",
+        white: "#ffff",
+        gray: "#6B6B6B",
         foreground: "var(--foreground)",
+      },
+      width: {
+        648: "648px",
+      },
+      fontSize: {
+        h1: "52px",
+        h2:'32px'
+      },
+      screens: {
+        'xxs': '420px',
+        'xs': '540px',
       },
     },
   },
