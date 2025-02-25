@@ -7,13 +7,11 @@ import { Button } from "@/utils/button";
 import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
+import Link from 'next/link';
+
 
 const SignUpPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors }} = useForm({
     resolver: zodResolver(signInSchema),
   });
   const onSubmit = (data) => {
@@ -25,7 +23,7 @@ const SignUpPage = () => {
   });
   return (
     <div className=" bg-background h-screen flex justify-center items-center">
-      <div className="bg-white md:w-[550px] m-auto rounded-xl shadow-md py-4">
+      <div className="bg-white md:w-[550px] m-auto rounded-xl shadow-md py-8">
         <h2 className="text-[32px] font-semibold text-center md:text-[44px]">
           LOGO
         </h2>
@@ -54,21 +52,24 @@ const SignUpPage = () => {
                 {input.label}
               </label>
                 <input
-                  type={input.type}
+                  type={
+                    (input.name === "password" || input.name === "confirmPassword") && showPassword[input.name]
+                      ? "text"
+                      : input.type
+                  }
                   placeholder={input.placeholder}
                   {...register(input.name)}
                   className="h-[40px] border border-[#EBF0ED] rounded-md bg-background  px-3 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
                 />
-                {(input.label == "PASSWORD" ||
-                  input.label == "CONFIRM PASSWORD") && (
+                {(input.name === "password" || input.name === "confirmPassword") && (
                   <span onClick={() => setShowPassword((prev) => ({
                         ...prev,
-                        [input.name]: !prev.input?.name,
+                        [input.name]: !prev[input.name],
                       }))
                     }
-                    className="cursor-pointer absolute bottom-4 right-3"
+                    className="cursor-pointer absolute bottom-[11px] md:bottom-[13px] right-3"
                   >
-                    {showPassword?.password ? <FaRegEye size/> : <FaRegEyeSlash />}
+                    {showPassword[input.name] ? <FaRegEye className="text-lg md:text-xl"/> : <FaRegEyeSlash className="text-lg md:text-xl"/>}
                   </span>
                 )}
               {errors[input.name] && (
@@ -81,7 +82,9 @@ const SignUpPage = () => {
           <Button>Create an Account</Button>
           <p className="text-center text-gray md:text-lg tracking-tighter">
             Already have an Account? &nbsp;&nbsp;
-            <span className="font-medium md:text-lg text-button">SignIn</span>
+            <Link href="/login">
+                <span className="font-medium md:text-lg text-button">SignIn</span>
+            </Link>
           </p>
         </form>
       </div>
