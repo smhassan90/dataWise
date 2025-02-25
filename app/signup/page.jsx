@@ -54,17 +54,20 @@ const SignUpPage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="px-4 m-auto flex flex-col gap-3 mt-5 md:w-5/6 md:px-0 md:gap-4"
         >
-            {signInFields.map((input, index) => (
-              <div
-                className={`flex flex-col gap-1 md:gap-2 justify-start relative`}
-                key={index}
+          {signInFields.map((input, index) => (
+            <div
+              className="flex flex-col gap-1 md:gap-2 justify-start w-full relative"
+              key={index}
+            >
+              <label
+                htmlFor=""
+                className="text-sm text-gray font-medium mx-2 md:text-base"
               >
-                <label
-                  htmlFor=""
-                  className="text-sm text-gray font-medium mx-2 md:text-base"
-                >
-                  {input.label}
-                </label>
+                {input.label}
+              </label>
+
+              {/* Input Wrapper for Relative Positioning */}
+              <div className="relative w-full">
                 <input
                   type={
                     (input.name === "password" ||
@@ -75,7 +78,7 @@ const SignUpPage = () => {
                   }
                   placeholder={input.placeholder}
                   {...register(input.name)}
-                  className="h-[40px] border border-[#EBF0ED] rounded-md bg-background  px-3 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
+                  className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-background px-3 pr-10 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
                 />
                 {(input.name === "password" ||
                   input.name === "confirmPassword") && (
@@ -86,7 +89,7 @@ const SignUpPage = () => {
                         [input.name]: !prev[input.name],
                       }))
                     }
-                    className="cursor-pointer absolute bottom-[11px] md:bottom-[13px] right-3"
+                    className="cursor-pointer absolute top-1/2 right-3 transform -translate-y-1/2"
                   >
                     {showPassword[input.name] ? (
                       <FaRegEye className="text-lg md:text-xl" />
@@ -95,13 +98,17 @@ const SignUpPage = () => {
                     )}
                   </span>
                 )}
-                {errors[input.name] && (
-                  <span className="text-red-500 text-sm">
-                    {errors[input.name]?.message}
-                  </span>
-                )}
               </div>
-            ))}
+
+              {/* Error Message */}
+              {errors[input.name] && (
+                <span className="text-red-500 text-sm">
+                  {errors[input.name]?.message}
+                </span>
+              )}
+            </div>
+          ))}
+
           <Button>Create an Account</Button>
           <p className="text-center text-gray md:text-lg tracking-tighter">
             Already have an Account? &nbsp;&nbsp;

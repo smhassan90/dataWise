@@ -65,36 +65,37 @@ const LoginPage = () => {
               >
                 {input.label}
               </label>
-              <input
-                type={
-                  (input.name === "password" ||
-                    input.name === "confirmPassword") &&
-                  showPassword[input.name]
-                    ? "text"
-                    : input.type
-                }
-                placeholder={input.placeholder}
-                {...register(input.name)}
-                className="h-[40px] border border-[#EBF0ED] rounded-md bg-background px-3 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
-              />
-              {(input.name === "password" ||
-                input.name === "confirmPassword") && (
-                <span
-                  onClick={() =>
-                    setShowPassword((prev) => ({
-                      ...prev,
-                      [input.name]: !prev[input.name],
-                    }))
-                  }
-                  className="cursor-pointer absolute bottom-[11px] md:bottom-[13px] right-3"
-                >
-                  {showPassword[input.name] ? (
-                    <FaRegEye className="text-lg md:text-xl" />
-                  ) : (
-                    <FaRegEyeSlash className="text-lg md:text-xl" />
-                  )}
-                </span>
-              )}
+              <div className="relative w-full">
+  <input
+    type={
+      (input.name === "password" || input.name === "confirmPassword") &&
+      showPassword[input.name]
+        ? "text"
+        : input.type
+    }
+    placeholder={input.placeholder}
+    {...register(input.name)}
+    className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-background px-3 pr-10 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
+  />
+  {(input.name === "password" || input.name === "confirmPassword") && (
+    <span
+      onClick={() =>
+        setShowPassword((prev) => ({
+          ...prev,
+          [input.name]: !prev[input.name],
+        }))
+      }
+      className="cursor-pointer absolute top-1/2 right-3 transform -translate-y-1/2"
+    >
+      {showPassword[input.name] ? (
+        <FaRegEye className="text-lg md:text-xl" />
+      ) : (
+        <FaRegEyeSlash className="text-lg md:text-xl" />
+      )}
+    </span>
+  )}
+</div>
+
               {errors[input.name] && (
                 <span className="text-red-500 text-sm">
                   {errors[input.name]?.message}
