@@ -3,6 +3,7 @@ export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -15,11 +16,14 @@ export default {
         foreground: "var(--foreground)",
       },
       width: {
-        648: "648px",
+        '648': "648px",
+        '550': "550px"
       },
       fontSize: {
-        h1: "52px",
-        h2:'32px'
+        h1: "44px",
+        h2:'30px',
+
+
       },
       screens: {
         'xxs': '420px',

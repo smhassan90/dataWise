@@ -22,13 +22,13 @@ const SignUpPage = () => {
     confirmPassword: false,
   });
   return (
-    <div className=" bg-background h-screen flex justify-center items-center">
-      <div className="bg-white md:w-[550px] m-auto rounded-xl shadow-md py-8">
-        <h2 className="text-[32px] font-semibold text-center md:text-[44px]">
+    <div className=" bg-background min-h-screen flex justify-center items-center">
+      <div className="bg-white md:w-550 m-auto rounded-xl shadow-md py-8">
+        <h2 className="text-[32px] font-semibold text-center md:text-h1">
           LOGO
         </h2>
         <div className=" mt-2 text-center">
-          <h3 className="text-[24px] font-semibold md:text-[30px]">
+          <h3 className="text-[24px] font-semibold md:text-h2">
             Create an Account
           </h3>
           <p className="w-2/3 text-base text-gray tracking-tight leading-6 mx-auto md:text-lg md:w-1/2">
@@ -41,18 +41,13 @@ const SignUpPage = () => {
           className="px-4 m-auto flex flex-col gap-3 mt-5 md:w-3/4 md:px-0 md:gap-4"
         >
           {signInFields.map((input, index) => (
-            <div
-              className="flex flex-col gap-1 md:gap-2 justify-start w-full relative"
+            <div className="flex flex-col gap-1 md:gap-2 justify-start w-full relative"
               key={index}
             >
-              <label
-                htmlFor=""
-                className="text-sm text-gray font-medium mx-2 md:text-base"
-              >
+              <label htmlFor="" className="text-sm text-gray font-medium mx-2 md:text-base">
                 {input.label}
               </label>
-                <input
-                  type={
+                <input type={
                     (input.name === "password" || input.name === "confirmPassword") && showPassword[input.name]
                       ? "text"
                       : input.type

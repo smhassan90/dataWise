@@ -1,13 +1,14 @@
-
-
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/utils/button";
 import { loginFields } from "@/utils/formFields";
 import { loginSchema } from "@/utils/schema";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
 
 const LoginPage = () => {
   const {
@@ -22,8 +23,13 @@ const LoginPage = () => {
     console.log("Form Data:", data);
   };
 
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+
   return (
-    <div className="bg-background h-screen flex justify-center items-center">
+    <div className="bg-background min-h-screen flex justify-center items-center">
       <div className="bg-white md:w-[550px] m-auto rounded-xl shadow-md py-4">
         <h2 className="text-[32px] font-semibold text-center md:text-[44px]">
           LOGO
@@ -50,12 +56,35 @@ const LoginPage = () => {
                 {input.label}
               </label>
               <input
-                id={input.name}
-                type={input.type}
+                type={
+                  (input.name === "password" ||
+                    input.name === "confirmPassword") &&
+                  showPassword[input.name]
+                    ? "text"
+                    : input.type
+                }
                 placeholder={input.placeholder}
                 {...register(input.name)}
                 className="h-[40px] border border-[#EBF0ED] rounded-md bg-background px-3 focus:border-[#021A22] md:text-[20px] md:h-[45px]"
               />
+              {(input.name === "password" ||
+                input.name === "confirmPassword") && (
+                <span
+                  onClick={() =>
+                    setShowPassword((prev) => ({
+                      ...prev,
+                      [input.name]: !prev[input.name],
+                    }))
+                  }
+                  className="cursor-pointer absolute bottom-[11px] md:bottom-[13px] right-3"
+                >
+                  {showPassword[input.name] ? (
+                    <FaRegEye className="text-lg md:text-xl" />
+                  ) : (
+                    <FaRegEyeSlash className="text-lg md:text-xl" />
+                  )}
+                </span>
+              )}
               {errors[input.name] && (
                 <span className="text-red-500 text-sm">
                   {errors[input.name]?.message}
@@ -65,8 +94,10 @@ const LoginPage = () => {
           ))}
           <Button>Sign In</Button>
           <p className="text-center text-gray md:text-lg tracking-tighter">
-            Already have an Account? &nbsp;&nbsp;
-            <span className="font-medium md:text-lg text-button">SignIn</span>
+            Don't have an Account? &nbsp;&nbsp;
+            <Link href="/signup">
+              <span className="font-medium md:text-lg text-button">SignUp</span>
+            </Link>
           </p>
         </form>
       </div>
