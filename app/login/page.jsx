@@ -10,6 +10,8 @@ import Link from "next/link";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 import { Axios, summary } from "@/config/summaryAPI";
+import toast from "react-hot-toast";
+import { AxiosError } from "@/utils/axiosError";
 
 const LoginPage = () => {
   const {
@@ -27,9 +29,11 @@ const LoginPage = () => {
           ...summary.login,
           data:data
         })
-        console.log(response)
+        if(response.data.status){
+          toast.success(response.data.message)
+        }
     } catch (error) {
-        
+        AxiosError(error)
     }
   };
 
