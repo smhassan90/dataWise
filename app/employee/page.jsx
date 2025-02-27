@@ -390,11 +390,11 @@ const Sidebar = () => {
       </div>
 
       {/* Main Content */}
-      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-[340px]" : "ml-28"}`}>
+      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-[30px]" : "ml-28"}`}>
         <Navbar title="Dashboard" isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         <div className="mt-16">
           <h2 className="text-black text-2xl font-bold">Dashboard Content</h2>
-        </div>
+        </div>  
       </div>
     </div>
   );

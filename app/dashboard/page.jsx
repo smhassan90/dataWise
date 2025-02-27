@@ -1,5 +1,6 @@
 "use client";
 import Navbar from '@/utils/navbar';
+import Sidebar from '@/utils/sidebar';
 // import React, { useState } from "react";
 
 // const App = () => {
@@ -115,7 +116,7 @@ import React from 'react'
 export const dashboard = () => {
   return (
     <div>
-        <Navbar title='Dashboard'/>
+        <Sidebar/>
     </div>
   )
 }

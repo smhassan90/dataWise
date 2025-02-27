@@ -5,7 +5,7 @@ import { FiAlignLeft } from "react-icons/fi";
 
 const Navbar = ({ title, isSidebarOpen, setIsSidebarOpen }) => {
   return (
-    <div className={`bg-white mt-4 flex justify-between items-center px-1 md:px-8 py-1 h-[57px] fixed top-0 left-0 right-0 transition-all duration-300 
+    <div className={`bg-white  flex justify-between items-center px-1 md:px-8 py-1 h-[57px] fixed top-0 left-0 right-0 transition-all duration-300 
       ${isSidebarOpen ? "ml-[304px]" : "ml-20"}
     `}>
       {/* Left Section */}
