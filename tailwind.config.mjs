@@ -14,6 +14,7 @@ export default {
         white: "#ffff",
         gray: "#6B6B6B",
         foreground: "var(--foreground)",
+        sideBarBg:"#036666"
       },
       width: {
         '648': "648px",

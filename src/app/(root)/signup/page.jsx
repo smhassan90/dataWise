@@ -2,7 +2,7 @@
 import { signInFields } from "@/utils/formFields";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "../../utils/schema";
+import { signInSchema } from "../../../utils/schema";
 import { Button } from "@/utils/button";
 import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
