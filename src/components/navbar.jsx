@@ -15,7 +15,7 @@ const Navbar = ({isSidebarOpen, setIsSidebarOpen }) => {
     `}>
       <div className="flex items-center gap-2 md:gap-4">
         <FiAlignLeft className="text-black w-24 h-24 md:w-[21px] md:h-[24px] cursor-pointer" onClick={() => dispatch(openSideBar())} />
-        <h1 className="font-bold text-black text-lg md:text-2xl">{title}</h1>
+        <h1 className="font-manrope font-large text-black text-lg md:text-2xl">{title}</h1>
       </div>
       
       <div className="flex items-center gap-4 md:gap-6">

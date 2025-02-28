@@ -39,6 +39,7 @@ export default {
         normal: '400',
         medium: '500',
         semibold: '600',
+        large : '700',
       },
     },
   },

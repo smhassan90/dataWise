@@ -61,7 +61,7 @@ const Sidebar = () => {
       >
         <div className={`h-full overflow-y-auto flex flex-col p-5`}>
           <div className="flex items-center justify-between mb-6">
-            <h1 className={`text-2xl transition-all duration-300  ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
+            <h1 className={`text-2xl transition-all duration-300 font-poppins font-medium  ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
             <button className="lg:hidden text-white"
               onClick={() => setIsMobileMenuOpen(false)}
               aria-label="Close sidebar"
@@ -71,7 +71,7 @@ const Sidebar = () => {
           </div>
 
           <nav className="flex-1">
-            <ul className="mt-2 flex flex-col gap-y-7 font-manrope">
+            <ul className="mt-2 flex flex-col gap-y-7 font-manrope font-medium">
               {sideBarMenu.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300">
                   {menu.children ? (
@@ -140,7 +140,7 @@ const Sidebar = () => {
           </nav>
 
           {/* Others */}
-          <div className="border-t border-gray-700 mt-8 pt-6 font-manrope">
+          <div className="border-t border-gray-700 mt-8 pt-6 font-manrope font-medium">
             <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${sidebarOpen ||  isMobileMenuOpen ? "block" : "hidden"}`}>
               OTHER
             </p>
