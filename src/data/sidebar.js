@@ -57,12 +57,12 @@ export const sideBarMenu = [
   {
     title: "Complimentary Datasets",
     icon: <FaDatabase size={22} />,
-    link: "/datasets",
+    link: "/dashboard/complimentary_datasets",
   },
   {
     title: "Integrations",
     icon: <FaPuzzlePiece size={22} />,
-    link: "/integrations",
+    link: "/dashboard/integrations",
   },
 ];
 

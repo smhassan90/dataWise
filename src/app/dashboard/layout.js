@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { Toaster } from "react-hot-toast";
-import Sidebar from "@/components/sidebar";
-import Navbar from "@/utils/navbar";
-import { Providers } from "@/redux/provider";
+import Sidebar from "../../components/sidebar";
+import Navbar from "../../components/navbar";
+import { Providers } from "../../redux/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,18 +23,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex justify-between">
+      <body>
+        <div className="flex w-full">
           <Sidebar />
-          <div className="">
+          <div className="flex flex-col w-full">
             <Navbar />
-            {/* {children} */}
+            {/* <div className="mt-[67px] w-[calc(100vw-21.5rem)] ml-auto">{children}</div> */}
           </div>
         </div>
         <Toaster />
-        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -2,23 +2,22 @@
 import React from "react";
 import { FaSearch, FaBell, FaBars } from "react-icons/fa";
 import { FiAlignLeft } from "react-icons/fi";
-// import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openSideBar } from "../redux/sidebar";
 
-const Navbar = ({title,isSidebarOpen, setIsSidebarOpen }) => {
-  // const title = useSelector(state=>state.sideBar.title)
-  // console.log(title)
+const Navbar = ({isSidebarOpen, setIsSidebarOpen }) => {
+  const dispatch = useDispatch()
+  const title = useSelector(state=>state.sideBar.title)
+  const {width,sidebar} = useSelector(state=>state.sideBar)
   return (
-    <div className={`bg-white mt-2 flex justify-between items-center px-1 py-1 h-[57px] fixed top-0 left-0 right-0 transition-all duration-300 w-[calc(100vw-21.5rem)] ml-auto
-      ${isSidebarOpen ? "ml-[304px]" : ""}
+    <div className={`bg-white mt-2 flex justify-between items-center px-1 py-1 h-[57px] right-0 transition-all duration-300
+      ${sidebar ? `w-[calc(100vw-22rem)] ml-auto` : `w-[calc(100vw-5rem)] ml-auto`}
     `}>
-      {/* Left Section */}
       <div className="flex items-center gap-2 md:gap-4">
-        {/* Toggle Sidebar */}
-        <FiAlignLeft className="text-black w-24 h-24 md:w-[21px] md:h-[24px] cursor-pointer" onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+        <FiAlignLeft className="text-black w-24 h-24 md:w-[21px] md:h-[24px] cursor-pointer" onClick={() => dispatch(openSideBar())} />
         <h1 className="font-bold text-black text-lg md:text-2xl">{title}</h1>
       </div>
-
-      {/* Right Section */}
+      
       <div className="flex items-center gap-4 md:gap-6">
         <FaSearch className="text-gray-600 cursor-pointer w-5 h-5 md:w-6 md:h-6" />
         <div className="relative">
