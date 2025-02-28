@@ -1,15 +1,15 @@
 "use client";
-import { signInFields } from "@/utils/formFields";
+import { signInFields } from "../../../utils/formFields";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "../../../utils/schema";
-import { Button } from "@/utils/button";
+import { Button } from "../../../utils/button";
 import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 import Link from "next/link";
-import { Axios, summary } from "@/config/summaryAPI";
-import { AxiosError } from "@/utils/axiosError";
+import { Axios, summary } from "../../../config/summaryAPI";
+import { AxiosError } from "../../../utils/axiosError";
 
 const SignUpPage = () => {
   const {

@@ -2,17 +2,16 @@
 
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/utils/button";
-import { loginFields } from "@/utils/formFields";
-// import { loginSchema } from "@/utils/schema";
-import { loginSchema } from "@/utils/schema";
+import { Button } from "../../../utils/button";
+import { loginFields } from "../../../utils/formFields";
+import { loginSchema } from "../../../utils/schema";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
-import { Axios, summary } from "@/config/summaryAPI";
+import { Axios, summary } from "../../../config/summaryAPI";
 import toast from "react-hot-toast";
-import { AxiosError } from "@/utils/axiosError";
+import { AxiosError } from "../../../utils/axiosError";
 
 const LoginPage = () => {
   const {

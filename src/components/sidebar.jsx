@@ -12,10 +12,11 @@ const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [openDropdown, setOpenDropdown] = useState(null)
-  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
+
+  const showHide = sidebarOpen || isMobileMenuOpen ? "block" : "hidden"
 
   useEffect(() => {
     const handleResize = debounce(() => {
@@ -50,7 +51,7 @@ const Sidebar = () => {
     <>
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
+          onClick={() => dispatch(toogleMobile(false))}
         />
       )}
 
@@ -81,7 +82,7 @@ const Sidebar = () => {
           </div>
 
           <nav className="flex-1 p-5 pt-0">
-            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${sidebarOpen || isMobileMenuOpen ? "block" : "hidden"}`}>
+            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
               OVERVIEW
             </p>
             <ul className="mt-2 flex flex-col gap-y-7">
@@ -99,7 +100,7 @@ const Sidebar = () => {
                         <div className="flex items-center space-x-4">
                           {menu.icon}
                           <span
-                            className={`${sidebarOpen || isMobileMenuOpen ? "block" : "hidden"} transition-all duration-300 text-lg`}
+                            className={`${showHide} transition-all duration-300 text-lg`}
                           >
                             {menu.title}
                           </span>
@@ -141,7 +142,7 @@ const Sidebar = () => {
                     >
                       {menu.icon}
                       <span
-                        className={`${sidebarOpen || isMobileMenuOpen ? "block" : "hidden"} transition-all duration-300 text-lg`}
+                        className={`${showHide} transition-all duration-300 text-lg`}
                       >
                         {menu.title}
                       </span>
@@ -154,7 +155,7 @@ const Sidebar = () => {
 
           {/* Others */}
           <div className="border-t border-gray-700 mt-8 p-5 pt-6">
-            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${sidebarOpen || isMobileMenuOpen ? "block" : "hidden"}`}>
+            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
               OTHER
             </p>
             <ul className="space-y-4">
@@ -165,7 +166,7 @@ const Sidebar = () => {
                   role="menuitem"
                 >
                   {menu.icon}
-                  <span className={`${sidebarOpen || isMobileMenuOpen ? "block" : "hidden"} transition-all duration-300`}>
+                  <span className={`${showHide} transition-all duration-300`}>
                     {menu.title}
                   </span>
                 </li>
