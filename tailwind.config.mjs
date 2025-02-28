@@ -30,6 +30,16 @@ export default {
         'xxs': '420px',
         'xs': '540px',
       },
+      fontFamily: {
+        manrope: ['Manrope'],
+        poppins: ['Poppins',],
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+      },
     },
   },
   plugins: [],
