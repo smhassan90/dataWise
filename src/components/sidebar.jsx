@@ -1,3 +1,4 @@
+
 "use client"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -60,9 +61,9 @@ const Sidebar = () => {
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
           lg:translate-x-0 lg:m-2 lg:h-[calc(100vh-1rem)]`}
       >
-        <div className={`h-full overflow-y-auto flex flex-col p-5`}>
-          <div className="flex items-center justify-between mb-6">
-            <h1 className={`text-2xl transition-all duration-300 font-poppins font-medium  ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
+        <div className={`h-full overflow-y-auto flex flex-col`}>
+          <div className="flex items-center justify-between p-5">
+            <h1 className={`text-2xl transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
             <button className="lg:hidden text-white"
               onClick={() => dispatch(toogleMobile(false))}
               aria-label="Close sidebar"
@@ -71,20 +72,33 @@ const Sidebar = () => {
             </button>
           </div>
 
-          <nav className="flex-1">
-            <ul className="mt-2 flex flex-col gap-y-7 font-manrope font-medium">
+          <div className="flex items-center gap-3 md:hidden cursor-pointer hover:text-gray-300 p-5 pt-0">
+            <div className="p-2 bg-gray-300 rounded-full flex items-center justify-center border border-gray-400">
+              <span className="text-xs">GK</span>
+            </div>
+            <div>
+              <p className="text-lg">Gladys Kanyinda</p>
+              <p className="text-gray-600 text-lg bg-gray-500 rounded-md ">Admin</p>
+            </div>
+          </div>
+
+          <nav className="flex-1 p-5 pt-0">
+            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
+              OVERVIEW
+            </p>
+            <ul className="mt-2 flex flex-col gap-y-7">
               {sideBarMenu.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300">
                   {menu.children ? (
                     <>
-                      <div className="font-manrope flex items-center justify-between"
+                      <div className="flex items-center justify-between"
                         onClick={() => toggleDropdown(menu.title)}
                         role="button"
                         aria-expanded={openDropdown === menu.title}
                         aria-controls={`dropdown-${menu.title}`}
                         tabIndex={0}
                       >
-                        <div className="flex items-center font-manrope space-x-4">
+                        <div className="flex items-center space-x-4">
                           {menu.icon}
                           <span
                             className={`${showHide} transition-all duration-300 text-lg`}
@@ -141,8 +155,8 @@ const Sidebar = () => {
           </nav>
 
           {/* Others */}
-          <div className="border-t border-gray-700 mt-8 pt-6 font-manrope font-medium">
-            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${sidebarOpen ||  isMobileMenuOpen ? "block" : "hidden"}`}>
+          <div className="border-t border-gray-700 mt-8 p-5 pt-6">
+            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
               OTHER
             </p>
             <ul className="space-y-4">
