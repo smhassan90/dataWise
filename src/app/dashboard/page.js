@@ -6,7 +6,7 @@ export const dashboard = () => {
   const { sidebar } = useSelector((state) => state.sideBar);
   const childrenWidth = getChildrenWidth(sidebar);
   return (
-    <div className={`bg-red-500 ${childrenWidth}`}>
+    <div className={`${childrenWidth}`}>
         DashBoard Page
     </div>
   )

@@ -12,56 +12,32 @@ import {
 export const sideBarMenu = [
   {
     title: "DashBoard",
-    icon: <FaTachometerAlt size={22} />,
+    icon: <FaTachometerAlt className="text-small" />,
     link: "/dashboard",
   },
   {
-    title: "Employees",
-    icon: <FaUserTie size={22} />,
+    title: "Employee",
+    icon: <FaUserTie className="text-small" />,
     link: "#",
-    children: [
-      {
-        title: "Employee List",
-        icon: <FaUserTie size={22} />,
-        link: "/employees/list",
-      },
-      {
-        title: "Add Employee",
-        icon: <FaUserTie size={22} />,
-        link: "/employees/add",
-      },
-    ],
   },
   {
-    title: "StoryBoards",
-    icon: <FaBook size={22} />,
-    link: "#",
-    children: [
-      {
-        title: "All Stories",
-        icon: <FaBook size={22} />,
-        link: "/storyboards/all",
-      },
-      {
-        title: "Created Stories",
-        icon: <FaBook size={22} />,
-        link: "/storyboards/created",
-      },
-    ],
+    title: "StoryBoard",
+    icon: <FaBook className="text-small" />,
+    link: "/storyBoard"
   },
   {
     title: "Investigations",
-    icon: <FaUserShield size={22} />,
+    icon: <FaUserShield className="text-small" />,
     link: "/investigations",
   },
   {
     title: "Complimentary Datasets",
-    icon: <FaDatabase size={22} />,
+    icon: <FaDatabase className="text-small" />,
     link: "/dashboard/complimentary_datasets",
   },
   {
     title: "Integrations",
-    icon: <FaPuzzlePiece size={22} />,
+    icon: <FaPuzzlePiece className="text-small" />,
     link: "/dashboard/integrations",
   },
 ];
@@ -69,12 +45,12 @@ export const sideBarMenu = [
 export const others = [
   {
     title: "Settings",
-    icon: <FaCog size={22} />,
+    icon: <FaCog className="text-small" />,
     link: "/setting",
   },
   {
     title: "Logout",
-    icon: <FaSignOutAlt size={22} />,
+    icon: <FaSignOutAlt className="text-small" />,
     link: "/",
   }
 ];

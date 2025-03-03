@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
           <Sidebar />
           <div className="flex flex-col w-full">
             <Navbar />
-              <div className="mt-[30px]">{children}</div>
+              <div className="mt-[57px]">{children}</div>
           </div>
         </div>
         <Toaster />

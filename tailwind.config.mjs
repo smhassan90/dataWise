@@ -24,7 +24,7 @@ export default {
         large: "38px",
         medium:'26px',
         small:'16px',
-        labelSize:'14px'
+        labelSize:'13px'
       },
       screens: {
         'xxs': '420px',

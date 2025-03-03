@@ -58,7 +58,7 @@ const Sidebar = () => {
       )}
 
       <div className={`fixed top-0 left-0 bg-secondary text-white transition-all duration-300 ease-in-out z-40
-          ${sidebarOpen ? "lg:w-[18rem] lg:rounded-large" : "lg:w-[4rem] lg:rounded-large"}
+          ${sidebarOpen ? "lg:w-[16rem] lg:rounded-large" : "lg:w-[4rem] lg:rounded-large"}
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
           lg:translate-x-0 lg:m-3 lg:h-[calc(100vh-24px)]`}
       >
@@ -83,7 +83,7 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <nav className="flex-1 pt-0">
+          <nav className="pt-0">
             <p className={`text-neutral-300 text-labelSize mb-4 px-4 transition-all duration-300 ${showHide}`}>
               OVERVIEW
             </p>
@@ -102,7 +102,7 @@ const Sidebar = () => {
                         <div className="flex items-center space-x-4">
                           {menu.icon}
                           <span
-                            className={`${showHide} transition-all duration-300 text-small`}
+                            className={`${showHide} transition-all duration-300 text-labelSize`}
                           >
                             {menu.title}
                           </span>
@@ -124,7 +124,7 @@ const Sidebar = () => {
                         <ul className="ml-6 space-y-3 py-2">
                           {menu.children.map((child, childIndex) => (
                             <li key={childIndex}
-                              className="flex items-center gap-4 cursor-pointer hover:text-gray-400 transition-all duration-200 transform text-small py-2"
+                              className="flex items-center gap-4 cursor-pointer hover:text-gray-400 transition-all duration-200 transform text-labelSize py-2"
                               onClick={() => navigateTo(child)}
                               role="menuitem"
                             >
@@ -137,7 +137,7 @@ const Sidebar = () => {
                     </>
                   ) : (
                       <div
-                        className={`flex items-center space-x-4 py-3 px-4 ${sidebarOpen && 'mr-6'} ${active === menu.title && sidebarOpen
+                        className={`flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
                           ? "bg-white text-black"
                           : ""
                           }`}
@@ -147,7 +147,7 @@ const Sidebar = () => {
                       >
                         {menu.icon}
                         <span
-                          className={`${showHide} transition-all duration-300 text-small`}
+                          className={`${showHide} transition-all duration-300 text-labelSize`}
                         >
                           {menu.title}
                         </span>
@@ -159,14 +159,14 @@ const Sidebar = () => {
           </nav>
 
           {/* Others */}
-          <div className="border-t border-gray-700 mt-8 p-5 pt-6">
+          <div className="border-t border-gray-700 mt-4 p-5 pt-6">
             <p className={`text-neutral-300 text-labelSize mb-4 transition-all duration-300 ${showHide}`}>
               OTHER
             </p>
             <ul className="space-y-4">
               {others.map((menu, index) => (
                 <li key={index}
-                  className={`flex items-center space-x-4 cursor-pointer hover:text-gray-300 text-small ${active === menu.title
+                  className={`flex items-center space-x-4 cursor-pointer hover:text-gray-300 text-labelSize ${active === menu.title
                     ? "bg-gray-800 text-white"
                     : "text-gray-700"
                     }`}

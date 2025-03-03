@@ -22,8 +22,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   }, [])
   return (
     <section className="fixed top-0 left-0 right-0 lg:z-50 flex flex-col justify-center w-full mt-3">
-      <div className={`bg-white flex justify-between items-center px-1 py-1 h-[57px] transition-all duration-300
-      ${sidebar ? `lg:w-[calc(100vw-19.5rem)] lg:ml-auto mr-3` : `lg:w-[calc(100vw-5rem)] lg:ml-auto`}
+      <div className={`flex justify-between items-center px-1 py-1 h-[57px] transition-all duration-300
+      ${sidebar ? `lg:w-[calc(100vw-17.5rem)] lg:ml-auto mr-3` : `lg:w-[calc(100vw-4.8rem)] lg:ml-auto`}
     `}>
         <div className="flex items-center gap-2 md:gap-4">
           <FiAlignLeft className=" text-black w-5 h-5 lg:w-6 lg:h-6 cursor-pointer" onClick={() => {
