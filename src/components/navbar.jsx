@@ -38,7 +38,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
         <div className="flex items-center gap-4 md:gap-6">
           <div className="hidden sm:flex items-center gap-2">
-            <input type="text" placeholder="Search" className="border sm:w-60 border-sideBarBg px-2 py-1 rounded-md text-md text-neutral-900 focus:border-neutral-500 focus:outline-none" />
+            <input type="text" placeholder="Search" className="border sm:w-60 border-secondary px-2 py-1 rounded-md text-md text-neutral-900 focus:border-neutral-500 focus:outline-none" />
             <FaSearch className="text-gray-600 cursor-pointer w-3 h-3 sm:w-5 sm:h-5" />
           </div>
           <div className="relative">
@@ -61,7 +61,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
       <div className="flex items-center gap-2 mx-auto sm:hidden">
-        <input type="text" placeholder="Search" className="border w-80 border-sideBarBg px-2 py-1 rounded-md text-md text-neutral-900 focus:border-neutral-500 focus:outline-none" />
+        <input type="text" placeholder="Search" className="border w-80 border-secondary px-2 py-1 rounded-md text-md text-neutral-900 focus:border-neutral-500 focus:outline-none" />
         <FaSearch className="text-gray-600 cursor-pointer w-5 h-5" />
       </div>
     </section>

@@ -9,22 +9,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#FFFEEC",
-        button: "#021A22",
+        primary:'#FFFEEC',
+        secondary:'#036666',
+        // Tertiary :'',
+        // Quaternary :''
         white: "#ffff",
         gray: "#6B6B6B",
-        foreground: "var(--foreground)",
-        sideBarBg:"#036666"
       },
       width: {
         '648': "648px",
-        '550': "550px"
+        '550': "480px"
       },
       fontSize: {
-        h1: "44px",
-        h2:'30px',
-
-
+        large: "38px",
+        medium:'26px',
+        small:'16px',
+        labelSize:'14px'
       },
       screens: {
         'xxs': '420px',
@@ -41,6 +41,9 @@ export default {
         semibold: '600',
         large : '700',
       },
+      borderRadius:{
+        large:'15px'
+      }
     },
   },
   plugins: [],

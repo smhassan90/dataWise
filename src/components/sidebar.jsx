@@ -56,14 +56,14 @@ const Sidebar = () => {
         />
       )}
 
-      <div className={`fixed top-0 left-0 min-h-screen bg-sideBarBg text-white transition-all duration-300 ease-in-out z-40
-          ${sidebarOpen ? "lg:w-[21rem] lg:rounded-[24px]" : "lg:w-[4rem] lg:rounded-[15px]"}
+      <div className={`fixed top-0 left-0 min-h-screen bg-secondary text-white transition-all duration-300 ease-in-out z-40
+          ${sidebarOpen ? "lg:w-[18rem] lg:rounded-large" : "lg:w-[4rem] lg:rounded-large"}
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
           lg:translate-x-0 lg:m-2 lg:h-[calc(100vh-1rem)]`}
       >
         <div className={`h-full overflow-y-auto flex flex-col`}>
           <div className="flex items-center justify-between p-5">
-            <h1 className={`text-2xl transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
+            <h1 className={`text-medium transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
             <button className="lg:hidden text-white"
               onClick={() => dispatch(toogleMobile(false))}
               aria-label="Close sidebar"

@@ -27,3 +27,13 @@ body {
   background: var(--background);
 }
 
+
+
+/* Custom ScrollBar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 2px;
+}
