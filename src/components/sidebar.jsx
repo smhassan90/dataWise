@@ -13,6 +13,7 @@ const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [openDropdown, setOpenDropdown] = useState(null)
+  const [active, setActive] = useState("DashBoard");
 
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
@@ -26,7 +27,7 @@ const Sidebar = () => {
         dispatch(toogleMobile(false))
       }
     }, 200)
-  
+
     window.addEventListener("resize", handleResize)
     return () => {
       window.removeEventListener("resize", handleResize)
@@ -41,10 +42,10 @@ const Sidebar = () => {
   const navigateTo = (menu) => {
     router.push(menu.link)
     dispatch(navbarTitle(menu.title))
+    setActive(menu.title)
 
     if (window.innerWidth < 1024) {
       dispatch(toogleMobile(false))
-      // setIsMobileMenuOpen(false)
     }
   }
 
@@ -56,10 +57,10 @@ const Sidebar = () => {
         />
       )}
 
-      <div className={`fixed top-0 left-0 min-h-screen bg-secondary text-white transition-all duration-300 ease-in-out z-40
+      <div className={`fixed top-0 left-0 bg-secondary text-white transition-all duration-300 ease-in-out z-40
           ${sidebarOpen ? "lg:w-[18rem] lg:rounded-large" : "lg:w-[4rem] lg:rounded-large"}
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
-          lg:translate-x-0 lg:m-2 lg:h-[calc(100vh-1rem)]`}
+          lg:translate-x-0 lg:m-3 lg:h-[calc(100vh-24px)]`}
       >
         <div className={`h-full overflow-y-auto flex flex-col`}>
           <div className="flex items-center justify-between p-5">
@@ -82,16 +83,16 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <nav className="flex-1 p-5 pt-0">
-            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
+          <nav className="flex-1 pt-0">
+            <p className={`text-neutral-300 text-labelSize mb-4 px-4 transition-all duration-300 ${showHide}`}>
               OVERVIEW
             </p>
-            <ul className="mt-2 flex flex-col gap-y-7">
+            <ul className="mt-2 flex flex-col">
               {sideBarMenu.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300">
                   {menu.children ? (
                     <>
-                      <div className="flex items-center justify-between"
+                      <div className="flex items-center justify-between py-3 px-4"
                         onClick={() => toggleDropdown(menu.title)}
                         role="button"
                         aria-expanded={openDropdown === menu.title}
@@ -101,7 +102,7 @@ const Sidebar = () => {
                         <div className="flex items-center space-x-4">
                           {menu.icon}
                           <span
-                            className={`${showHide} transition-all duration-300 text-lg`}
+                            className={`${showHide} transition-all duration-300 text-small`}
                           >
                             {menu.title}
                           </span>
@@ -120,10 +121,10 @@ const Sidebar = () => {
                             : "max-h-0 opacity-0"
                           }`}
                       >
-                        <ul className="ml-6 mt-6 space-y-3">
+                        <ul className="ml-6 space-y-3 py-2">
                           {menu.children.map((child, childIndex) => (
                             <li key={childIndex}
-                              className="flex items-center gap-4 cursor-pointer hover:text-gray-400 transition-all duration-200 transform hover:translate-x-1 text-lg"
+                              className="flex items-center gap-4 cursor-pointer hover:text-gray-400 transition-all duration-200 transform text-small py-2"
                               onClick={() => navigateTo(child)}
                               role="menuitem"
                             >
@@ -135,19 +136,22 @@ const Sidebar = () => {
                       </div>
                     </>
                   ) : (
-                    <div
-                      className="flex items-center space-x-4"
-                      onClick={() => navigateTo(menu)}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {menu.icon}
-                      <span
-                        className={`${showHide} transition-all duration-300 text-lg`}
+                      <div
+                        className={`flex items-center space-x-4 py-3 px-4 ${sidebarOpen && 'mr-6'} ${active === menu.title && sidebarOpen
+                          ? "bg-white text-black"
+                          : ""
+                          }`}
+                        onClick={() => navigateTo(menu)}
+                        role="button"
+                        tabIndex={0}
                       >
-                        {menu.title}
-                      </span>
-                    </div>
+                        {menu.icon}
+                        <span
+                          className={`${showHide} transition-all duration-300 text-small`}
+                        >
+                          {menu.title}
+                        </span>
+                      </div>
                   )}
                 </li>
               ))}
@@ -156,13 +160,16 @@ const Sidebar = () => {
 
           {/* Others */}
           <div className="border-t border-gray-700 mt-8 p-5 pt-6">
-            <p className={`text-neutral-300 text-base mb-4 transition-all duration-300 ${showHide}`}>
+            <p className={`text-neutral-300 text-labelSize mb-4 transition-all duration-300 ${showHide}`}>
               OTHER
             </p>
             <ul className="space-y-4">
               {others.map((menu, index) => (
                 <li key={index}
-                  className="flex items-center space-x-4 cursor-pointer hover:text-gray-300 text-lg"
+                  className={`flex items-center space-x-4 cursor-pointer hover:text-gray-300 text-small ${active === menu.title
+                    ? "bg-gray-800 text-white"
+                    : "text-gray-700"
+                    }`}
                   onClick={() => navigateTo(menu)}
                   role="menuitem"
                 >
