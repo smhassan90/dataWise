@@ -25,11 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="flex w-full">
+        <div className="flex">
           <Sidebar />
           <div className="flex flex-col w-full">
             <Navbar />
-            <div className="mt-[105px] sm:mt-[67px] ">{children}</div>
+              <div className="mt-[30px] ">{children}</div>
           </div>
         </div>
         <Toaster />
