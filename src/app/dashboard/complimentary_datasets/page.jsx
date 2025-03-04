@@ -1,64 +1,90 @@
 "use client"
 
+import { Button } from "@/src/utils/button";
+import AppointmentChart from "@/src/utils/graph";
 import { useState } from "react"
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState("week")
+  const [selectedMonth, setSelectedMonth] = useState('This Month');
+
+  const [activeTab, setActiveTab] = useState("Report");
+  const data = [
+    { date: 10, value: 3000 },
+    { date: 11, value: 2500 },
+    { date: 12, value: 4000 },
+    { date: 13, value: 2000 },
+    { date: 14, value: 5000 },
+    { date: 15, value: 4500 },
+    { date: 16, value: 6000 }
+  ];
+
   const dispatch = useDispatch();
   const title = useSelector((state) => state.sideBar.title);
+  const tabs = ["Line of graphs ", "Report",];
+
   const { width, sidebar } = useSelector((state) => state.sideBar);
   return (
-    <div
-    className={`mt-1 ${
-      sidebar ? "w-[calc(100vw-24rem)] ml-[350px]" : "w-[calc(100vw-9rem)] ml-28"
-    }`}>
-    <div className="min-h-screen mt-10 bg-[#fdfbf6] p-2">
-      <h1 className="ml-5">Ask away, and feel the magic :)</h1>
+    <div>
+    <div className="min-h-screen  mt-2 bg-[#fdfbf6] p-2">
+      <h1 className="">Ask away, and feel the magic :)</h1>
       <div className="mx-auto max-w-7xl">
-        {/* Search Bar */}
-        <div className= " mt-4 mb-6 relative">
-          <div className="relative">
-            <input placeholder="Search to Menu..." className="pl-10 py-2 border border-gray-300 rounded-md w-full" />
-            <FaSearch className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-          </div>
-        </div>
+        
+      < div className="mt-4 mb-6 relative">
+      {/* Tabs Section - Centered & Compact */}
+      <div className="flex justify-start space-x-3  p-2 rounded-large shadow-md w-fit ">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+              activeTab === tab
+                ? "bg-secondary text-white shadow-md"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Search Bar */}
+      <div className="relative mt-4">
+        <input
+          placeholder="Search a Metric ..."
+          className="pl-3 text-labelSize py-3 rounded-large w-full border border-[#AFAFAF] focus:outline-none"
+        />
+        <FaSearch className="absolute right-4 top-4 h-4 w-4 text-gray-400" />
+      </div>
+    </div>
+
+
 
         {/* Line Chart */}
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-sm font-medium">Appointment</h2>
-          <div className="flex items-center gap-2">
-            <button className="h-8 text-xs bg-teal-600 text-white border-none rounded-md px-3">Timeframe</button>
-          </div>
-        </div>
 
-        <div className="mb-6 border-none shadow-sm bg-white rounded-lg">
-          <div className="p-4 relative">
-            <div className="h-[300px] w-full relative">
-              <LineChart />
-              <div className="absolute top-[75px] left-1/2 transform -translate-x-1/2">
-                <div className="h-[80px] border-l border-dashed border-gray-300"></div>
-              </div>
-              <div className="absolute top-[75px] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded">+8%</div>
-              </div>
-            </div>
-            <div className="flex justify-between mt-2 text-xs text-gray-500">
-              <span>S</span>
-              <span>M</span>
-              <span>T</span>
-              <span>W</span>
-              <span>T</span>
-              <span>F</span>
-              <span>S</span>
-            </div>
-          </div>
-        </div>
+        
+        <div className="p-5 border rounded-large shadow-md bg-white w-full">
+      <div className="flex justify-between items-center mb-3">
+        <h2 className="text-lg font-semibold">Appointment</h2>
+        <button className="bg-secondary  text-white px-4 py-2 rounded-large">{selectedMonth}</button>
+      </div>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip contentStyle={{ backgroundColor: '#FF7F50', color: 'white', borderRadius: '5px' }} />
+          <Line type="monotone" dataKey="value" stroke="#FF7F50" strokeWidth={2} dot={{ r: 6 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
 
         {/* Bar Charts */}
-        <div className="grid grid-cols-2 gap-6 mb-6">
-          <div className="border-none shadow-sm bg-white rounded-lg">
+        <div className="grid grid-cols-2 gap-6 mb-6 mt-10">
+          <div className="border-none shadow-sm bg-white rounded-large">
             <div className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <div className="flex ml-36  space-x-4 text-xs">
@@ -85,7 +111,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="border-none shadow-sm bg-white rounded-lg">
+          <div className="border-none shadow-sm bg-white rounded-large">
             <div className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <div className="flex space-x-4 text-xs">
@@ -118,77 +144,21 @@ export default function Dashboard() {
         </div>
 
         {/* Member Activity */}
-        <h2 className="text-sm font-medium mb-2">Member Activity</h2>
-        <div className="border-none shadow-sm bg-white rounded-lg">
-          <div className="p-6">
-            <div className="grid grid-cols-3 gap-6">
-              <div className="flex justify-center">
-                <div className="relative w-32 h-32">
-                  <CircleProgress percentage={52} />
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-3xl font-bold">52%</span>
-                    <span className="text-xs text-gray-500">Completed</span>
-                  </div>
-                </div>
-              </div>
+       
 
-              <div className="space-y-3">
-                <h3 className="text-xs font-medium text-gray-500 mb-2">WEEK - DAY</h3>
-                <TimeBar label="MON" percentage={75} />
-                <TimeBar label="TUE" percentage={62} />
-                <TimeBar label="WED" percentage={45} />
-                <TimeBar label="THU" percentage={58} />
-                <TimeBar label="FRI" percentage={82} />
-              </div>
 
-              <div className="space-y-3">
-                <h3 className="text-xs font-medium text-gray-500 mb-2">HOUR - PEAK</h3>
-                <TimeBar label="08:00 - 10:00" percentage={75} />
-                <TimeBar label="10:00 - 12:00" percentage={62} />
-                <TimeBar label="12:00 - 14:00" percentage={45} />
-                <TimeBar label="14:00 - 16:00" percentage={58} />
-                <TimeBar label="16:00 - 18:00" percentage={40} />
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Add to Dashboard Button */}
-        <div className="absolute top-16 right-8">
-          {/* <button className="bg-teal-600 hover:bg-teal-700 text-white rounded-md text-sm px-3 py-2">
-            + Add to Dashboard
-          </button> */}
-        </div>
+      
       </div>
     </div>
     </div>
   )
 }
 
-// Line Chart Component
-function LineChart() {
-  return (
-    <svg className="w-full h-full" viewBox="0 0 400 180">
-      <defs>
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#F97316" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#F97316" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M0,100 C20,80 40,120 60,110 C80,100 100,60 120,50 C140,40 160,60 180,70 C200,80 220,90 240,70 C260,50 280,40 300,60 C320,80 340,100 360,90 C380,80 400,60 400,50"
-        fill="none"
-        stroke="#F97316"
-        strokeWidth="3"
-      />
-      <path
-        d="M0,100 C20,80 40,120 60,110 C80,100 100,60 120,50 C140,40 160,60 180,70 C200,80 220,90 240,70 C260,50 280,40 300,60 C320,80 340,100 360,90 C380,80 400,60 400,50 L400,180 L0,180 Z"
-        fill="url(#lineGradient)"
-      />
-      <circle cx="200" cy="70" r="4" fill="#F97316" />
-    </svg>
-  )
-}
+
+
+
 
 // Bar Component
 function Bar({ height, color }) {
@@ -221,45 +191,6 @@ function BarGroup({ values, colors }) {
         </div>
       ))}
     </div>
-  )
-}
-
-// Time Bar Component
-function TimeBar({ label, percentage }) {
-  return (
-    <div className="flex items-center justify-between text-xs">
-      <span className="w-24 text-gray-600">{label}</span>
-      <div className="flex-1 bg-gray-200 h-1.5 rounded-full overflow-hidden">
-        <div className="bg-black h-full rounded-full" style={{ width: `${percentage}%` }} />
-      </div>
-      <span className="ml-2 text-gray-600">{percentage}%</span>
-    </div>
-  )
-}
-
-// Circle Progress Component
-function CircleProgress({ percentage }) {
-  const radius = 45
-  const circumference = 2 * Math.PI * radius
-  const offset = circumference - (percentage / 100) * circumference
-
-  return (
-    <svg className="w-full h-full" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r={radius} fill="none" stroke="#E5E7EB" strokeWidth="6" />
-      <circle
-        cx="50"
-        cy="50"
-        r={radius}
-        fill="none"
-        stroke="#F97316"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        transform="rotate(-90 50 50)"
-      />
-      <circle cx="50" cy="95" r="3" fill="#F97316" />
-    </svg>
   )
 }
 
