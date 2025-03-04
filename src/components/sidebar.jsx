@@ -24,7 +24,6 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = debounce(() => {
-      console.log("Chala")
       if (window.innerWidth > 1024) {
         dispatch(toogleMobile(false))
       }
@@ -37,6 +36,10 @@ const Sidebar = () => {
     }
   }, [])
 
+  useEffect(() => {
+    setActive(formatTitle(path) || 'DashBoard')
+  }, [path])
+
   const toggleDropdown = (menu) => {
     setOpenDropdown(openDropdown === menu ? null : menu)
   }
@@ -44,7 +47,7 @@ const Sidebar = () => {
   const navigateTo = (menu) => {
     router.push(menu.link)
     dispatch(navbarTitle(menu.title))
-    setActive(menu.title)
+    setActive(formatTitle(menu.title))
     if (window.innerWidth < 1024) {
       dispatch(toogleMobile(false))
     }
@@ -92,9 +95,9 @@ const Sidebar = () => {
               {sideBarMenu.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
                   <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
-                      ? "bg-white text-black"
-                      : ""
-                      }`}
+                    ? "bg-white text-black"
+                    : ""
+                    }`}
                     onClick={() => navigateTo(menu)}
                     role="button"
                     tabIndex={0}
@@ -140,9 +143,9 @@ const Sidebar = () => {
               {others.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
                   <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
-                      ? "bg-white text-black"
-                      : ""
-                      }`}
+                    ? "bg-white text-black"
+                    : ""
+                    }`}
                     onClick={() => navigateTo(menu)}
                     role="button"
                     tabIndex={0}

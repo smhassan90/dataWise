@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import Sidebar from "../../components/sidebar";
 import Navbar from "../../components/navbar";
 import { Providers } from "../../redux/provider";
+import ChildrenWrapper from "@/src/utils/childrenWraper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
           <Sidebar />
           <div className="flex flex-col w-full">
             <Navbar />
-              <div className="mt-[57px]">{children}</div>
+              <ChildrenWrapper>{children}</ChildrenWrapper>
           </div>
         </div>
         <Toaster />
