@@ -46,7 +46,7 @@ const LoginPage = () => {
         <div className="mt-2 text-center">
           <h3 className="text-medium font-semibold">Log In</h3>
           <p className="w-2/3 text-labelSize text-gray tracking-tight leading-6 mx-auto md:w-1/2">
-            Improve business performance with comvi dashboards
+          Your data, is your employee!
           </p>
         </div>
         <form

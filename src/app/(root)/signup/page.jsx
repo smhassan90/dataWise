@@ -41,7 +41,7 @@ const SignUpPage = () => {
             Create an Account
           </h3>
           <p className="w-2/4 text-labelSize text-gray tracking-tight leading-6 mx-auto md:w-1/2">
-            Improve business performance with comvi dashboards
+            Your data, is your employee!
           </p>
         </div>
         <form
