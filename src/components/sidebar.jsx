@@ -64,7 +64,7 @@ const Sidebar = () => {
       <div className={`fixed top-0 left-0 bg-secondary text-white transition-all duration-300 ease-in-out z-40
           ${sidebarOpen ? "lg:w-[16rem] lg:rounded-large" : "lg:w-[3rem] lg:rounded-large"}
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
-          lg:translate-x-0 lg:m-3 lg:h-[calc(100vh-24px)]`}
+          lg:translate-x-0 lg:m-normal lg:h-[calc(100vh-24px)]`}
       >
         <div className={`h-full overflow-y-auto flex flex-col`}>
           <div className="flex items-center justify-between p-5">

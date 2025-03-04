@@ -43,6 +43,12 @@ export default {
       },
       borderRadius:{
         large:'15px'
+      },
+      margin: {
+        'normal': '12px',
+      },
+      padding: {
+        'normal': '12px',
       }
     },
   },
