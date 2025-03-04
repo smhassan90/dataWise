@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/src/utils/button";
-import AppointmentChart from "@/src/utils/graph";
 import { useState } from "react"
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";

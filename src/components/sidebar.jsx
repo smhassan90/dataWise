@@ -94,7 +94,7 @@ const Sidebar = () => {
             <ul className="mt-2 flex flex-col">
               {sideBarMenu.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
-                  <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
+                  <p className={`w-full flex items-center space-x-3 py-3 px-4 ${active === menu.title && sidebarOpen
                     ? "bg-white text-black"
                     : ""
                     }`}
@@ -110,7 +110,7 @@ const Sidebar = () => {
                     </span>
                   </p>
                   <span
-                    className={`${active === menu.title ? "bg-orange-500 w-1" : ""} rounded-l-lg`}
+                    className={`${active === menu.title ? "bg-orange-600 w-1" : ""} rounded-l-lg`}
                   ></span>
                 </li>
               ))}
@@ -142,7 +142,7 @@ const Sidebar = () => {
             <ul className="mt-2 flex flex-col">
               {others.map((menu, index) => (
                 <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
-                  <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
+                  <p className={`w-full flex items-center space-x-3 py-3 px-4 ${active === menu.title && sidebarOpen
                     ? "bg-white text-black"
                     : ""
                     }`}
@@ -158,7 +158,7 @@ const Sidebar = () => {
                     </span>
                   </p>
                   <span
-                    className={`${active === menu.title ? "bg-orange-500 w-1" : ""} rounded-l-lg`}
+                    className={`${active === menu.title ? "bg-orange-600 w-1" : ""} rounded-l-lg`}
                   ></span>
                 </li>
               ))}

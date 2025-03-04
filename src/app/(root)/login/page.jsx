@@ -56,7 +56,7 @@ const LoginPage = () => {
           {loginFields.map((input, index) => (
             <TextInput input={input} key={index} errors={errors} register={register}/>
           ))}
-          <Button>Sign In</Button>
+          <Button className="h-[40px] md:h-[45px]">Sign In</Button>
           <p className="text-center text-small text-gray tracking-tighter">
             Don't have an Account? &nbsp;&nbsp;
             <Link href="/signup">

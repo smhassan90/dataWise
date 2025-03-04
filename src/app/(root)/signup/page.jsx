@@ -53,7 +53,7 @@ const SignUpPage = () => {
             <TextInput input={input} key={index} errors={errors} register={register} />
           ))}
 
-          <Button>Create an Account</Button>
+          <Button className='h-[40px] md:h-[45px]'>Create an Account</Button>
           <p className="text-center text-gray text-small tracking-tighter">
             Already have an Account? &nbsp;&nbsp;
             <Link href="/login">
