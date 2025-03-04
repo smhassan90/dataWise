@@ -1,19 +1,21 @@
-
 "use client"
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { FaChevronDown, FaBars } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { navbarTitle, toogleMobile } from "../redux/sidebar"
 import { sideBarMenu, others } from "../data/sidebar"
 import { RxCross2 } from "react-icons/rx";
-import { FiAlignLeft } from "react-icons/fi";
 import { debounce } from "lodash"
+import { formatTitle } from "../config/caplitalizeWords"
 const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [openDropdown, setOpenDropdown] = useState(null)
-  const [active, setActive] = useState("DashBoard");
+  const pathName = usePathname()
+  const path = pathName.split('/')[2]
+  console.log(path)
+  const [active, setActive] = useState(formatTitle(path) || "DashBoard");
 
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
@@ -43,7 +45,6 @@ const Sidebar = () => {
     router.push(menu.link)
     dispatch(navbarTitle(menu.title))
     setActive(menu.title)
-
     if (window.innerWidth < 1024) {
       dispatch(toogleMobile(false))
     }
@@ -58,7 +59,7 @@ const Sidebar = () => {
       )}
 
       <div className={`fixed top-0 left-0 bg-secondary text-white transition-all duration-300 ease-in-out z-40
-          ${sidebarOpen ? "lg:w-[16rem] lg:rounded-large" : "lg:w-[4rem] lg:rounded-large"}
+          ${sidebarOpen ? "lg:w-[16rem] lg:rounded-large" : "lg:w-[3rem] lg:rounded-large"}
           ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
           lg:translate-x-0 lg:m-3 lg:h-[calc(100vh-24px)]`}
       >
@@ -89,81 +90,36 @@ const Sidebar = () => {
             </p>
             <ul className="mt-2 flex flex-col">
               {sideBarMenu.map((menu, index) => (
-                <li key={index} className="cursor-pointer hover:text-gray-300">
-                  {menu.children ? (
-                    <>
-                      <div className="flex items-center justify-between py-3 px-4"
-                        onClick={() => toggleDropdown(menu.title)}
-                        role="button"
-                        aria-expanded={openDropdown === menu.title}
-                        aria-controls={`dropdown-${menu.title}`}
-                        tabIndex={0}
-                      >
-                        <div className="flex items-center space-x-4">
-                          {menu.icon}
-                          <span
-                            className={`${showHide} transition-all duration-300 text-labelSize`}
-                          >
-                            {menu.title}
-                          </span>
-                        </div>
-                        {(sidebarOpen || isMobileMenuOpen) && (
-                          <FaChevronDown
-                            className={`transition-transform ${openDropdown === menu.title ? "rotate-180" : ""}`}
-                          />
-                        )}
-                      </div>
-
-                      <div id={`dropdown-${menu.title}`}
-                        className={`overflow-hidden transition-all duration-300 ease-in-out 
-                          ${openDropdown === menu.title && (sidebarOpen || isMobileMenuOpen)
-                            ? "max-h-[500px] opacity-100"
-                            : "max-h-0 opacity-0"
-                          }`}
-                      >
-                        <ul className="ml-6 space-y-3 py-2">
-                          {menu.children.map((child, childIndex) => (
-                            <li key={childIndex}
-                              className="flex items-center gap-4 cursor-pointer hover:text-gray-400 transition-all duration-200 transform text-labelSize py-2"
-                              onClick={() => navigateTo(child)}
-                              role="menuitem"
-                            >
-                              {menu.icon}
-                              {child.title}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </>
-                  ) : (
-                      <div
-                        className={`flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
-                          ? "bg-white text-black"
-                          : ""
-                          }`}
-                        onClick={() => navigateTo(menu)}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        {menu.icon}
-                        <span
-                          className={`${showHide} transition-all duration-300 text-labelSize`}
-                        >
-                          {menu.title}
-                        </span>
-                      </div>
-                  )}
+                <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
+                  <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
+                      ? "bg-white text-black"
+                      : ""
+                      }`}
+                    onClick={() => navigateTo(menu)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {menu.icon}
+                    <span
+                      className={`${showHide} transition-all duration-300 text-labelSize`}
+                    >
+                      {menu.title}
+                    </span>
+                  </p>
+                  <span
+                    className={`${active === menu.title ? "bg-orange-500 w-1" : ""} rounded-l-lg`}
+                  ></span>
                 </li>
               ))}
             </ul>
           </nav>
 
           {/* Others */}
-          <div className="border-t border-gray-700 mt-4 p-5 pt-6">
-            <p className={`text-neutral-300 text-labelSize mb-4 transition-all duration-300 ${showHide}`}>
+          <div className="border-t border-gray-700 mt-4 pt-4">
+            <p className={`text-neutral-300 text-labelSize mb-2 px-4 transition-all duration-300 ${showHide}`}>
               OTHER
             </p>
-            <ul className="space-y-4">
+            {/* <ul className="space-y-4">
               {others.map((menu, index) => (
                 <li key={index}
                   className={`flex items-center space-x-4 cursor-pointer hover:text-gray-300 text-labelSize ${active === menu.title
@@ -177,6 +133,30 @@ const Sidebar = () => {
                   <span className={`${showHide} transition-all duration-300`}>
                     {menu.title}
                   </span>
+                </li>
+              ))}
+            </ul> */}
+            <ul className="mt-2 flex flex-col">
+              {others.map((menu, index) => (
+                <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
+                  <p className={`min-w-52 max-w-fit flex items-center space-x-3 py-3 px-4 ${sidebarOpen && 'mr-10'} ${active === menu.title && sidebarOpen
+                      ? "bg-white text-black"
+                      : ""
+                      }`}
+                    onClick={() => navigateTo(menu)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {menu.icon}
+                    <span
+                      className={`${showHide} transition-all duration-300 text-labelSize`}
+                    >
+                      {menu.title}
+                    </span>
+                  </p>
+                  <span
+                    className={`${active === menu.title ? "bg-orange-500 w-1" : ""} rounded-l-lg`}
+                  ></span>
                 </li>
               ))}
             </ul>

@@ -8,27 +8,28 @@ import {
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 
 export const sideBarMenu = [
   {
     title: "DashBoard",
-    icon: <FaTachometerAlt className="text-small" />,
+    icon: <MdDashboard className="text-small" />,
     link: "/dashboard",
   },
   {
     title: "Employee",
     icon: <FaUserTie className="text-small" />,
-    link: "#",
+    link: "/dashboard/employee",
   },
   {
     title: "StoryBoard",
     icon: <FaBook className="text-small" />,
-    link: "/storyBoard"
+    link: "/dashboard/storyBoard"
   },
   {
     title: "Investigations",
     icon: <FaUserShield className="text-small" />,
-    link: "/investigations",
+    link: "/dashboard/investigations",
   },
   {
     title: "Complimentary Datasets",
