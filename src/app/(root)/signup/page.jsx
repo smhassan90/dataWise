@@ -9,8 +9,11 @@ import { Axios, summary } from "../../../config/summaryAPI";
 import { AxiosError } from "../../../utils/axiosError";
 import Container from "@/src/utils/container";
 import TextInput from "@/src/utils/input";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -25,6 +28,10 @@ const SignUpPage = () => {
         ...summary.register,
         data: data
       })
+      if (response.data.status) {
+        toast.success(response.data.message);
+        router.push('/login')
+      }
       console.log(response.data)
     } catch (error) {
       AxiosError(error)

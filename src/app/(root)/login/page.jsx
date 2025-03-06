@@ -36,7 +36,6 @@ const LoginPage = () => {
   
       if (response.data.status) {
         toast.success(response.data.message);
-        console.log(response.data.data.token)
         localStorage.setItem("userToken", response.data.data.token)
         dispatch(login(response.data.data))
         router.push('/dashboard')
