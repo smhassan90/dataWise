@@ -22,10 +22,10 @@ export const signInFields = [
   },
   {
     type: "text",
-    name: "companyName",
+    name: "company",
     placeholder: "Fortune Tower",
     required: true,
-    label: "COMPANY NAME",
+    label: "COMPANY",
   },
   {
     type: "password",

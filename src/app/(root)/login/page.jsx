@@ -22,20 +22,39 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async(data) => {
-    console.log("Form Data:", data);
+  // const onSubmit = async(data) => {
+  //   console.log("Form Data:", data);
+  //   try {
+  //       const response = await Axios({
+  //         ...summary.login,
+  //         data:data
+  //       })
+  //       if(response.data.status){
+  //         toast.success(response.data.message)
+  //       }
+  //   } catch (error) {
+  //       AxiosError(error)
+  //   }
+  // };
+  const onSubmit = async (data) => {
     try {
-        const response = await Axios({
-          ...summary.login,
-          data:data
-        })
-        if(response.data.status){
-          toast.success(response.data.message)
-        }
+      const response = await Axios({
+        ...summary.login,
+        data: data
+      });
+  
+      if (response.data.status) {
+        toast.success(response.data.message);
+        localStorage.setItem("userToken", response.data.token); // Token store karna
+        window.location.href = "/dashboard"; // Dashboard par redirect
+        console.log(response.data.token)
+      }
     } catch (error) {
-        AxiosError(error)
+      AxiosError(error);
     }
   };
+  
+
 
   return (
     <div className="bg-primary min-h-screen flex justify-center items-center">

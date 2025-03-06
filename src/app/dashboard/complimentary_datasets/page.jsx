@@ -24,8 +24,18 @@ export default function Dashboard() {
   const [isListening, setIsListening] = useState(false);
 
   const [showSQL, setShowSQL] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [activeTab, setActiveTab] = useState("Report");
+  const suggestions = [
+    "AI can help optimize business operations by automating repetitive tasks and providing predictive analytics.",
+    "Machine learning models analyze large datasets to find patterns and trends, helping businesses make informed decisions.",
+    "Cloud computing allows companies to store and process data remotely, improving scalability and security.",
+    "Natural language processing (NLP) enables AI systems to understand and respond to human language, making chatbots more efficient.",
+    "Data security is a growing concern, and AI-based encryption techniques can help protect sensitive information.",
+    "Automation in manufacturing reduces costs and increases efficiency by using robots and AI-driven machinery.",
+    "Self-driving cars rely on AI algorithms to navigate roads safely, reducing human errors in transportation.",
+  ];
   const data = [
     { date: 10, value: 3000 },
     { date: 11, value: 2500 },
@@ -67,39 +77,66 @@ export default function Dashboard() {
           Ask away, and feel the magic :)
         </h1>
         <div className="mx-auto max-w-7xl">
-          <div className="mt-4 mb-6 relative">
-            {/* Tabs Section - Centered & Compact */}
-            <div className="flex justify-start space-x-3  p-2 rounded-large shadow-md w-fit ">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                    activeTab === tab
-                      ? "bg-secondary text-white rounded-large shadow-md"
-                      : "bg-gray-200 text-gray-700 rounded-large hover:bg-gray-300"
-                  }`}
-                  onClick={() => setActiveTab(tab)}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
+        <div className="mt-4 mb-6 relative">
+      {/* Tabs Section */}
+      <div className="flex justify-between items-center p-2 rounded-large shadow-md w-full">
+        {/* Tabs (Left Side) */}
+        <div className="flex space-x-3">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              className={`px-4 py-2 text-sm font-medium rounded-large transition-all duration-300 ${
+                activeTab === tab
+                  ? "bg-secondary text-white rounded-large shadow-md"
+                  : "bg-gray-200 text-gray-700 rounded-large hover:bg-gray-300"
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
-            <div className="relative mt-4">
-              <input
-                id="searchInput"
-                placeholder="Search a Metric ..."
-                className="pl-3 pr-10 text-labelSize py-3 rounded-large w-full border border-[#AFAFAF] focus:outline-none"
-              />
-              <FaSearch className="absolute right-12 top-4 h-4 w-4 text-gray-400" />
-              <FaMicrophone
-                className={`absolute right-4 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 ${
-                  isListening ? "text-secondary" : "text-gray-400"
-                }`}
-                onClick={handleVoiceInput}
-              />
-            </div>
+        {/* More Suggestions Button (Right Corner) */}
+        <button
+          className="bg-secondary text-white rounded-large shadow-md px-4 py-2 text-sm font-medium transition-all duration-300"
+          onClick={() => setShowSuggestions(!showSuggestions)}
+        >
+          {showSuggestions ? "Hide Suggestions" : "More Suggestions"}
+        </button>
+      </div>
+
+      {/* Suggestion Box (Show/Hide Based on State) */}
+      {showSuggestions && (
+        <div className="w-full bg-white shadow-md rounded-large p-3  mt-3 max-h-56 overflow-y-auto transition-all duration-300">
+          
+          <div className="space-y-2">
+            {suggestions.map((suggestion, index) => (
+              <p key={index} className="text-gray-600   text-sm border-b pb-2 last:border-b-0">
+                {suggestion}
+              </p>
+            ))}
           </div>
+        </div>
+      )}
+
+      {/* Search Input */}
+      <div className="relative mt-4">
+        <input
+          id="searchInput"
+          placeholder="Search a Metric ..."
+          className="pl-3 pr-10 text-labelSize py-3 rounded-large w-full border border-[#AFAFAF] focus:outline-none"
+        />
+        <FaSearch className="absolute right-12 top-4 h-4 w-4 text-gray-400" />
+        <FaMicrophone className="absolute right-4 top-4 h-4 w-4 cursor-pointer transition-colors duration-300" />
+      </div>
+    </div>
+
+
+
+
+
+          
 
           <div className="p-5 rounded-large shadow-md bg-white w-full">
             {/* Header Section */}

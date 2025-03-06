@@ -20,7 +20,7 @@ export const signInSchema = z
       .email("Invalid email address")
       .trim(),
 
-    companyName: z
+    company: z
       .string()
       .min(1, { message: "Company Name is required" })
       .min(3, { message: "Company Name must be at least 4 characters" })
