@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseURL = 'http://localhost:4000'
+const baseURL = 'https://dash-connect-backend2.vercel.app'
 
 export const Axios = axios.create({
     baseURL : baseURL,
