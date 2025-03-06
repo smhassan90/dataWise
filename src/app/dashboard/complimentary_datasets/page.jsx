@@ -131,13 +131,6 @@ export default function Dashboard() {
         <FaMicrophone className="absolute right-4 top-4 h-4 w-4 cursor-pointer transition-colors duration-300" />
       </div>
     </div>
-
-
-
-
-
-          
-
           <div className="p-5 rounded-large shadow-md bg-white w-full">
             {/* Header Section */}
             <div className="flex justify-between items-center mb-3">
