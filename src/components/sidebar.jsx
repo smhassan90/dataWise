@@ -8,6 +8,7 @@ import { sideBarMenu, others } from "../data/sidebar"
 import { RxCross2 } from "react-icons/rx";
 import { debounce } from "lodash"
 import { formatTitle } from "../config/caplitalizeWords"
+import { logout } from "../redux/auth"
 const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -46,6 +47,12 @@ const Sidebar = () => {
 
   const navigateTo = (menu) => {
     router.push(menu.link)
+    if(menu.title === 'Logout') {
+      localStorage.removeItem("userToken")
+      dispatch(logout(null))
+      router.push('/login')
+      return
+    }
     dispatch(navbarTitle(menu.title))
     setActive(formatTitle(menu.title))
     if (window.innerWidth < 1024) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../utils/button";
 import { loginFields } from "../../../utils/formFields";
@@ -12,8 +12,13 @@ import toast from "react-hot-toast";
 import { AxiosError } from "../../../utils/axiosError";
 import Container from "@/src/utils/container";
 import TextInput from "@/src/utils/input";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { login } from "@/src/redux/auth";
 
 const LoginPage = () => {
+  const router = useRouter()
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -22,20 +27,6 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  // const onSubmit = async(data) => {
-  //   console.log("Form Data:", data);
-  //   try {
-  //       const response = await Axios({
-  //         ...summary.login,
-  //         data:data
-  //       })
-  //       if(response.data.status){
-  //         toast.success(response.data.message)
-  //       }
-  //   } catch (error) {
-  //       AxiosError(error)
-  //   }
-  // };
   const onSubmit = async (data) => {
     try {
       const response = await Axios({
@@ -45,9 +36,10 @@ const LoginPage = () => {
   
       if (response.data.status) {
         toast.success(response.data.message);
-        localStorage.setItem("userToken", response.data.token); // Token store karna
-        window.location.href = "/dashboard"; // Dashboard par redirect
-        console.log(response.data.token)
+        console.log(response.data.data.token)
+        localStorage.setItem("userToken", response.data.data.token)
+        dispatch(login(response.data.data))
+        router.push('/dashboard')
       }
     } catch (error) {
       AxiosError(error);
