@@ -57,10 +57,25 @@ const Integrations = () => {
 
   return (
     <div className="bg-white rounded-large p-normal">
-      <Button className="text-normal flex items-center font-manrope gap-2 cursor-pointer rounded-lg">
-        Add Integrations <span><FaPlus className="text-small" /></span>
-      </Button>
-      <div className={`grid items-center gap-8 py-normal ${sidebar ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+      {!showForm ? (
+        <>
+          {/* <Button
+            className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
+            onClick={() => console.log('add')}
+            
+          >
+            Add Integrations <span><FaPlus className="text-small" /></span>
+          </Button> */}
+          {/* <button className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
+          onClick={() => setShowForm(true)} >
+             Add Integrations <span><FaPlus className="text-small" /></span>
+          </button> */}
+           <Button
+            className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
+            onClick={() => setShowForm(true)} // Button par click hone par form show hoga
+          >
+            Add Integrations <span><FaPlus className="text-small" /></span>
+          </Button>
 
           <div className={`grid items-center gap-8 py-normal ${sidebar ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
             {cards.map((card, index) => (
