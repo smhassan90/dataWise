@@ -24,7 +24,7 @@ export const sideBarMenu = [
   {
     title: "StoryBoard",
     icon: <FaBook className="text-small" />,
-    link: "/dashboard/storyBoard"
+    link: "/dashboard/storyboard"
   },
   {
     title: "Investigations",
@@ -47,7 +47,7 @@ export const others = [
   {
     title: "Settings",
     icon: <FaCog className="text-small" />,
-    link: "/setting",
+    link: "/dashboard/setting",
   },
   {
     title: "Logout",

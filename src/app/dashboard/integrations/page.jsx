@@ -1,45 +1,3 @@
-// "use client";
-// import React from "react";
-// import { FaEdit } from "react-icons/fa";
-// import { useDispatch, useSelector } from "react-redux";
-// import { FaPlus } from "react-icons/fa6";
-// import { GoPencil } from "react-icons/go";
-// import { cards } from "@/src/data/cards";
-// import { Button } from "@/src/utils/button";
-
-// const Integrations = () => {
-
-//   const dispatch = useDispatch();
-//   const title = useSelector((state) => state.sideBar.title);
-//   const { width, sidebar } = useSelector((state) => state.sideBar);
-//   return (
-//     <div className="bg-white rounded-large p-normal">
-//       <Button className="text-normal flex items-center font-manrope gap-2 cursor-pointer">
-//         Add Integrations <span><FaPlus className="text-small" /></span>
-//       </Button>
-//       <div className={`grid items-center gap-8 py-normal ${sidebar ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
-
-//         {cards.map((card, index) => (
-//           <div key={index} className="w-full bg-gradient-to-r from-red-500 to-orange-400 p-normal rounded-large text-white relative  flex flex-col gap-24 justify-between transition-transform transform"
-//             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
-//             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}>
-//             <div className="space-y-2">
-//               <span className="flex justify-between items-center">
-//                 <h3 className="text-lg tracking-wider font-manrope">{card.title}</h3>
-//                 <GoPencil className="text-white cursor-pointer text-small" />
-//               </span>
-//               <p className="text-small font-poppins font-light">{card.details}</p>
-//             </div>
-//             <p className="font-semibold ml-auto">Connected</p>
-//           </div>
-//         ))}
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Integrations;
 "use client";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
@@ -47,6 +5,7 @@ import { GoPencil } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { cards } from "@/src/data/cards";
 import { Button } from "@/src/utils/button";
+import { FaChevronDown } from "react-icons/fa"; // Import dropdown icon
 
 const Integrations = () => {
   const dispatch = useDispatch();
@@ -59,35 +18,42 @@ const Integrations = () => {
     <div className="bg-white rounded-large p-normal">
       {!showForm ? (
         <>
-          {/* <Button
-            className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
-            onClick={() => console.log('add')}
-            
-          >
-            Add Integrations <span><FaPlus className="text-small" /></span>
-          </Button> */}
-          {/* <button className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
-          onClick={() => setShowForm(true)} >
-             Add Integrations <span><FaPlus className="text-small" /></span>
-          </button> */}
-           <Button
-            className="text-normal flex items-center font-manrope gap-2 cursor-pointer"
+          <Button
+            className="gap-2"
             onClick={() => setShowForm(true)} // Button par click hone par form show hoga
           >
-            Add Integrations <span><FaPlus className="text-small" /></span>
+            Add Integrations{" "}
+            <span>
+              <FaPlus className="text-small" />
+            </span>
           </Button>
 
-          <div className={`grid items-center gap-8 py-normal ${sidebar ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+          <div
+            className={`grid items-center gap-8 py-normal ${
+              sidebar ? "md:grid-cols-2" : "md:grid-cols-3"
+            }`}
+          >
             {cards.map((card, index) => (
-              <div key={index} className="w-full bg-gradient-to-r from-red-500 to-orange-400 p-normal rounded-large text-white relative flex flex-col gap-24 justify-between transition-transform transform"
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}>
+              <div
+                key={index}
+                className="w-full bg-gradient-to-r from-red-500 to-orange-400 p-normal rounded-large text-white relative flex flex-col gap-24 justify-between transition-transform transform"
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.02)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
+              >
                 <div className="space-y-2">
                   <span className="flex justify-between items-center">
-                    <h3 className="text-lg tracking-wider font-manrope">{card.title}</h3>
+                    <h3 className="text-lg tracking-wider font-manrope">
+                      {card.title}
+                    </h3>
                     <GoPencil className="text-white cursor-pointer text-small" />
                   </span>
-                  <p className="text-small font-poppins font-light">{card.details}</p>
+                  <p className="text-small font-poppins font-light">
+                    {card.details}
+                  </p>
                 </div>
                 <p className="font-semibold ml-auto">Connected</p>
               </div>
@@ -95,12 +61,15 @@ const Integrations = () => {
           </div>
         </>
       ) : (
-        <div className="w-full mx-auto p-6">
-          <div className="rounded-large shadow-md p-6 bg-white">
+        <div className="w-full">
+          <div className="rounded-large">
             <div className="flex flex-col items-center mb-8">
-              <h1 className="text-2xl font-semibold text-center mb-2">Integrations</h1>
+              <h1 className="text-2xl font-semibold text-center mb-2">
+                Integrations
+              </h1>
               <p className="text-center text-gray-600 max-w-md">
-                Lorem ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem ipsum is simply dummy text of the printing and typesetting
+                industry.
               </p>
 
               {/* Step indicator */}
@@ -125,33 +94,49 @@ const Integrations = () => {
             </div>
 
             {/* Form */}
-            <div className="space-y-4 mt-8">
-              <input type="text" placeholder="Integration Name" className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" />
-              <input type="text" placeholder="Description" className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" />
-              <select className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 appearance-none focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" defaultValue="">
-                <option value="" disabled>Type</option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                <option value="type3">Type 3</option>
-              </select>
-              <input type="text" placeholder="Lorem ipsum" className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" />
-              <input type="text" placeholder="Lorem ipsum" className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" />
-              <input type="text" placeholder="Lorem ipsum" className="h-[40px] w-full border border-[#EBF0ED] rounded-md bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]" />
+
+            <div className="space-y-4 mt-8 relative">
+              <input
+                type="text"
+                placeholder="Integration Name"
+                className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize :h-[45px]"
+              />
+
+              <div className="relative">
+                <select
+                  className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 appearance-none focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Type
+                  </option>
+                  <option value="type1">Type 1</option>
+                  <option value="type2">Type 2</option>
+                  <option value="type3">Type 3</option>
+                </select>
+                <FaChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black" />
+              </div>
+
+              <input
+                type="text"
+                placeholder="URL"
+                className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
+              />
+              <input
+                type="text"
+                placeholder="Username"
+                className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
+              />
+              <input
+                type="text"
+                placeholder="Password"
+                className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
+              />
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-between items-center mt-8">
-              <button className="px-4 py-2 bg-white border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-700 focus:border-transparent">
-                Test Connection
-              </button>
-              <div className="flex space-x-2">
-                <button onClick={() => setShowForm(false)} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-                  Cancel
-                </button>
-                <button className="px-4 py-2 bg-teal-700 text-white rounded-md hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-700 focus:ring-offset-2">
-                  Connect
-                </button>
-              </div>
+            <div className="flex justify-end items-center mt-3">
+              <Button>Connect</Button>
             </div>
           </div>
         </div>

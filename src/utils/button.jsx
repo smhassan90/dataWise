@@ -2,7 +2,7 @@ import React from "react";
 
 export const Button = ({children,className,onClick }) => {
   return (
-    <button type="submit" className={`mt-normal bg-secondary text-white text-small rounded-large md:mt-0 py-1 px-3 ${className}`}
+    <button type="submit" className={`bg-secondary items-center flex text-white rounded-large shadow-md px-4 py-2 text-sm font-medium transition-all duration-300 ${className}`}
     onClick={onClick}
     >
       {children}
