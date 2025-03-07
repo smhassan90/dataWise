@@ -25,8 +25,6 @@ const ProtectedRoute = ({ children }) => {
                 <p>Loading...</p>
             </div>
         );
-    }else{
-        
     }
 
     return children;
