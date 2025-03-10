@@ -44,22 +44,63 @@ export const signInFields = [
 ];
 
 
-export  const loginFields  =[
-    {
-      type: "email",
-      name: "email",
-      placeholder: "comvi-dashboard@gmail.com",
-      required: true,
-      label: "EMAIL",
-    },
-    {
-      type: "password",
-      name: "password",
-      placeholder: "********",
-      required: true,
-      label: "PASSWORD",
-    },
+export const loginFields = [
+  {
+    type: "email",
+    name: "email",
+    placeholder: "comvi-dashboard@gmail.com",
+    required: true,
+    label: "EMAIL",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "********",
+    required: true,
+    label: "PASSWORD",
+  },
 ]
+
+export const integrationFields = [
+  {
+    type: "text",
+    name: "integrationName",
+    placeholder: "Enter Your Integration Name",
+    required: true,
+    label: "INTEGRATION NAME",
+  },
+  {
+    type: "select",
+    name: "platformName",
+    placeholder: "Select DataBase",
+    require: true,
+    options: [
+      { label: "MySql", value: "mysql" },
+      { label: "Acuity", value: "acuity" }
+    ],
+  },
+  {
+    type: "text",
+    name: "url",
+    placeholder: "Enter Your Database URL",
+    required: true,
+    label: "URL",
+  },
+  {
+    type: "text",
+    name: "username",
+    placeholder: "Enter Your Database Username",
+    required: true,
+    label: "USER NAME",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "********",
+    required: true,
+    label: "PASSWORD",
+  }
+];
 
 
 export const addStory = [

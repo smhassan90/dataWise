@@ -17,7 +17,7 @@ const Sidebar = () => {
   const path = pathName.split('/')[2]
   console.log(path)
   const [active, setActive] = useState(formatTitle(path) || "DashBoard");
-
+  const [loading, setLoading] = useState(false)
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
 
@@ -46,11 +46,16 @@ const Sidebar = () => {
   }
 
   const navigateTo = (menu) => {
-    router.push(menu.link)
+    setLoading(true);
+    // router.push(menu.link)
+    router.push(menu.link).then(() => {
+      setLoading(false); // Stop loading after navigation
+    });
     if(menu.title === 'Logout') {
       localStorage.removeItem("userToken")
       dispatch(logout(null))
       router.push('/login')
+      setLoading(false);
       return
     }
     dispatch(navbarTitle(menu.title))

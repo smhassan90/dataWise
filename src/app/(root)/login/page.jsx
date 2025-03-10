@@ -11,7 +11,7 @@ import { Axios, summary } from "../../../config/summaryAPI";
 import toast from "react-hot-toast";
 import { AxiosError } from "../../../utils/axiosError";
 import Container from "@/src/utils/container";
-import TextInput from "@/src/utils/input";
+import { TextInput } from "@/src/utils/input";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { login } from "@/src/redux/auth";
@@ -33,8 +33,8 @@ const LoginPage = () => {
         ...summary.login,
         data: data
       });
-  
-      if (response.data.status) {
+
+      if (response.data.success) {
         toast.success(response.data.message);
         localStorage.setItem("token", response.data.data.token)
         dispatch(login(response.data.data))
@@ -44,7 +44,7 @@ const LoginPage = () => {
       AxiosError(error);
     }
   };
-  
+
 
 
   return (
@@ -56,7 +56,7 @@ const LoginPage = () => {
         <div className="mt-2 text-center">
           <h3 className="text-medium font-semibold">Log In</h3>
           <p className="w-2/3 text-labelSize text-gray tracking-tight leading-6 mx-auto md:w-1/2">
-          Your data, is your employee!
+            Your data, is your employee!
           </p>
         </div>
         <form
@@ -64,7 +64,7 @@ const LoginPage = () => {
           className="px-4 m-auto flex flex-col gap-2 mt-5 md:px-0 md:gap-3"
         >
           {loginFields.map((input, index) => (
-            <TextInput input={input} key={index} errors={errors} register={register}/>
+            <TextInput input={input} key={index} errors={errors} register={register} />
           ))}
           <Button className="h-[40px] md:h-[45px]">Sign In</Button>
           <p className="text-center text-small text-gray tracking-tighter">

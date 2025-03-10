@@ -24,7 +24,7 @@ export const sideBarMenu = [
   {
     title: "StoryBoard",
     icon: <FaBook className="text-small" />,
-    link: "/dashboard/storyboard"
+    link: "/dashboard/storyBoard"
   },
   {
     title: "Investigations",

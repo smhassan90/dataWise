@@ -56,3 +56,29 @@ export const loginSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters" })
     .trim(),
 });
+
+export const IntegrationSchema = z
+  .object({
+    integrationName: z
+      .string()
+      .min(1, { message: "Integration Name is required" })
+      .min(3, { message: "Integration Name be at least 3 characters" })
+      .trim(),
+
+    platformName: z.
+      enum(["mysql", "acuity"], {
+        errorMap: () => ({ message: "Invalid database type selected" })
+      }),
+
+    url: z.string().url("Invalid URL format"),
+
+    username: z
+      .string()
+      .min(1, { message: "User Name is required" })
+      .trim(),
+
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .trim(),
+  })
