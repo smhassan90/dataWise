@@ -82,3 +82,38 @@ export const IntegrationSchema = z
       .min(1, { message: "Password is required" })
       .trim(),
   })
+
+
+// export const MetaIntegrationSchema = z.
+//   object({
+//     tableName: z.
+//       string()
+//       .min(1, { message: "Name is required" }),
+//     // checked: z.boolean(),
+//   //   description: z.
+//   //     string()
+//   //     .min(1, { message: "Description are required" }).optional()
+//   // }).refine(item => !item.checked || (item.checked && item.description), {
+//   //   message: 'Description are required',
+//   //   path: ['description']
+//   });
+
+export const MetaIntegrationSchema = z.object({
+  tables: z.array(
+    z.object({
+      tableName: z.string().min(1, { message: "Table name is required" }),
+      checked: z.boolean(),
+      description: z.string().optional()
+    })
+  ).superRefine((items, ctx) => {
+    items.forEach((item, index) => {
+      if (item.checked && !item.description) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: [index, "description"],
+          message: "Description is required"
+        });
+      }
+    });
+  })
+}); 
