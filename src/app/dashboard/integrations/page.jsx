@@ -16,8 +16,7 @@ const Integrations = () => {
   const { sidebar } = useSelector((state) => state.sideBar);
   const [showForm, setShowForm] = useState(false);
   const [integration,setIntegration] = useState({})
-  const [step, setStep] = useState(2);
-
+  const [step, setStep] = useState(1);
   return (
     <div className="bg-white rounded-large p-normal">
       <Button className="gap-2" onClick={() => setShowForm(true)}>

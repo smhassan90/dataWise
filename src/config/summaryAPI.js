@@ -39,5 +39,13 @@ export const summary = {
     metaIntegrations: {
         url: '/api/integration/v1/metaIntegrationDetails',
         method: 'post'
+    },
+    generateSuggestions:{
+        url: '/api/integration/v1/sugestionQuestion',
+        method: 'post'
+    },
+    generateGraph:{
+        url:'/api/integration/v1/genrateGraphQuery',
+        method: 'post'
     }
 }
