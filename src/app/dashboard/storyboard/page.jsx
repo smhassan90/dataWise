@@ -12,14 +12,14 @@ import { Axios, summary } from "../../../config/summaryAPI"
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { Button } from "@/src/utils/button"
+import { method } from "lodash"
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState("week")
   const [selectedMonth, setSelectedMonth] = useState("This Month")
   const [isOpen, setIsOpen] = useState(false)
-
   const [isListening, setIsListening] = useState(false)
-
+  const [graphData, setGraphData] = useState([]); // State for storing API data
   const [showSQL, setShowSQL] = useState(false)
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [suggestions, setSuggestions] = useState([])
@@ -30,9 +30,11 @@ export default function Dashboard() {
   useEffect(() => {
     if (showSuggestions) {
       fetchSuggestions()
+      fetchGraphData()
     }
   }, [showSuggestions])
 
+ 
   const fetchSuggestions = async () => {
     try {
       const response = await Axios({
@@ -40,7 +42,7 @@ export default function Dashboard() {
         method: summary.generateSuggestions.method,
       })
 
-      if (response.data.status && response.data.data) {
+      if (response.data.success && response.data.data) {
         const suggestionList = response.data.data
           .split("\n")
           .filter((item) => item.trim() !== "")
@@ -67,6 +69,27 @@ export default function Dashboard() {
     setSearchText(`${suggestion.heading}:${suggestion.description}`) // Set the search input to the clicked heading
     // setShowSuggestions(false); // Hide the suggestions
   }
+  
+  
+  const fetchGraphData = async () => {
+    try {
+      const response = await Axios({
+        url: summary.generateGraph.url,
+        method: summary.generateGraph.method,
+      });
+  
+      if (response.data.success && response.data.data) {
+        const extractedData = response.data.data.query;
+        console.log("Fetched Data:", extractedData); // Logs API response correctly
+        setGraphData(extractedData); // Updates state
+      }
+    } catch (error) {
+      console.error("Error fetching graph data:", error);
+    }
+  };
+  console.log(graphData)
+  // useEffect to log updated graphData
+  
 
   const data = [
     { date: 10, value: 3000 },
@@ -221,8 +244,7 @@ export default function Dashboard() {
                   </div>
                   <div className="mt-normal p-3 bg-gray-100 rounded-md text-xs sm:text-sm font-mono overflow-auto max-w-full">
                     <pre className="whitespace-pre-wrap break-words font-manrope font-normal">
-                      CREATE TABLE IF NOT EXISTS Customer( CustID int NOT NULL, Name varchar, Email varchar, DOB date,
-                      CONSTRAINT customer PRIMARY KEY );
+                      {graphData};
                     </pre>
                   </div>
                 </div>
