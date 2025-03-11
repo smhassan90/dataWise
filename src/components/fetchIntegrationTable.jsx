@@ -2,24 +2,45 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '../utils/button';
 import { AxiosError } from '../utils/axiosError';
 import { Axios, summary } from '../config/summaryAPI';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { MetaIntegrationSchema } from '../utils/schema';
+import { CheckBoxInput, TextInput } from '../utils/input';
+import toast from 'react-hot-toast';
 
-const FetchIntegrationTable = () => {
-    const handleDescriptionChange = (id, value) => {
-        setItems((prevItems) =>
-            prevItems.map((item) =>
-                item.id === id ? { ...item, description: value } : item
-            )
-        );
-    };
+const FetchIntegrationTable = ({ integration ,setShowForm}) => {
+    const inte = {
+        integrationName: "OsamaIntegration",
+        password: "Pma_109c",
+        platformName: "mysql",
+        url: "jdbc:mysql://66.135.60.203:3308/dbtabib",
+        username: "kamran"
+    }
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(MetaIntegrationSchema),
+        defaultValues: { tables: [] }
+    });
     const [items, setItems] = useState([]);
-
     const fetchTables = async () => {
         try {
             const response = await Axios({
                 ...summary.fetchTables,
+                data: inte
+
             })
             if (response.data.success) {
-                setItems(response.data.data)
+                const addedCheckKey = response?.data?.data?.map((item, index) => ({
+                    tableName: item,
+                    description: "",
+                    checked: false
+                }))
+                setItems(addedCheckKey)
+                setValue("tables", addedCheckKey);
             }
         } catch (error) {
             AxiosError(error)
@@ -29,83 +50,75 @@ const FetchIntegrationTable = () => {
         fetchTables()
     }, [])
 
-    console.log(items)
+    const toggleCheckbox = (id) => {
+        setItems(items.map((item, index) => {
+            if (index === id) {
+                const updatedItem = { ...item, checked: !item.checked, tableName: item.tableName };
+                console.log(updatedItem)
+                setValue(`tables.${index}.tableName`, updatedItem.tableName);
+                return updatedItem;
+            }
+            return item;
+        }));
+    };
 
-    // Toggle checkbox state
-    // const toggleCheckbox = (id) => {
-    //     setItems(
-    //         items.map((item) => {
-    //             if (item.id === id) {
-    //                 return { ...item, checked: !item.checked };
-    //             }
-    //             return item;
-    //         })
-    //     );
-    // };
+    const onSubmit = async (data) => {
+        try {
+            const tables = data.tables.filter((item) => item.checked).map((item, index) => ({
+                tableName: item.tableName,
+                description: item.description
+            }));
+            const response = await Axios({
+                ...summary.metaIntegrations,
+                data: {
+                    tables
+                }
+            });
+
+            if (response.data.success) {
+                toast.success(response.data.message)
+                setShowForm(false)
+            }
+        } catch (error) {
+            AxiosError(error);
+        }
+    }
 
     return (
-        <div className="w-full  p-1 bg-white rounded-large">
-            <div className="space-y-4 mb-8">
-                {/* {items.map((item) => (
-                    <div
-                        key={item.id}
-                        className="shadow-md rounded-large border-gray-100  overflow-hidden"
-                    >
-                        <div className="flex p-4 bg-gray-50 ">
-                            <div className="mr-4 pt-1">
-                                <div
-                                    className="relative w-5 h-5 cursor-pointer"
-                                    onClick={() => toggleCheckbox(item.id)}
-                                >
+        <div className="w-full max-h-[420px] overflow-auto rounded-large">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="space-y-4 mb-normal">
+                    {items.map((item, index) => (
+                        <div key={index} className="shadow-md rounded-large border-gray-100  overflow-hidden">
+                            <div className="flex flex-col gap-2 p-normal">
+                                <div className="mr-normal flex items-center gap-2">
+                                    <div className="relative w-4 h-4 cursor-pointer" onClick={() => toggleCheckbox(index)}>
+                                        <CheckBoxInput input={item} index={index} register={register} />
+                                    </div>
+                                    <h3>{item.tableName}</h3>
+                                </div>
+                                <div className="bg-gray-50 rounded-large">
                                     <input
-                                        type="checkbox"
-                                        checked={item.checked}
-                                        onChange={() => { }}
-                                        className="appearance-none w-5 h-5 mb-4  border border-gray-300 rounded checked:bg-[#00696B] checked:border-transparent"
+                                        {...register(`tables.${index}.description`)}
+                                        type="text"
+                                        disabled={!item.checked}
+                                        className={`h-[40px] w-full border border-[#EBF0ED] rounded-large px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px] ${!item.checked ? 'bg-Quaternary cursor-not-allowed' : 'bg-primary'}`}
+                                        placeholder="Enter Table Description"
                                     />
-                                    {item.checked && (
-                                        <svg
-                                            className="absolute inset-0 w-5 h-5 text-white pointer-events-none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
+                                    {item.checked && errors?.tables?.[index]?.description && (
+                                        <span className="text-red-500 text-sm">
+                                            {errors.tables[index]?.description?.message}
+                                        </span>
                                     )}
                                 </div>
                             </div>
-                            <div className="flex-1">
-                                <div className="flex justify-between">
-                                    <h3 className="text-sm mt-1 mr-3 font-medium text-gray-800">
-                                        {item.title}
-                                    </h3>
-                                </div>
-                            </div>
                         </div>
-
-                        <div className="bg-gray-50 rounded p-2">
-                            <input
-                                type="text"
-                                className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
-                                value={item.description || ""}
-                                onChange={(e) =>
-                                    handleDescriptionChange(item.id, e.target.value)
-                                }
-                                placeholder="Enter description..."
-                            />
-                        </div>
-                    </div>
-                ))} */}
-            </div>
-            <div className="flex justify-end space-x-3 items-center mt-3">
-                <Button className="bg-white !text-black">Cancel</Button>
-                <Button>Saved</Button>
-            </div>
+                    ))}
+                </div>
+                <div className="flex justify-end space-x-3 items-center mr-normal">
+                    <Button type="submit">Saved</Button>
+                </div>
+            </form>
         </div>
     );
 }

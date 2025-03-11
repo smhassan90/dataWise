@@ -1,5 +1,4 @@
 import axios from "axios"
-import { method } from "lodash"
 const baseURL = 'http://localhost:4000'
 // const baseURL = 'https://dash-connect-backend.vercel.app/'
 

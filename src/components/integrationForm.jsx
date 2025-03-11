@@ -9,7 +9,7 @@ import { Button } from '../utils/button';
 import { useSelector } from 'react-redux';
 import { Axios, summary } from '../config/summaryAPI';
 import toast from 'react-hot-toast';
-const IntegrationForm = ({setShowForm,setStep}) => {
+const IntegrationForm = ({setShowForm,setStep,setIntegration}) => {
     const user = useSelector(state => state.auth.user)
     const {
         register,
@@ -25,6 +25,7 @@ const IntegrationForm = ({setShowForm,setStep}) => {
                 data: data
             })
             if (response.data.success) {
+                setIntegration(data)
                 toast.success(response.data.message);
                 setStep(2)
             }

@@ -14,8 +14,8 @@ import FetchIntegrationTable from "@/src/components/fetchIntegrationTable";
 
 const Integrations = () => {
   const { sidebar } = useSelector((state) => state.sideBar);
-
   const [showForm, setShowForm] = useState(false);
+  const [integration,setIntegration] = useState({})
   const [step, setStep] = useState(1);
   return (
     <div className="bg-white rounded-large p-normal">
@@ -34,8 +34,8 @@ const Integrations = () => {
           className="w-full"
         >
           <div className="rounded-large">
-            <div className="flex flex-col items-center mb-8">
-              <h1 className="text-2xl font-semibold text-center mb-2">
+            <div className="flex flex-col items-center mb-normal">
+              <h1 className="text-2xl font-semibold text-center mb-normal">
                 Integrations
               </h1>
               {step === 1 ? (
@@ -50,29 +50,29 @@ const Integrations = () => {
               )}
 
               {/* Step indicator */}
-              <div className="relative w-full max-w-md mt-8">
-                <div className="bg-black absolute top-8  w-full h-[2px] bg-gray-400 -translate-y-1/2"></div>
+              <div className="relative w-full max-w-md mt-normal">
+                <div className="bg-black absolute top-8 w-full h-[2px] bg-gray-400 -translate-y-1/2"></div>
                 <div className="flex justify-between relative">
                   <div className="flex flex-col items-center">
                     <div className={`w-14 h-14 rounded-full ${step === 1 ? 'bg-secondary text-white' : 'bg-Quaternary text-secondary'} flex items-center justify-center text-white font-medium z-10 relative`}>
                       01
                     </div>
-                    <span className="mt-2 text-sm">Step</span>
+                    <span className="mt-2 text-labelSize text-neutral-900">Step</span>
                   </div>
 
                   <div className="flex flex-col items-center">
                     <div className={`w-14 h-14 rounded-full ${step === 2 ? 'bg-secondary text-white' : 'bg-Quaternary text-secondary'} flex items-center justify-center text-[#036666] font-medium z-10 relative`}>
                       02
                     </div>
-                    <span className="mt-2 text-sm text-black">Step</span>
+                    <span className="mt-2 text-labelSize text-neutral-900">Step</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {step === 1 ? (
-              <IntegrationForm setShowForm={setShowForm} setStep={setStep} />
-            ) : <FetchIntegrationTable />}
+              <IntegrationForm setShowForm={setShowForm} setStep={setStep} setIntegration={setIntegration}/>
+            ) : <FetchIntegrationTable integration={integration} setShowForm={setShowForm}/>}
           </div>
         </motion.div>}
       </AnimatePresence>

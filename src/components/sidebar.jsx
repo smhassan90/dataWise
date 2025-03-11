@@ -47,17 +47,18 @@ const Sidebar = () => {
 
   const navigateTo = (menu) => {
     setLoading(true);
-    // router.push(menu.link)
-    router.push(menu.link).then(() => {
-      setLoading(false); // Stop loading after navigation
-    });
     if(menu.title === 'Logout') {
-      localStorage.removeItem("userToken")
-      dispatch(logout(null))
+      console.log("Click Hua")
+      localStorage.removeItem("token")
+      dispatch(logout())
       router.push('/login')
       setLoading(false);
       return
     }
+    // router.push(menu.link)
+    router.push(menu.link).then(() => {
+      setLoading(false); // Stop loading after navigation
+    });
     dispatch(navbarTitle(menu.title))
     setActive(formatTitle(menu.title))
     if (window.innerWidth < 1024) {
