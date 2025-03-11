@@ -1,6 +1,7 @@
 import axios from "axios"
-// const baseURL = 'http://localhost:4000'
-const baseURL = 'https://dash-connect-backend.vercel.app/'
+import { method } from "lodash"
+const baseURL = 'http://localhost:4000'
+// const baseURL = 'https://dash-connect-backend.vercel.app/'
 
 export const Axios = axios.create({
     baseURL: baseURL,
@@ -38,6 +39,14 @@ export const summary = {
     },
     metaIntegrations: {
         url: '/api/integration/v1/metaIntegrationDetails',
+        method: 'post'
+    },
+    generateSuggestions:{
+        url: '/api/integration/v1/sugestionQuestion',
+        method: 'post'
+    },
+    generateGraph:{
+        url:'/api/integration/v1/genrateGraphQuery',
         method: 'post'
     }
 }

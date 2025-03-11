@@ -34,7 +34,7 @@ const LoginPage = () => {
         data: data
       });
 
-      if (response.data.success) {
+      if (response.data.status) {
         toast.success(response.data.message);
         localStorage.setItem("token", response.data.data.token)
         dispatch(login(response.data.data))
