@@ -46,7 +46,9 @@ export default function Dashboard() {
           .filter((item) => item.trim() !== "")
           .map((item) => {
             // Split heading and description based on `:` or first occurrence of `.` (adjust based on format)
-            const parts = item.split(":")
+            const cleanedText = item.replace(/\*\*/g, ""); 
+
+          const parts = cleanedText.split(":");
             return {
               heading: parts[0] ? parts[0].trim() : "Untitled",
               // description: parts[1] ? parts[1].trim() : "",
