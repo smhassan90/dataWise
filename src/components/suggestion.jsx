@@ -57,6 +57,8 @@ const Suggestion = ({setGraphData}) => {
             if(response.data.success){
                 toast.success(response.data.message)
                 setGraphData(response.data.data)
+                console.log("dataaadda",response.data.data)
+                // console.log(gra)
             }
         } catch (error) {
             AxiosError(error)
