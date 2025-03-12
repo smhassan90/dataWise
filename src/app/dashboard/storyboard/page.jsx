@@ -1,8 +1,5 @@
 
-
-
 "use client"
-
 import { useEffect, useState } from "react"
 import { FaSearch, FaMicrophone } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
@@ -15,6 +12,8 @@ import { Button } from "@/src/utils/button"
 import { method } from "lodash"
 
 export default function Dashboard() {
+  const [sqlQuery, setSqlQuery] = useState(""); // SQL Query State
+
   const [timeRange, setTimeRange] = useState("week")
   const [selectedMonth, setSelectedMonth] = useState("This Month")
   const [isOpen, setIsOpen] = useState(false)
@@ -30,7 +29,6 @@ export default function Dashboard() {
   useEffect(() => {
     if (showSuggestions) {
       fetchSuggestions()
-      fetchGraphData()
     }
   }, [showSuggestions])
 
@@ -70,7 +68,8 @@ export default function Dashboard() {
     // setShowSuggestions(false); // Hide the suggestions
   }
   
-  
+  useEffect(() => {
+
   const fetchGraphData = async () => {
     try {
       const response = await Axios({
@@ -79,14 +78,24 @@ export default function Dashboard() {
       });
   
       if (response.data.success && response.data.data) {
-        const extractedData = response.data.data.query;
+        const extractedData = response.data.data.data.map(item =>({
+          id: item.ID, // User ID
+          name: `${item.ID} - ${item.NAME}`, // X-axis (ID + Name)
+          income: Number(item.total_income), // Y-axis (Income values)
+
+        }));
         console.log("Fetched Data:", extractedData); // Logs API response correctly
         setGraphData(extractedData); // Updates state
+        setSqlQuery(response.data.data.query);
+
       }
     } catch (error) {
       console.error("Error fetching graph data:", error);
+      
     }
   };
+  fetchGraphData();
+}, []);
   console.log(graphData)
   // useEffect to log updated graphData
   
@@ -131,10 +140,10 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="min-h-screen mt-2 bg-[#fdfbf6] p-2 md:p-4">
+      <div className="min-h-screen mt-normal bg-[#fdfbf6] p-2 md:p-4">
         <h1 className="font-manrope font-light">Ask away, and feel the magic :)</h1>
         <div className="mx-auto max-w-7xl">
-          <div className="mt-4 mb-6 relative">
+          <div className="mt-normal mb-normal relative">
             {/* Tabs Section */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-2 rounded-large shadow-md w-full">
               <div className="flex space-x-3 mb-2 sm:mb-0">
@@ -216,18 +225,38 @@ export default function Dashboard() {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className={`${showSQL ? "lg:w-[770px]" : "w-full"} transition-all`}>
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={data}>
+                  <LineChart data={graphData}  margin={{ left: 20, right: 30 }}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
+                    <XAxis dataKey="name" 
+                    angle={-5} // Rotate Labels
+                    // textAnchor="end" // Align Properly
+                    tick={{ fontSize: 12 }} // Smaller Font
+                    interval={0} /> 
                     <YAxis />
-                    <Tooltip
+                    {/* <Tooltip
                       contentStyle={{
                         backgroundColor: "#FF7F50",
                         color: "white",
                         borderRadius: "5px",
                       }}
-                    />
-                    <Line type="monotone" dataKey="value" stroke="#FF7F50" strokeWidth={2} dot={{ r: 6 }} />
+                    /> */}
+                    <Tooltip
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const { id, income, name } = payload[0].payload;
+
+                return (
+                  <div className="bg-secondary text-white p-3 rounded-md shadow-md">
+                    <p><strong>ID:</strong> {payload[0].payload.id}</p>
+                    <p><strong>Name:</strong> {payload[0].payload.name}</p>
+                    <p><strong>Income:</strong> {payload[0].value}</p>
+                  </div>
+                );
+              }
+              return null;
+            }}
+          />
+                    <Line type="monotone" dataKey="income" stroke="#036666" strokeWidth={2} dot={{ r: 6 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -244,7 +273,7 @@ export default function Dashboard() {
                   </div>
                   <div className="mt-normal p-3 bg-gray-100 rounded-md text-xs sm:text-sm font-mono overflow-auto max-w-full">
                     <pre className="whitespace-pre-wrap break-words font-manrope font-normal">
-                      {graphData};
+                    {sqlQuery ? sqlQuery : "Loading..."}
                     </pre>
                   </div>
                 </div>
