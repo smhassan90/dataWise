@@ -43,7 +43,8 @@ export default {
         large : '700',
       },
       borderRadius:{
-        large:'15px'
+        large:'15px',
+        normal:'10px'
       },
       margin: {
         'normal': '12px',

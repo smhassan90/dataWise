@@ -6,14 +6,33 @@ import { Axios, summary } from '../config/summaryAPI'
 import { AxiosError } from '../utils/axiosError'
 import { ClipLoader } from "react-spinners";
 import toast from 'react-hot-toast'
-const Suggestion = ({setGraphData}) => {
+const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab }) => {
     const [showSuggestions, setShowSuggestions] = useState(false)
-    const [activeTab, setActiveTab] = useState("Report")
     const [searchText, setSearchText] = useState("")
     const [isListening, setIsListening] = useState(false)
     const [suggestions, setSuggestions] = useState([])
     const [loader, setLoader] = useState(false)
-    const tabs = ["Line of graphs ", "Bar Chart", "Report"]
+    const startListening = () => {
+        if (!("webkitSpeechRecognition" in window)) {
+            alert("Speech recognition not supported in this browser.");
+            return;
+        }
+
+        const recognition = new window.webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = "en-US"; // Adjust as needed
+
+        recognition.onstart = () => setIsListening(true);
+        recognition.onend = () => setIsListening(false);
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setSearchText(transcript);
+        };
+
+        recognition.start();
+    };
     const suggestQuestion = async () => {
         if (showSuggestions) {
             return setShowSuggestions((prev) => !prev)
@@ -46,18 +65,18 @@ const Suggestion = ({setGraphData}) => {
             AxiosError(error)
         }
     }
-    const generateGraph = async() =>{
+    const generateGraph = async () => {
         try {
             const response = await Axios({
                 ...summary.generateGraph,
-                data:{
-                    customText:searchText
+                data: {
+                    customText: searchText
                 }
             })
-            if(response.data.success){
+            if (response.data.success) {
                 toast.success(response.data.message)
                 setGraphData(response.data.data)
-                console.log("dataaadda",response.data.data)
+                console.log("dataaadda", response.data.data)
                 // console.log(gra)
             }
         } catch (error) {

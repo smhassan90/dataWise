@@ -74,6 +74,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - **Purpose:** Schema declaration and validation.
 - **Usage:** Defines and validates the shape and type of form data.
 
+### 10. **react-syntax-highlighter**
+- **Purpose:** Schema declaration and validation.
+- **Usage:** Defines and validates the shape and type of form data.
+
 With these libraries, the project achieves robust form handling, efficient state management, seamless API communication, and a polished user experience!
 
 Let me know if you’d like me to tweak anything! 🚀
