@@ -1,166 +1,139 @@
-// "use client";
 
-// import { Button } from "@/src/utils/button";
-// import { useState } from "react";
 
-// export default function IntegrationsPage() {
-//   // Sample data for the integration items
-//   const handleDescriptionChange = (id, value) => {
-//     setItems((prevItems) =>
-//       prevItems.map((item) =>
-//         item.id === id ? { ...item, description: value } : item
-//       )
-//     );
-//   };
-//   const [items, setItems] = useState([
-//     {
-//       id: 1,
-//       title: "Lorem ipsum is simply dummy",
-//       description:
-//         "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
-//       checked: true,
-//     },
-//     {
-//       id: 2,
-//       title: "Lorem ipsum is simply dummy",
-//       description:
-//         "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
-//       checked: false,
-//     },
-//     {
-//       id: 3,
-//       title: "Lorem ipsum is simply dummy",
-//       description:
-//         "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
-//       checked: false,
-//     },
-//   ]);
+"use client"
 
-//   // Current page state for pagination
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const totalPages = 7;
+import { useState } from "react"
+import { ChevronLeft, ChevronRight, Edit, Eye, Trash2 } from "lucide-react"
+import { Button } from "@/src/utils/button"
+import Pagination from "@/src/components/pagination"
 
-//   // Toggle checkbox state
-//   const toggleCheckbox = (id) => {
-//     setItems(
-//       items.map((item) => {
-//         if (item.id === id) {
-//           return { ...item, checked: !item.checked };
-//         }
-//         return item;
-//       })
-//     );
-//   };
+const tableData = [
+  { id: "#1124492", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#W76909", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#L243412", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
 
-//   return (
-//     <div className="w-full  p-1 bg-white rounded-large">
-//       {/* Header */}
-//       <div className="flex flex-col items-center mb-8">
-//         <h1 className="text-2xl font-semibold text-center mb-2">
-//           Integrations
-//         </h1>
-//         <p className="text-center text-gray-600 max-w-md">
-//           Uncheck the tables that you do not want to include in analysis.
-//         </p>
-//         <div className="relative w-full max-w-md">
-//           <div className="bg-black absolute top-8  w-full h-[2px] bg-gray-400 -translate-y-1/2"></div>
-//           <div className="flex justify-between relative">
-//             <div className="flex flex-col items-center">
-//               <div className="w-14 h-14 rounded-full bg-[#D9D9D9] flex items-center justify-center text-[#036666] font-medium z-10 relative">
-//                 01
-//               </div>
-//               <span className="mt-2 text-sm">Step</span>
-//             </div>
+  { id: "#PP98097", storyName: "Lorem ipsum", storyInfo: "Lorem ipsum", connectedDeployment: "Lorem ipsum" },
 
-//             <div className="flex flex-col items-center">
-//               <div className="w-14 h-14 rounded-full bg-teal-700 flex items-center justify-center text-white font-medium z-10 relative">
-//                 02
-//               </div>
 
-//               <span className="mt-2 text-sm text-black">Step</span>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
 
-//       {/* Step Indicator */}
+]
 
-//       {/* Integration Items */}
-//       <div className="space-y-4 mb-8">
-//         {items.map((item) => (
-//           <div
-//             key={item.id}
-//             className="shadow-md rounded-large border-gray-100  overflow-hidden"
-//           >
-//             {/* Item header with checkbox, title, and right label */}
-//             <div className="flex p-4 bg-gray-50 ">
-//               <div className="mr-4 pt-1">
-//                 <div
-//                   className="relative w-5 h-5 cursor-pointer"
-//                   onClick={() => toggleCheckbox(item.id)}
-//                 >
-//                   <input
-//                     type="checkbox"
-//                     checked={item.checked}
-//                     onChange={() => {}}
-//                     className="appearance-none w-5 h-5 mb-4  border border-gray-300 rounded checked:bg-[#00696B] checked:border-transparent"
-//                   />
-//                   {item.checked && (
-//                     <svg
-//                       className="absolute inset-0 w-5 h-5 text-white pointer-events-none"
-//                       xmlns="http://www.w3.org/2000/svg"
-//                       viewBox="0 0 24 24"
-//                       fill="none"
-//                       stroke="currentColor"
-//                       strokeWidth="2"
-//                       strokeLinecap="round"
-//                       strokeLinejoin="round"
-//                     >
-//                       <polyline points="20 6 9 17 4 12"></polyline>
-//                     </svg>
-//                   )}
-//                 </div>
-//               </div>
-//               <div className="flex-1">
-//                 <div className="flex justify-between">
-//                   <h3 className="text-sm mt-1 mr-3 font-medium text-gray-800">
-//                     {item.title}
-//                   </h3>
-//                 </div>
-//               </div>
-//             </div>
+const entryOptions = [10, 25, 50, 100]
 
-//             <div className="bg-gray-50 rounded p-2">
-//               <input
-//                 type="text"
-//                 className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
-//                 value={item.description || ""}
-//                 onChange={(e) =>
-//                   handleDescriptionChange(item.id, e.target.value)
-//                 }
-//                 placeholder="Enter description..."
-//               />
-//             </div>
-//           </div>
-//         ))}
-//       </div>
+export default function DataTable() {
+  const [entriesPerPage, setEntriesPerPage] = useState(25)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedRows, setSelectedRows] = useState([])
+  const [selectAll, setSelectAll] = useState(false)
 
-//       <div className="flex justify-end space-x-3 items-center mt-3">
-//         <Button className="bg-white !text-black">Cancel</Button>
+  const totalPages = Math.ceil(tableData.length / entriesPerPage)
+  const indexOfLastEntry = currentPage * entriesPerPage
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage
+  const currentEntries = tableData.slice(indexOfFirstEntry, indexOfLastEntry)
 
-//         <Button>Saved</Button>
-//       </div>
-//     </div>
-//   );
-// }
-import React from 'react'
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
 
-const page = () => {
+  const handleEntriesChange = (e) => {
+    setEntriesPerPage(Number(e.target.value))
+    setCurrentPage(1)
+  }
+
+  const handleSelectRow = (rowId) => {
+    setSelectedRows((prev) => prev.includes(rowId) ? prev.filter((id) => id !== rowId) : [...prev, rowId])
+  }
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedRows([])
+    } else {
+      setSelectedRows(currentEntries.map((item) => item.id))
+    }
+    setSelectAll(!selectAll)
+  }
+
   return (
-    <div>
-      
+    <div className="w-full mx-auto p-normal bg-gray-50 rounded-large">
+      <div className="flex justify-between items-center mb-normal">
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-gray-600">SHOW</span>
+          <select value={entriesPerPage} onChange={handleEntriesChange} className="border border-secondary rounded-large px-2 py-1 text-sm bg-white">
+            {entryOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-600">ENTRIES</span>
+        </div>
+        <Button>Filters</Button>
+      </div>
+
+      <div className="bg-white rounded-large shadow-md overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50 border border-[#EBF0ED] text-left">
+                <th className="px-normal py-normal w-10">
+                  <input type="checkbox" checked={selectAll} onChange={handleSelectAll} className="h-4 w-4 rounded-large text-secondary focus:ring-secondary" />
+                </th>
+                <th className="px-normal py-normal text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th className="px-normal py-normal text-xs font-medium text-gray-500 uppercase tracking-wider">STORY NAME</th>
+                <th className="px-normal py-normal text-xs font-medium text-gray-500 uppercase tracking-wider">STORY INFO</th>
+                <th className="px-normal py-normal text-xs font-medium text-gray-500 uppercase tracking-wider">CONNECTED DEPLOYMENT</th>
+                <th className="px-normal py-normal text-xs font-medium text-gray-500 uppercase tracking-wider">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#EBF0ED]">
+              {currentEntries.map((item) => (
+                <tr key={item.id} className="hover:bg-gray-50">
+                  <td className="px-normal py-normal">
+                    <input type="checkbox" checked={selectedRows.includes(item.id)} onChange={() => handleSelectRow(item.id)} className="h-4 w-4 rounded-large text-secondary focus:ring-secondary" />
+                  </td>
+                  <td className="px-normal py-normal text-sm text-gray-900">{item.id}</td>
+                  <td className="px-normal py-normal text-sm text-gray-900">{item.storyName}</td>
+                  <td className="px-normal py-normal text-sm text-gray-900">{item.storyInfo}</td>
+                  <td className="px-normal py-normal text-sm text-gray-900">{item.connectedDeployment}</td>
+                  <td className="px-normal py-normal text-sm text-gray-500">
+                    <div className="flex space-x-3">
+                      <button className="text-gray-600 hover:text-blue-600"><Edit size={16} /></button>
+                      <button className="text-gray-600 hover:text-blue-600"><Eye size={16} /></button>
+                      <button className="text-gray-600 hover:text-red-600"><Trash2 size={16} /></button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="px-normal py-normal rounded-large flex items-center justify-between border-t border-[#EBF0ED]">
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        </div>
+      </div>
     </div>
   )
 }
-
-export default page
