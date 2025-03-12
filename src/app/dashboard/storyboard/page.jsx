@@ -28,6 +28,14 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Line Chart")
   const [finalData, setFinalData] = useState([]);
   const [keys, setKeys] = useState([]);
+  const [AxisKeys, setAxisKeys] = useState({
+    xAxisKeys: [],
+    yAxisKeys: []
+  })
+  const [graphKey, setGraphKey] = useState({
+    xAxisKey: "",
+    yAxisKey: ""
+  })
   const [xAxisKey, setXAxisKey] = useState('');
   const [yAxisKey, setYAxisKey] = useState('');
   const tabs = ["Line Chart", "Bar Chart", "Report"]
@@ -49,8 +57,10 @@ export default function Dashboard() {
       const stringKeys = extractedKeys.filter((key) =>
         graphData.data.some((item) => isNaN(item[key]))
       );
-      setXAxisKey(stringKeys);
-      setYAxisKey(numberKeys);
+      setAxisKeys({
+        xAxisKeys: stringKeys,
+        yAxisKeys: numberKeys
+      });
     }
   }, [graphData])
 
@@ -80,16 +90,17 @@ export default function Dashboard() {
           {finalData && <div className="flex gap-4 mb-4">
             <div>
               <label>X-Axis:</label>
-              <select onChange={(e) => setXAxisKey(e.target.value)} value={xAxisKey}>
-                {xAxisKey && xAxisKey?.map((key) => (
+              <select onChange={(e) => setGraphKey((prev) => ({ ...prev, xAxisKey: e.target.value }))}
+                value={graphKey.xAxisKey}>
+                {AxisKeys.xAxisKeys && AxisKeys.xAxisKeys?.map((key) => (
                   <option key={key} value={key}>{key}</option>
                 ))}
               </select>
             </div>
             <div>
               <label>Y-Axis:</label>
-              <select onChange={(e) => setYAxisKey(e.target.value)} value={yAxisKey}>
-                {xAxisKey && yAxisKey?.map((key) => (
+              <select onChange={(e) => setGraphKey((prev) => ({ ...prev, yAxisKey: e.target.value }))} value={graphKey.yAxisKey}>
+                {AxisKeys.yAxisKeys && AxisKeys.yAxisKeys?.map((key) => (
                   <option key={key} value={key}>{key}</option>
                 ))}
               </select>
@@ -103,12 +114,12 @@ export default function Dashboard() {
             >
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart
-                  data={finalData}
+                  data={graphData.data}
                   margin={{ left: 20, right: 30 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
-                    dataKey="name"
+                    dataKey={graphKey.xAxisKey}
                     angle={-5} // Rotate Labels
                     // textAnchor="end" // Align Properly
                     tick={{ fontSize: 12 }} // Smaller Font
@@ -116,7 +127,7 @@ export default function Dashboard() {
                   />
                   <YAxis />
 
-                  <Tooltip
+                  {/* <Tooltip
                     content={({ active, payload }) => {
                       console.log(payload);
                       console.log(active);
@@ -140,10 +151,10 @@ export default function Dashboard() {
                       }
                       return null;
                     }}
-                  />
+                  /> */}
                   <Line
                     type="monotone"
-                    dataKey="income"
+                    dataKey={graphKey.yAxisKey}
                     stroke="#036666"
                     strokeWidth={2}
                     dot={{ r: 6 }}
