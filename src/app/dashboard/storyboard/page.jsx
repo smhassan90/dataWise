@@ -1,8 +1,5 @@
 
-
-
 "use client"
-
 import { useEffect, useState } from "react"
 import { FaSearch, FaMicrophone } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
@@ -16,6 +13,8 @@ import { method } from "lodash"
 import Suggestion from "@/src/components/suggestion"
 
 export default function Dashboard() {
+  const [sqlQuery, setSqlQuery] = useState(""); // SQL Query State
+
   const [timeRange, setTimeRange] = useState("week")
   const [selectedMonth, setSelectedMonth] = useState("This Month")
   const [showSQL, setShowSQL] = useState(false)
