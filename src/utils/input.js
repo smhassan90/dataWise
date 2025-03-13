@@ -55,7 +55,8 @@ export const TextInputWithoutLabel = ({ input, register, errors }) => {
                     showPassword[input.name] ? "text" : input.type}
                     placeholder={input.placeholder}
                     {...register(input.name)}
-                    className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
+                    disabled={input.name === "query" || input.name === "resultType"}
+                    className={`${(input.name === "query" || input.name === "resultType") && 'cursor-not-allowed'} h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]`}
                 />
                 {(input.name === "password" || input.name === "confirmPassword") && (
                     <span onClick={() => setShowPassword((prev) => ({

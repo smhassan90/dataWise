@@ -6,8 +6,10 @@ import { Axios, summary } from '../config/summaryAPI'
 import { AxiosError } from '../utils/axiosError'
 import { ClipLoader } from "react-spinners";
 import toast from 'react-hot-toast'
-const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab }) => {
+import SaveStory from './saveStory'
+const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData}) => {
     const [showSuggestions, setShowSuggestions] = useState(false)
+    const [showStoryForm, setShowStoryForm] = useState(false)
     const [searchText, setSearchText] = useState("")
     const [isListening, setIsListening] = useState(false)
     const [suggestions, setSuggestions] = useState([])
@@ -70,7 +72,8 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab }) => {
             const response = await Axios({
                 ...summary.generateGraph,
                 data: {
-                    customText: searchText
+                    customText: searchText,
+                    requiredGraph:activeTab
                 }
             })
             if (response.data.success) {
@@ -105,9 +108,9 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab }) => {
                     ))}
                 </div>
                 <div className='flex gap-3'>
-                    <Button className="text-labelSize">
+                    {!showStoryForm && <Button className="text-labelSize" onClick={()=>setShowStoryForm((prev)=>!prev)}>
                         Save Story
-                    </Button>
+                    </Button>}
                     <Button onClick={suggestQuestion} className="text-labelSize">
                         {showSuggestions ? "Hide Suggestions" : "More Suggestions"}
                     </Button>
@@ -137,6 +140,7 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab }) => {
                     </div>
                 </div>
             )}
+            {showStoryForm && <SaveStory graphData={graphData} setGraphData={setGraphData} setShowStoryForm={setShowStoryForm} setSearchText={setSearchText}/>}
 
             {/* Search Input */}
             <div className="relative mt-normal  bg-[#fdfbf6]">

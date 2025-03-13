@@ -103,30 +103,24 @@ export const integrationFields = [
 ];
 
 
-export const addStory = [
+export const saveStoryFields = [
   {
     type: "text",
     name: "storyName",
-    placeholder: "Story Board Name",
+    placeholder: "Enter Story Board Name",
     require: true,
   },
   {
     type: "text",
-    name: "Descriptions",
-    placeholder: "Descriptions",
+    name: "query",
+    placeholder: "Enter Database Query",
     require: true,
   },
   {
-    type: "select",
-    name: "category",
-    placeholder: "Select Category",
+    type: "text",
+    name: "resultType",
+    placeholder: "Enter Result Type",
     require: true,
-    options: [
-      { label: "Adventure", value: "adventure" },
-      { label: "Horror", value: "horror" },
-      { label: "Fantasy", value: "fantasy" },
-      { label: "Sci-Fi", value: "sci-fi" },
-    ],
   },
 ];
 

@@ -47,5 +47,9 @@ export const summary = {
     generateGraph:{
         url:'/api/integration/v1/genrateGraphQuery',
         method: 'post'
+    },
+    saveStory:{
+        url:'/api/integration/v1/saveStory',
+        method: 'post'
     }
 }

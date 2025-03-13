@@ -83,21 +83,6 @@ export const IntegrationSchema = z
       .trim(),
   })
 
-
-// export const MetaIntegrationSchema = z.
-//   object({
-//     tableName: z.
-//       string()
-//       .min(1, { message: "Name is required" }),
-//     // checked: z.boolean(),
-//   //   description: z.
-//   //     string()
-//   //     .min(1, { message: "Description are required" }).optional()
-//   // }).refine(item => !item.checked || (item.checked && item.description), {
-//   //   message: 'Description are required',
-//   //   path: ['description']
-//   });
-
 export const MetaIntegrationSchema = z.object({
   tables: z.array(
     z.object({
@@ -116,4 +101,24 @@ export const MetaIntegrationSchema = z.object({
       }
     });
   })
-}); 
+});
+
+
+export const SaveStorySchema = z
+  .object({
+    storyName: z
+      .string()
+      .min(1, { message: "Story Name is required" })
+      .min(3, { message: "Story Name be at least 3 characters" })
+      .trim(),
+
+    query: z
+      .string()
+      .min(1, { message: "Query is required" })
+      .trim(),
+
+    resultType: z.
+      enum(["Line Chart", "Bar Chart", "Report"], {
+        errorMap: () => ({ message: "Invalid type selected" })
+      }),
+  })
