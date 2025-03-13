@@ -51,5 +51,13 @@ export const summary = {
     saveStory:{
         url:'/api/integration/v1/saveStory',
         method: 'post'
+    },
+    reRunQuery:{
+        url:'/api/integration/v1/reRunQuery',
+        method: 'post'
+    },
+    fetchStories:{
+        url:'/api/integration/v1/getAllStories',
+        method: 'get'
     }
 }

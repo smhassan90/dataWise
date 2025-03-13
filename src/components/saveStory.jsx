@@ -10,7 +10,7 @@ import { Axios, summary } from '../config/summaryAPI';
 import toast from 'react-hot-toast';
 import { AxiosError } from '../utils/axiosError';
 
-const SaveStory = ({ graphData, setGraphData, setShowStoryForm,setSearchText}) => {
+const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSearchText}) => {
     const {
         register,
         handleSubmit,
@@ -23,7 +23,7 @@ const SaveStory = ({ graphData, setGraphData, setShowStoryForm,setSearchText}) =
         if (graphData?.query) {
             reset({
                 query: graphData.query,
-                resultType: graphData.resultType
+                resultType: activeTab
             });
         }
     }, [graphData, reset]);
@@ -48,7 +48,7 @@ const SaveStory = ({ graphData, setGraphData, setShowStoryForm,setSearchText}) =
         <form action="" onSubmit={handleSubmit(onSubmit)} className="px-normal m-auto flex flex-col gap-2 mt-normal md:px-0 md:gap-3">
             {saveStoryFields.map((input, index) => {
                 if (input.type === 'text' || input.type === 'password') {
-                    return <TextInputWithoutLabel input={input} key={index} errors={errors} register={register} />
+                    return <TextInputWithoutLabel className={`${(input.name === "query" || input.name === "resultType") && 'hidden' }`} input={input} key={index} errors={errors} register={register} />
                 } else {
                     return <SelectInput input={input} key={index} errors={errors} register={register} />
                 }

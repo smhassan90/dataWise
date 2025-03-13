@@ -42,13 +42,13 @@ export const TextInput = ({ input, register, errors }) => {
     )
 }
 
-export const TextInputWithoutLabel = ({ input, register, errors }) => {
+export const TextInputWithoutLabel = ({ input, register, errors,className }) => {
     const [showPassword, setShowPassword] = useState({
         password: false,
         confirmPassword: false,
     });
     return (
-        <div className="flex flex-col gap-1 md:gap-2 justify-start w-full relative">
+        <div className={`${className} flex flex-col gap-1 md:gap-2 justify-start w-full relative`}>
             <div className="relative w-full">
                 <input type={(input.name === "password" ||
                     input.name === "confirmPassword") &&

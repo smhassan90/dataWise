@@ -7,32 +7,28 @@ import { FaRedo } from "react-icons/fa";
 import { Axios, summary } from "../../../config/summaryAPI";
 import { GoPencil } from "react-icons/go";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { ResponsiveContainer } from "recharts";
 import { Button } from "@/src/utils/button";
 import { method } from "lodash";
 import Suggestion from "@/src/components/suggestion";
-import BarChart from "@/src/components/barGroup";
 import SqlQuery from "@/src/components/sqlQuery";
+import LineChartComponent from "@/src/components/lineChart";
+import BarChartComponent from "@/src/components/barChart";
+import ShowStories from "@/src/components/showStories";
 
 export default function Dashboard() {
   const [showSQL, setShowSQL] = useState(false);
   const [graphData, setGraphData] = useState("");
   const [activeTab, setActiveTab] = useState("Line Chart")
-  const [SQLQuery,setSQLQuery] = useState('')
-  const keys = graphData && graphData.data.length > 0 ? Object.keys(graphData.data[0]) : [];
+  const [SQLQuery, setSQLQuery] = useState('')
   const tabs = ["Line Chart", "Bar Chart", "Report"]
+  // const maxValue = Math.max(
+  //   ...keys.flatMap((key) => graphData.data.map((item) => item[key])).filter((val) => !isNaN(val))
+  // );
 
-  useEffect(()=>{
+  useEffect(() => {
     setSQLQuery(graphData.query)
-  },[graphData])
+  }, [graphData])
   return (
     <div>
       <div className="min-h-screen bg-white rounded-large p-normal">
@@ -53,83 +49,20 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Graph & SQL Query Container */}
           <div className="flex flex-col lg:flex-row gap-4">
             <div className={`${showSQL ? "lg:w-[770px]" : "w-full"
               } transition-all`}
             >
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart
-                  data={graphData.data}
-                  margin={{ left: 20, right: 30 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  {keys && keys.length > 0 && (
-                    <XAxis
-                      dataKey={keys.find((key) => typeof graphData.data[0][key] === 'string') || keys[0]}
-                      angle={-5}
-                      tick={{ fontSize: 12 }}
-                      interval={0}
-                    />
-                  )}
-                  <YAxis />
-
-                  {/* <Tooltip
-                    content={({ active, payload }) => {
-                      console.log(payload);
-                      console.log(active);
-                      if (active && payload && payload.length) {
-                        console.log(payload);
-                        const { id, income, name } = payload[0].payload;
-
-                        return (
-                          <div className="bg-secondary text-white p-3 rounded-md shadow-md">
-                            <p>
-                              <strong>ID:</strong> {payload[0].payload.id}
-                            </p>
-                            <p>
-                              <strong>Name:</strong> {payload[0].payload.name}
-                            </p>
-                            <p>
-                              <strong>Income:</strong> {payload[0].value}
-                            </p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  /> */}
-                  {/* <Line
-                    type="monotone"
-                    dataKey={graphData.data.total_income}
-                    stroke="#036666"
-                    strokeWidth={2}
-                    dot={{ r: 6 }}
-                  /> */}
-                  {keys.map((key) => {
-                    const isNumeric = graphData.data.some((item) => !isNaN(item[key]));
-                    return isNumeric ? (
-                      <Line
-                        key={key}
-                        type="monotone"
-                        dataKey={key}
-                        stroke="#036666"
-                        strokeWidth={2}
-                        dot={{ r: 6 }}
-                      />
-                    ) : null;
-                  })}
-                </LineChart>
-              </ResponsiveContainer>
+              {activeTab === "Line Chart" && <LineChartComponent graphData={graphData}/>}
+              {activeTab === "Bar Chart" && <BarChartComponent graphData={graphData}/>}
             </div>
 
-            {showSQL && (<SqlQuery SQLQuery={SQLQuery} setSQLQuery={setSQLQuery}/>)}
+            {showSQL && (<SqlQuery SQLQuery={SQLQuery} setSQLQuery={setSQLQuery} activeTab={activeTab} setGraphData={setGraphData} />)}
           </div>
         </div>}
         {/* Bar Charts */}
         <div className="grid grid-cols-1 md:grid-cols-2 shadow-md gap-6 mb-6 mt-4">
-          <BarChart />
-          <BarChart />
+          {/* <ShowStories/> */}
         </div>
       </div>
     </div>

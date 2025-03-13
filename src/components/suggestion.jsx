@@ -140,7 +140,7 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData}) =
                     </div>
                 </div>
             )}
-            {showStoryForm && <SaveStory graphData={graphData} setGraphData={setGraphData} setShowStoryForm={setShowStoryForm} setSearchText={setSearchText}/>}
+            {showStoryForm && <SaveStory activeTab={activeTab} graphData={graphData} setGraphData={setGraphData} setShowStoryForm={setShowStoryForm} setSearchText={setSearchText}/>}
 
             {/* Search Input */}
             <div className="relative mt-normal  bg-[#fdfbf6]">
