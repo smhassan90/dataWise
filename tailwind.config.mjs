@@ -13,6 +13,7 @@ export default {
         secondary:'#036666',
         Tertiary :'#171717',
         Quaternary :'#D9D9D9',
+        Quinary :"#ff8548",
         white: "#ffff",
         gray: "#6B6B6B",
       },
