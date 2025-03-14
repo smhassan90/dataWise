@@ -61,8 +61,8 @@ export default function Dashboard() {
           </div>
         </div>}
         {/* Bar Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 shadow-md gap-6 mb-6 mt-4">
-          {/* <ShowStories/> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 shadow-md my-normal">
+          <ShowStories/>
         </div>
       </div>
     </div>

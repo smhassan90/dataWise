@@ -1,3 +1,5 @@
+"use client"
+import { useEffect, useState } from "react";
 import {
   XAxis,
   YAxis,
@@ -9,8 +11,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 const BarChartComponent = ({ graphData }) => {
+  const [keys,setKeys] = useState()
   const fillsColor = ["#036666", '#ff8548']
-  const keys = graphData && graphData.data.length > 0 ? Object.keys(graphData.data[0]) : [];
+  useEffect(()=>{
+    const keys = graphData && graphData?.data?.length > 0 ? Object.keys(graphData.data[0]) : [];
+    setKeys(keys)
+  },[graphData])
+  console.log(keys)
   return (
     <ResponsiveContainer width="100%" height={370}>
       <BarChart data={graphData.data}>
@@ -18,7 +25,7 @@ const BarChartComponent = ({ graphData }) => {
         {keys && keys.length > 0 && (
           <XAxis
             dataKey={keys.find((key) => typeof graphData.data[0][key] === 'string') || keys[0]}
-            angle={-5}
+            angle={1}
             tick={{ fontSize: 12 }}
             interval={0}
           />
@@ -27,7 +34,7 @@ const BarChartComponent = ({ graphData }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        {keys.filter((key) =>
+        {keys && keys?.filter((key) =>
           graphData.data.some((item) => !isNaN(item[key]))
         ).map((key, index) => (
           <Bar

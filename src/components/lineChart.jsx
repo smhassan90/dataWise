@@ -9,7 +9,7 @@ import {
     ResponsiveContainer
 } from "recharts";
 const LineChartComponent = ({ graphData }) => {
-    const keys = graphData && graphData.data.length > 0 ? Object.keys(graphData.data[0]) : [];
+    const keys = graphData && graphData?.data?.length > 0 ? Object.keys(graphData.data[0]) : [];
     return (
         <ResponsiveContainer width="100%" height={370}>
             <LineChart data={graphData.data} margin={{ left: 20, right: 30 }}>
@@ -17,7 +17,7 @@ const LineChartComponent = ({ graphData }) => {
                 {keys && keys.length > 0 && (
                     <XAxis
                         dataKey={keys.find((key) => typeof graphData.data[0][key] === 'string') || keys[0]}
-                        angle={-5}
+                        angle={1}
                         tick={{ fontSize: 12 }}
                         interval={0}
                     />

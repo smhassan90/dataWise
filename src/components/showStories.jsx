@@ -26,12 +26,12 @@ const ShowStories = () => {
             {stories && stories?.map((story, index) => {
                 if (story.resultType === "Line Chart") {
                     return (
-                        <LineChartComponent graphData={story.data} />
+                        <LineChartComponent graphData={story} key={index}/>
                     )
                 }
                 if (story.resultType === "Bar Chart") {
                     return (
-                        <BarChartComponent graphData={story.data} />
+                        <BarChartComponent graphData={story} key={index}/>
                     )
                 }
             })}
