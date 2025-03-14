@@ -22,7 +22,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  
+
   return (
     <html lang="en">
       <body>
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
           <Sidebar />
           <div className="flex flex-col w-full">
             <Navbar />
-              <ChildrenWrapper>{children}</ChildrenWrapper>
+            <ChildrenWrapper>{children}</ChildrenWrapper>
           </div>
         </div>
         <Toaster />

@@ -15,6 +15,7 @@ import SqlQuery from "@/src/components/sqlQuery";
 import LineChartComponent from "@/src/components/lineChart";
 import BarChartComponent from "@/src/components/barChart";
 import ShowStories from "@/src/components/showStories";
+import ReportChartComponent from "@/src/components/reportChart";
 
 export default function Dashboard() {
   const [showSQL, setShowSQL] = useState(false);
@@ -55,13 +56,14 @@ export default function Dashboard() {
             >
               {activeTab === "Line Chart" && <LineChartComponent graphData={graphData}/>}
               {activeTab === "Bar Chart" && <BarChartComponent graphData={graphData}/>}
+              {activeTab === "Report" && <ReportChartComponent graphData={graphData}/>}
             </div>
 
             {showSQL && (<SqlQuery SQLQuery={SQLQuery} setSQLQuery={setSQLQuery} activeTab={activeTab} setGraphData={setGraphData} />)}
           </div>
         </div>}
         {/* Bar Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 shadow-md my-normal">
+        <div className="flex flex-col gap-10 shadow-md my-normal">
           <ShowStories/>
         </div>
       </div>

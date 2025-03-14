@@ -3,6 +3,7 @@ import { Axios, summary } from '../config/summaryAPI'
 import { AxiosError } from '../utils/axiosError'
 import LineChartComponent from './lineChart'
 import BarChartComponent from './barChart'
+import ReportChartComponent from './reportChart'
 
 const ShowStories = () => {
     const [stories, setStories] = useState()
@@ -22,7 +23,7 @@ const ShowStories = () => {
         }
     }
     return (
-        <div>
+        <>
             {stories && stories?.map((story, index) => {
                 if (story.resultType === "Line Chart") {
                     return (
@@ -34,8 +35,13 @@ const ShowStories = () => {
                         <BarChartComponent graphData={story} key={index}/>
                     )
                 }
+                if (story.resultType === "Report") {
+                    return (
+                        <ReportChartComponent graphData={story} key={index}/>
+                    )
+                }
             })}
-        </div>
+        </>
     )
 }
 
