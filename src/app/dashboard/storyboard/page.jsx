@@ -50,7 +50,7 @@ export default function Dashboard() {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-4">
-            <div className={`${showSQL ? "lg:w-[770px]" : "w-full"
+            <div className={`${showSQL ? "lg:w-[930px]" : "w-full"
               } transition-all`}
             >
               {activeTab === "Line Chart" && <LineChartComponent graphData={graphData}/>}

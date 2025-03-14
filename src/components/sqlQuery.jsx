@@ -35,8 +35,8 @@ const SqlQuery = ({ SQLQuery, setSQLQuery , activeTab, setGraphData}) => {
                     <span>Re-run</span>
                 </Button>
             </div>
-            <div className="py-normal text-labelSize overflow-y-auto h-52 w-full">
-                <textarea type="text" spellCheck={false} onChange={(e) => setSQLQuery(e.target.value)} value={SQLQuery} className="h-36 w-full bg-transparent border-none focus:outline-none whitespace-pre-wrap break-words font-mono font-normal" />
+            <div className="py-normal text-labelSize overflow-y-auto h-72 w-full">
+                <textarea type="text" spellCheck={false} onChange={(e) => setSQLQuery(e.target.value)} value={SQLQuery} className="h-60 w-full bg-transparent border-none focus:outline-none whitespace-pre-wrap break-words font-mono font-normal" />
             </div>
         </div>
     )
