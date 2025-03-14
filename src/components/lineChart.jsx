@@ -17,8 +17,8 @@ const LineChartComponent = ({ graphData }) => {
                 {keys && keys.length > 0 && (
                     <XAxis
                         dataKey={keys.find((key) => typeof graphData.data[0][key] === 'string') || keys[0]}
-                        angle={-15}
-                        tick={{ fontSize: 11 }}
+                        angle={5}
+                        tick={{ fontSize: 12 }}
                         interval={0}
                     />
                 )}

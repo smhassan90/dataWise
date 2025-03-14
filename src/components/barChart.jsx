@@ -19,7 +19,7 @@ const BarChartComponent = ({ graphData }) => {
   },[graphData])
   console.log(keys)
   return (
-    <ResponsiveContainer width="100%" height={370}>
+    <ResponsiveContainer width="100%" margin-top={40} height={370}>
       <BarChart data={graphData.data}>
         <CartesianGrid strokeDasharray="3 3" />
         {keys && keys.length > 0 && (
