@@ -63,5 +63,13 @@ export const summary = {
     fetchEmployees:{
         url:'/api/employee/v1/getEmployee',
         method: 'get'
+    },
+    addStoryBoard:{
+        url:'/api/story/v1/addStoryBoard',
+        method: 'post'
+    },
+    getStoryBoard:{
+        url:'/api/story/v1/getStoryBoard',
+        method: 'get'
     }
 }

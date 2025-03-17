@@ -124,6 +124,14 @@ export const saveStoryFields = [
   },
 ];
 
+export const addStoryBoard = [
+  {
+    type: "text",
+    name: "storyBoardName",
+    placeholder: "Enter Story Board Name",
+    require: true,
+  }
+];
 
 export const editStory = [
   {

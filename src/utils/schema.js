@@ -122,3 +122,13 @@ export const SaveStorySchema = z
         errorMap: () => ({ message: "Invalid type selected" })
       }),
   })
+
+
+export const AddStoryBoardSchema = z
+  .object({
+    storyBoardName: z
+      .string()
+      .min(1, { message: "Story Board Name is required" })
+      .min(3, { message: "Story Board Name be at least 3 characters" })
+      .trim(),
+  })

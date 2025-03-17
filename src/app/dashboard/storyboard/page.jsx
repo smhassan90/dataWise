@@ -1,72 +1,103 @@
 "use client";
-import { useEffect, useState } from "react";
-import { FaSearch, FaMicrophone } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { FaChevronDown } from "react-icons/fa";
-import { FaRedo } from "react-icons/fa";
-import { Axios, summary } from "../../../config/summaryAPI";
-import { GoPencil } from "react-icons/go";
-
-import { ResponsiveContainer } from "recharts";
+import { Axios, summary } from "@/src/config/summaryAPI";
+import { AxiosError } from "@/src/utils/axiosError";
 import { Button } from "@/src/utils/button";
-import { method } from "lodash";
-import Suggestion from "@/src/components/suggestion";
-import SqlQuery from "@/src/components/sqlQuery";
-import LineChartComponent from "@/src/components/lineChart";
-import BarChartComponent from "@/src/components/barChart";
-import ShowStories from "@/src/components/showStories";
-import ReportChartComponent from "@/src/components/reportChart";
-
-export default function Dashboard() {
-  const [showSQL, setShowSQL] = useState(false);
-  const [graphData, setGraphData] = useState("");
-  const [activeTab, setActiveTab] = useState("Line Chart")
-  const [SQLQuery, setSQLQuery] = useState('')
-  const tabs = ["Line Chart", "Bar Chart", "Report"]
-  // const maxValue = Math.max(
-  //   ...keys.flatMap((key) => graphData.data.map((item) => item[key])).filter((val) => !isNaN(val))
-  // );
-
+import { addStoryBoard } from "@/src/utils/formFields";
+import { TextInput } from "@/src/utils/input";
+import { AddStoryBoardSchema } from "@/src/utils/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { RxCross2 } from "react-icons/rx";
+const StoryBorad = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [storyBoards, setStoryBoards] = useState([])
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(AddStoryBoardSchema),
+  });
+  const getStoryBoards = async () => {
+    try {
+      const response = await Axios({
+        ...summary.getStoryBoard
+      })
+      if (response.data.success) {
+        setStoryBoards(response.data.data)
+      }
+    } catch (error) {
+      console.log(error)
+      AxiosError(error)
+    }
+  }
   useEffect(() => {
-    setSQLQuery(graphData.query)
-  }, [graphData])
+    getStoryBoards()
+  }, [])
+  
+  const onSubmit = async (data) => {
+    console.log("Form Data:", data);
+    try {
+      const response = await Axios({
+        ...summary.addStoryBoard,
+        data: data
+      })
+      if (response.data.success) {
+        toast.success(response.data.message);
+        closeDialog()
+        reset()
+        getStoryBoards()
+      }
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+      AxiosError(error)
+    }
+  };
+
   return (
-    <div>
-      <div className="min-h-screen bg-white rounded-large p-normal">
-        <h1 className="font-manrope font-light">
-          Ask away, and feel the magic : &#41;
-        </h1>
-        <Suggestion graphData={graphData} setGraphData={setGraphData} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-        {graphData && <div className="p-normal rounded-large shadow-md before:bg-white w-full">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-normal">
-            <h2 className="text-small font-semibold font-manrope mb-normal sm:mb-0">
-              {activeTab}
-            </h2>
-
-            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-              <Button onClick={() => setShowSQL(!showSQL)} className="text-labelSize rounded-normal">
-                Show SQL Query
-              </Button>
+    <div className="p-normal">
+      {/* Button to open dialog */}
+      <Button onClick={openDialog}>Add Story Board</Button>
+      {/* Dialog overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">
+          {/* Dialog box */}
+          <div className="bg-white rounded-large shadow-md w-full max-w-md mx-4">
+            {/* Dialog header */}
+            <div className="flex justify-between items-center p-normal border-b">
+              <h2 className="text-lg font-semibold">Add Story Board</h2>
+              <button onClick={closeDialog} className="text-neutral-900 w-5">
+                <RxCross2 />
+              </button>
             </div>
-          </div>
+            <form action="" onSubmit={handleSubmit(onSubmit)}>
+              {/* Dialog content */}
+              <div className="p-normal">
+                {addStoryBoard.map((input, index) => (
+                  <TextInput input={input} key={index} errors={errors} register={register} />
+                ))}
 
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className={`${showSQL ? "lg:w-[930px]" : "w-full"
-              } transition-all`}
-            >
-              {activeTab === "Line Chart" && <LineChartComponent graphData={graphData}/>}
-              {activeTab === "Bar Chart" && <BarChartComponent graphData={graphData}/>}
-              {activeTab === "Report" && <ReportChartComponent graphData={graphData}/>}
-            </div>
+              </div>
 
-            {showSQL && (<SqlQuery SQLQuery={SQLQuery} setSQLQuery={setSQLQuery} activeTab={activeTab} setGraphData={setGraphData} />)}
+              {/* Dialog footer */}
+              <div className="p-normal text-left justify-end flex gap-3">
+                <Button onClick={closeDialog}>
+                  Cancel
+                </Button>
+                <Button type="submit">Save</Button>
+              </div>
+            </form>
           </div>
-        </div>}
-        {/* Bar Charts */}
-        <div className="flex flex-col gap-10 shadow-md my-normal">
-          <ShowStories/>
         </div>
-      </div>
+      )}
     </div>
   );
 }
+
+export default StoryBorad
