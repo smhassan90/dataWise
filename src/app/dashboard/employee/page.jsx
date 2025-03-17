@@ -56,11 +56,12 @@ const DataTable = () => {
   const columns = [
     { key: "id", label: "Id" },
     { key: "employeeName", label: "Employee Name" },
+   
     
     { key: "actions", label: "Actions" },
   ]
   return (
-    <div className="w-full bg-white">
+    <div className="">
 
       {employee && <Pagination data={employee} columns={columns}/>}
       {/* <div className="rounded-large bg-white shadow-md overflow-hidden">

@@ -1,217 +1,166 @@
-"use client"
-import React, { useState } from 'react'
+
+"use client";
+import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const Pagination = ({ data, columns }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [openRowIndex, setOpenRowIndex] = useState(null); // 🔹 Store row index instead of ID
+  const [selectedStory, setSelectedStory] = useState(""); // 🔹 State to store selected story
 
-  const totalPages = Math.ceil(data.length / itemsPerPage)
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem)
+  const stories = ["Story 1", "Story 2", "Story 3", "Story 4"]; 
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Pagination handlers
+  // 🔹 Toggle row dropdown using index
+  const toggleRow = (index) => {
+    setOpenRowIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  // 🔹 Reset dropdown on page change
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
+      setCurrentPage(page);
+      setOpenRowIndex(null); // Close dropdown when changing pages
     }
-  }
+  };
 
-  const handleItemsPerPageChange = (e) => {
-    setItemsPerPage(e.target.value)
-    setCurrentPage(1) // Reset to first page when changing items per page
-  }
   return (
-    <div className="flex flex-col gap-4">
-      {/* Table with horizontal and vertical scrolling */}
-      <div className="rounded-large border border-secondary">
-        <div className="overflow-x-auto">
-          <div className="overflow-y-auto ">
-            <table className="w-full min-w-max table-auto">
-              <thead className="sticky top-0">
-                <tr className="border-b border-gray-200">
+    <div className="p-normal">
+      {/* Table */}
+      <div className="rounded-large justify-around shadow-md">
+        <table className="w-full text-left justify-around  border-collapse">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th key={column.key} className="px-normal py-normal">
+                  {column.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((row, rowIndex) => (
+              <React.Fragment key={rowIndex}>
+                <tr className="border-b  hover:bg-gray-50">
                   {columns.map((column) => (
-                    <th
-                      key={column.key}
-                      className="whitespace-nowrap border-r border-gray-200 px-4 py-3 text-left font-medium text-gray-600 last:border-r-0"
-                    >
-                      {column.label}
-                    </th>
+                    <td key={`${rowIndex}-${column.key}`} className="px-normal py-normal">
+                      {column.key === "id"
+                        ? indexOfFirstItem + rowIndex + 1
+                        : column.key === "actions" ? (
+                            <div className="flex space-x-4">
+                              <button
+                                onClick={() => toggleRow(rowIndex)}
+                                className="text-gray-600 hover:text-gray-800"
+                              >
+                                <FaRegEyeSlash className="w-5 h-5" />
+                              </button>
+                              <button className="text-gray-600 hover:text-gray-800">
+                                <LiaEditSolid className="w-5 h-5" />
+                              </button>
+                              <button className="text-gray-600 hover:text-gray-800">
+                                <AiTwotoneDelete className="w-5 h-5" />
+                              </button>
+                            </div>
+                          ) : (
+                            row[column.key]
+                          )}
+                    </td>
                   ))}
                 </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((row, rowIndex) => (
-                  <tr
-                    key={row.id}
-                    className={`border-b border-secondary transition-colors hover:bg-gray-50 ${rowIndex === currentItems.length - 1 ? "border-b-0" : ""
-                      }`}
-                  >
-                    {columns.map((column) => (
-                      <td
-                        key={`${row.id}-${column.key}`}
-                        className="border-r border-secondary px-normal py-2 last:border-r-0"
+                {openRowIndex === rowIndex && ( // 🔹 Only one row's dropdown is visible
+                  <tr>
+                    <td colSpan={columns.length} className="px-normal py-normal bg-gray-100">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        {column.key === "id" ? rowIndex + 1 : column.key === "actions" ? (
-                          <td className="px-normal py-normal space-x-5">
-                            <button onClick={() => toggleRow(item.id)} className="text-gray-600 hover:text-gray-800">
-                              <FaRegEyeSlash className="w-5 h-5" />
-                            </button>
-                            <button className="text-gray-600 hover:text-gray-800">
-                              <LiaEditSolid className="w-5 h-5" />
-                            </button>
-                            <button className="text-gray-600 hover:text-gray-800">
-                              <AiTwotoneDelete className="w-5 h-5" />
-                            </button>
-                          </td>
-                        ) : row[column.key]}
-                      </td>
-                    ))}
+                        <p className="text-sm text-gray-700">
+                          <strong>Details:</strong> Additional information for this row.
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          <strong>Another Detail::</strong> More data related to this row.
+                        </p>
+                        <p className="text-sm text-gray-700">
+      <strong>Selected Story:</strong> {selectedStory || "None"} {/* 🔹 Show selected story */}
+      <select
+        className="ml-2 p-1 border rounded" // 🔹 Basic styling
+        onChange={(e) => setSelectedStory(e.target.value)} // 🔹 Update state on change
+      >
+        <option disabled value="">Select a Story</option> {/* 🔹 Default option */}
+        {stories.map((story, index) => (
+          <option key={index} value={story}>
+            {story}
+          </option>
+        ))}
+      </select>
+    </p>
+                      </motion.div>
+                    </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      {/* Pagination controls */}
-      <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <span>
-            {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, data.length)} of {data.length} items
-          </span>
-        </div>
-
-        <div className="flex items-center gap-1">
+      {/* Pagination */}
+      <div className="flex justify-between items-center mt-4">
+        <span className="text-gray-600 text-sm">
+          {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, data.length)} of {data.length} items
+        </span>
+        <div className="flex space-x-2">
           <button
-            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-              }`}
             onClick={() => goToPage(1)}
             disabled={currentPage === 1}
+            className={`px-3 py-1 rounded-md border ${currentPage === 1 ? "opacity-50" : "hover:bg-gray-100"}`}
           >
-            <span className="sr-only">First page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="11 17 6 12 11 7"></polyline>
-              <polyline points="18 17 13 12 18 7"></polyline>
-            </svg>
+            {"<<"}
           </button>
           <button
-            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-              }`}
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
+            className={`px-3 py-1 rounded-md border ${currentPage === 1 ? "opacity-50" : "hover:bg-gray-100"}`}
           >
-            <span className="sr-only">Previous page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
+            {"<"}
           </button>
-
-          <div className="flex items-center gap-1 px-1">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let pageNum
-
-              if (totalPages <= 5) {
-                // If we have 5 or fewer pages, show all page numbers
-                pageNum = i + 1
-              } else if (currentPage <= 3) {
-                // If we're near the start, show pages 1-5
-                pageNum = i + 1
-              } else if (currentPage >= totalPages - 2) {
-                // If we're near the end, show the last 5 pages
-                pageNum = totalPages - 4 + i
-              } else {
-                // Otherwise show 2 pages before and 2 pages after the current page
-                pageNum = currentPage - 2 + i
-              }
-
-              return (
-                <button
-                  key={pageNum}
-                  className={`h-8 w-8 rounded-md border ${currentPage === pageNum
-                    ? "bg-secondary text-white"
-                    : "hover:bg-Quinary hover:text-white"
-                    }`}
-                  onClick={() => goToPage(pageNum)}
-                >
-                  {pageNum}
-                </button>
-              )
-            })}
-          </div>
-
-          <button
-            className={`h-8 w-8 rounded-md border border-secondary flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goToPage(i + 1)}
+              className={`px-3 py-1 rounded-md border ${
+                currentPage === i + 1 ? "bg-gray-300" : "hover:bg-gray-100"
               }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded-md border ${currentPage === totalPages ? "opacity-50" : "hover:bg-gray-100"}`}
           >
-            <span className="sr-only">Next page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+            {">"}
           </button>
           <button
-            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-              }`}
             onClick={() => goToPage(totalPages)}
             disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded-md border ${currentPage === totalPages ? "opacity-50" : "hover:bg-gray-100"}`}
           >
-            <span className="sr-only">Last page</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="13 17 18 12 13 7"></polyline>
-              <polyline points="6 17 11 12 6 7"></polyline>
-            </svg>
+            {">>"}
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;
