@@ -109,7 +109,7 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData}) =
                 </div>
                 <div className='flex gap-3'>
                     {!showStoryForm && <Button className="text-labelSize" onClick={()=>setShowStoryForm((prev)=>!prev)}>
-                        Save Story
+                        Save Graph
                     </Button>}
                     <Button onClick={suggestQuestion} className="text-labelSize">
                         {showSuggestions ? "Hide Suggestions" : "More Suggestions"}

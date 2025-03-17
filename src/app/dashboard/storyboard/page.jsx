@@ -10,7 +10,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
+import Pagination from '@/src/components/pagination'
+import { useRouter } from "next/navigation";
 const StoryBorad = () => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [storyBoards, setStoryBoards] = useState([])
   const openDialog = () => setIsOpen(true);
@@ -39,7 +42,7 @@ const StoryBorad = () => {
   useEffect(() => {
     getStoryBoards()
   }, [])
-  
+
   const onSubmit = async (data) => {
     console.log("Form Data:", data);
     try {
@@ -52,6 +55,7 @@ const StoryBorad = () => {
         closeDialog()
         reset()
         getStoryBoards()
+        router.push(`/dashboard/storyBoard/${response.data.data._id}`)
       }
       console.log(response.data)
     } catch (error) {
@@ -61,7 +65,7 @@ const StoryBorad = () => {
   };
 
   return (
-    <div className="p-normal">
+    <div className="">
       {/* Button to open dialog */}
       <Button onClick={openDialog}>Add Story Board</Button>
       {/* Dialog overlay */}
@@ -96,6 +100,7 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
+      {storyBoards.length > 0 && <Pagination data={storyBoards}/>}
     </div>
   );
 }
