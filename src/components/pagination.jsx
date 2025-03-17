@@ -224,23 +224,7 @@ import Link from "next/link"
 import { Eye } from "lucide-react"
 import { Button } from "../utils/button"
 
-// Mock data for storyboards
-const storyboards = [
-  { id: 1, name: "Marketing Campaign 2024", createdAt: "2024-03-10", status: "Active" },
-  { id: 2, name: "Product Launch Video", createdAt: "2024-03-05", status: "Draft" },
-  { id: 3, name: "Customer Testimonials", createdAt: "2024-02-28", status: "Active" },
-  { id: 4, name: "Training Module", createdAt: "2024-02-20", status: "Completed" },
-  { id: 5, name: "Social Media Content", createdAt: "2024-02-15", status: "Active" },
-  { id: 6, name: "Annual Report Visuals", createdAt: "2024-02-10", status: "Draft" },
-  { id: 7, name: "Product Demo", createdAt: "2024-02-05", status: "Active" },
-  { id: 8, name: "Company Overview", createdAt: "2024-01-28", status: "Completed" },
-  { id: 9, name: "Event Promotion", createdAt: "2024-01-20", status: "Active" },
-  { id: 10, name: "Tutorial Series", createdAt: "2024-01-15", status: "Draft" },
-  { id: 11, name: "Brand Guidelines", createdAt: "2024-01-10", status: "Completed" },
-  { id: 12, name: "Feature Showcase", createdAt: "2024-01-05", status: "Active" },
-]
-
-const Pagination = ({data}) => {
+const Pagination = ({data,columns,page}) => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
@@ -262,11 +246,9 @@ const Pagination = ({data}) => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-50 border-b">
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 whitespace-nowrap">ID</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 whitespace-nowrap">Storyboard Name</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 whitespace-nowrap">Created Date</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 whitespace-nowrap">Status</th>
-              <th className="px-4 py-3 text-right font-semibold text-gray-600 whitespace-nowrap">Actions</th>
+              {columns.map((column,index)=>(
+                <th key={index} className="px-4 py-3 text-left font-semibold text-gray-600 whitespace-nowrap">{column}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -276,7 +258,7 @@ const Pagination = ({data}) => {
                 <td className="px-4 py-3 whitespace-nowrap">{storyboard.storyBoardName}</td>
                 <td className="px-4 py-3 whitespace-nowrap">{new Date(storyboard.createdAt).toLocaleDateString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap">{storyboard.status == "1" ? "Active" : "InActive"}</td>
-                <td className="px-4 py-3 text-right whitespace-nowrap">
+                <td className="px-4 py-3 whitespace-nowrap">
                   <Link
                     href={`/dashboard/storyBoard/${storyboard._id}`}
                     className="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"

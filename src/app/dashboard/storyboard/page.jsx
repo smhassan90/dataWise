@@ -18,6 +18,7 @@ const StoryBorad = () => {
   const [storyBoards, setStoryBoards] = useState([])
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
+  const columns = ["ID","Storyboard Name","Created Date","Status","Actions"]
   const {
     register,
     handleSubmit,
@@ -100,7 +101,7 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
-      {storyBoards.length > 0 && <Pagination data={storyBoards}/>}
+      {storyBoards.length > 0 && <Pagination data={storyBoards} columns={columns} page="storyBoard"/>}
     </div>
   );
 }

@@ -38,7 +38,6 @@ const DataTable = () => {
       AxiosError(error)
     }
   }
-
   console.log(employee)
   const totalPages = Math.ceil(tableData.length / entriesPerPage)
   const currentEntries = tableData.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage)
@@ -53,13 +52,7 @@ const DataTable = () => {
     setExpandedRow(expandedRow === rowId ? null : rowId)
   }
 
-  const columns = [
-    { key: "id", label: "Id" },
-    { key: "employeeName", label: "Employee Name" },
-   
-    
-    { key: "actions", label: "Actions" },
-  ]
+  const columns = ["ID","Employee Name","Created Date","Actions"]
   return (
     <div className="">
 
