@@ -210,7 +210,7 @@ const DraggableGraph = ({ story, index, moveCard }) => {
   );
 };
 
-const ShowStories = () => {
+const ShowStories = ({paramsId}) => {
   const [stories, setStories] = useState([]);
   const [fullWidth, setFullWidth] = useState(false);
 
@@ -220,7 +220,11 @@ const ShowStories = () => {
 
   const fetchStories = async () => {
     try {
-      const response = await Axios({ ...summary.fetchStories });
+      const response = await Axios({ 
+        ...summary.fetchStories,
+        url: `/api/integration/v1/getAllStories/${paramsId}`
+      });
+      
       if (response.data.success) {
         setStories(response.data.data);
       }

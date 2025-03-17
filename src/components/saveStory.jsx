@@ -28,11 +28,10 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
         }
     }, [graphData, reset]);
     const onSubmit = async(data) => {
-        console.log(data)
         try {
             const response = await Axios({
                 ...summary.saveStory,
-                data:data
+                data
             })
             if(response.data.success){
                 toast.success(response.data.message)
