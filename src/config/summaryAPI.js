@@ -59,5 +59,9 @@ export const summary = {
     fetchStories:{
         url:'/api/integration/v1/getAllStories',
         method: 'get'
+    },
+    fetchEmployees:{
+        url:'/api/employee/v1/getEmployee',
+        method: 'get'
     }
 }
