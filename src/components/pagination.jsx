@@ -324,7 +324,7 @@ const Pagination = ({data}) => {
         </nav>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;
