@@ -71,5 +71,25 @@ export const summary = {
     getStoryBoard:{
         url:'/api/story/v1/getStoryBoard',
         method: 'get'
+    },
+    fetchSingleEmployee:{
+        url:'/api/employee/v1/getEmployee',
+        method: 'get'
+    },
+    addStoryBoardForUser:{
+        url:'/api/story/v1/addStoryForEmployee',
+        method: 'post'
+    },
+    deleteStoryBoardForUser:{
+        url:'/api/story/v1/deleteStoryForEmployee',
+        method: 'delete'
+    },
+    editEmployee:{
+        url:'/api/employee/v1/updateEmployee',
+        method: 'put'
+    },
+    addEmployee:{
+        url:'/api/employee/v1/addEmployee',
+        method: 'post'
     }
 }

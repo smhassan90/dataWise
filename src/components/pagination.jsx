@@ -223,9 +223,13 @@ import { useState } from "react"
 import Link from "next/link"
 import { Eye } from "lucide-react"
 import { Button } from "../utils/button"
+import StoryBoardData from "./storyBoardData"
+import EmployeesList from "./employeesList"
 
-const Pagination = ({data,columns,page}) => {
+const Pagination = ({ data, columns, page, storyBoards,employees }) => {
   const [currentPage, setCurrentPage] = useState(1)
+  const [expandedViewRow, setExpandedViewRow] = useState(null)
+  const [expandedEditRow, setExpandedEditRow] = useState(null)
   const itemsPerPage = 10
 
   // Calculate pagination
@@ -243,7 +247,24 @@ const Pagination = ({data,columns,page}) => {
   return (
     <div className="w-full bg-white rounded-lg shadow-md mt-normal">
       <div className="w-full overflow-x-auto">
-        <table className="w-full border-collapse">
+        {page === "storyBoard" &&
+          <StoryBoardData
+            columns={columns}
+            currentItems={currentItems}
+            indexOfFirstItem={indexOfFirstItem}
+          />}
+        {page === "employees" &&
+          <EmployeesList columns={columns}
+            currentItems={currentItems}
+            indexOfFirstItem={indexOfFirstItem}
+            expandedViewRow={expandedViewRow}
+            setExpandedViewRow={setExpandedViewRow}
+            expandedEditRow={expandedEditRow}
+            setExpandedEditRow={setExpandedEditRow}
+            storyBoards={storyBoards}
+            employees={employees}
+          />}
+        {/* <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-50 border-b">
               {columns.map((column,index)=>(
@@ -270,7 +291,7 @@ const Pagination = ({data,columns,page}) => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
 
       <div className="flex items-center justify-center mt-6">
@@ -288,7 +309,7 @@ const Pagination = ({data,columns,page}) => {
             <button
               key={number}
               onClick={() => setCurrentPage(number)}
-              className={`px-3 py-1.5 rounded-md ${currentPage === number ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-gray-100"
+              className={`px-3 py-1.5 rounded-md ${currentPage === number ? "bg-Quinary border border-Quinary text-white" : "border"
                 }`}
             >
               {number}

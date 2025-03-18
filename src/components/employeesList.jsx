@@ -1,0 +1,81 @@
+import Link from 'next/link'
+import { Eye } from "lucide-react"
+import { AiTwotoneDelete } from 'react-icons/ai'
+import { LiaEditSolid } from 'react-icons/lia'
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
+import { Button } from '../utils/button'
+import EmployeeInfo from './employeeInfo'
+import EmployeeEdit from './employeeEdit';
+const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees}) => {
+    const toggleViewRow = (id) => {
+        if (expandedViewRow === id) {
+            setExpandedViewRow(null)
+        } else {
+            setExpandedViewRow(id)
+            setExpandedEditRow(null);
+        }
+    }
+    const toggleEditRow = (id) => {
+        if (expandedEditRow === id) {
+            setExpandedEditRow(null)
+        } else {
+            setExpandedEditRow(id)
+            setExpandedViewRow(null)
+        }
+    }
+    return (
+        <table className="w-full border-collapse">
+            <thead>
+                <tr className="bg-gray-50 border-b">
+                    {columns.map((column, index) => (
+                        <th key={index} className="p-normal text-left font-semibold text-gray-600 whitespace-nowrap">{column}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {currentItems.map((employee, index) => (
+                    <>
+                        <tr key={employee.id} className="border-b hover:bg-gray-50">
+                            <td className="p-normal w-1/6 font-medium whitespace-nowrap">{indexOfFirstItem + index + 1}</td>
+                            <td className="p-normal w-3/6 whitespace-nowrap">{employee.employeeName}</td>
+                            <td className="p-normal w-1/6 whitespace-nowrap">{new Date(employee.createdAt).toLocaleDateString()}</td>
+                            <td className="p-normal w-1/6 whitespace-nowrap flex gap-3">
+                                <button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
+                                    {expandedViewRow === (indexOfFirstItem + index + 1) ?
+                                        <FaRegEye className="w-5 h-5" /> : <FaRegEyeSlash className="w-5 h-5" />}
+                                </button>
+                                <button onClick={() => toggleEditRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
+                                    <LiaEditSolid className="w-5 h-5" />
+                                </button>
+                                {/* <button className="text-gray-600 hover:text-gray-800">
+                                    <AiTwotoneDelete className="w-5 h-5" />
+                                </button> */}
+                            </td>
+                        </tr>
+                        {expandedViewRow === (indexOfFirstItem + index + 1) && (
+                            <tr>
+                                <td colSpan={5} className="p-0">
+                                    <div className="animate-slideDown overflow-hidden">
+                                        <EmployeeInfo employee={employee} storyBoards={storyBoards} />
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                        {expandedEditRow === (indexOfFirstItem + index + 1) && (
+                            <tr>
+                                <td colSpan={5} className="p-0">
+                                    <div className="animate-slideDown overflow-hidden">
+                                        <EmployeeEdit employee={employee} storyBoards={storyBoards} setExpandedEditRow={setExpandedEditRow} employees={employees}/>
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                    </>
+                ))}
+            </tbody>
+        </table>
+    )
+}
+
+export default EmployeesList

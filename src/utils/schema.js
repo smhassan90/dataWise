@@ -132,3 +132,36 @@ export const AddStoryBoardSchema = z
       .min(3, { message: "Story Board Name be at least 3 characters" })
       .trim(),
   })
+
+export const AddStoryBoardForUserSchema = z
+  .object({
+    storyBoardId: z
+      .string()
+      .min(1, { message: "Story Board ID is required" }),
+  })
+
+export const editemployeeSchema = z.
+  object({
+    employeeName: z.
+      string()
+      .min(1, { message: "Employee Name is required" })
+      .min(3, { message: "Employee Name be at least 3 characters" }),
+    level: z.coerce.
+      number().int()
+      .min(1, { message: "Level is required" })
+      .max(5, { message: "Level must be between 1 and 5" }),
+    quota: z.coerce.
+      number().int().optional()
+  });
+
+export const employeeSchema = z.
+  object({
+    employeeName: z.
+      string()
+      .min(1, { message: "Employee Name is required" })
+      .min(3, { message: "Employee Name be at least 3 characters" }),
+    level: z.coerce.
+      number().int()
+      .min(1, { message: "Level is required" })
+      .max(5, { message: "Level must be between 1 and 5" })
+  });

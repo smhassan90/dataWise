@@ -133,6 +133,15 @@ export const addStoryBoard = [
   }
 ];
 
+export const addStoryBoardForUser = [
+  {
+    type: "select",
+    name: "StoryBoardId",
+    placeholder: "Select Story Board",
+    require: true,
+  }
+];
+
 export const editStory = [
   {
     type: "text",
@@ -159,4 +168,47 @@ export const editStory = [
     ],
   },
 ];
+
+
+export const editEmployeeFields = [
+  {
+    type: "text",
+    name: "employeeName",
+    placeholder: "Enter Employee Name",
+    require: true,
+    label: "Employee Name",
+  },
+  {
+    type: "number",
+    name: "level",
+    placeholder: "Enter Employee Level (1-5)",
+    require: true,
+    label: "Level",
+  },
+  {
+    type: "number",
+    name: "quota",
+    placeholder: "Enter Employee Quota",
+    require: false,
+    label: "Quota",
+  }
+];
+
+export const employeeFields = [
+  {
+    type: "text",
+    name: "employeeName",
+    placeholder: "Enter Employee Name",
+    require: true,
+    label: "Employee Name",
+  },
+  {
+    type: "number",
+    name: "level",
+    placeholder: "Enter Employee Level (1-5)",
+    require: true,
+    label: "Level",
+  }
+];
+
 
