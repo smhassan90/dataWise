@@ -197,18 +197,42 @@ export const editEmployeeFields = [
 export const employeeFields = [
   {
     type: "text",
-    name: "employeeName",
-    placeholder: "Enter Employee Name",
+    name: "firstName",
+    placeholder: "Enter First Name",
     require: true,
-    label: "Employee Name",
+    label: "First Name",
   },
   {
-    type: "number",
-    name: "level",
-    placeholder: "Enter Employee Level (1-5)",
+    type: "text",
+    name: "lastName",
+    placeholder: "Enter LastName Name",
     require: true,
-    label: "Level",
-  }
+    label: "LastName",
+  },
+  {
+    type: "email",
+    name: "email",
+    placeholder: "comvi-dashboard@gmail.com",
+    required: true,
+    label: "Email",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "********",
+    required: true,
+    label: "PASSWORD",
+  },
+{
+  type: "select",
+  name: "level",
+  placeholder: "level",
+  require: true,
+  options: [
+    { label: "editor", value: "editor" },
+    { label: "viewer", value: "viewer" }
+  ],
+},
 ];
 
 
