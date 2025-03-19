@@ -60,12 +60,12 @@ const LoginPage = () => {
     alt="" 
   />
 </div>
-        <div className="mt-2 text-center">
+        {/* <div className="mt-2 text-center">
           <h3 className="text-medium font-semibold">Log In</h3>
           <p className="w-2/3 text-labelSize text-gray tracking-tight leading-6 mx-auto md:w-1/2">
             Your data, is your employee!
           </p>
-        </div>
+        </div> */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="px-4 m-auto flex flex-col gap-2 mt-5 md:px-0 md:gap-3"
