@@ -9,6 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import { debounce } from "lodash"
 import { formatTitle } from "../config/caplitalizeWords"
 import { logout } from "../redux/auth"
+import { Hidden } from "@mui/material"
 const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -80,8 +81,15 @@ const Sidebar = () => {
           lg:translate-x-0 lg:m-normal lg:h-[calc(100vh-24px)]`}
       >
         <div className={`h-full overflow-y-auto flex flex-col`}>
-          <div className="flex items-center justify-between p-5">
-            <h1 className={`text-medium transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1>
+          <div className="flex items-center justify-between p-3">
+            {/* <h1 className={`text-medium transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1> */}
+            <div className={`w-full rounded-large shadow-md bg-white h-14 transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>
+  <img className="w-32 mt-2 ml-12 items-center text-center h-10" 
+    src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless" 
+    alt="" 
+  />
+</div>
+
             <button className="lg:hidden text-white"
               onClick={() => dispatch(toogleMobile(false))}
               aria-label="Close sidebar"

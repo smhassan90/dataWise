@@ -83,7 +83,9 @@ export const SelectInput = ({ input, register, errors }) => {
     return (
         <div className="flex flex-col gap-1 md:gap-2 justify-start w-full relative">
             <div className="relative w-full">
-                <select
+            <label htmlFor={input.name} className="text-labelSize text-gray font-medium mx-2">
+                {input.label}
+            </label>                <select
                     {...register(input.name)}
                     className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
                     defaultValue=""

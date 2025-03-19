@@ -224,6 +224,7 @@ export const employeeFields = [
     label: "PASSWORD",
   },
 {
+  label: "Role",
   type: "select",
   name: "level",
   placeholder: "level",
