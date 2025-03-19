@@ -9,6 +9,7 @@ import { Button } from '../utils/button';
 import { Axios, summary } from '../config/summaryAPI';
 import toast from 'react-hot-toast';
 import { AxiosError } from '../utils/axiosError';
+import { useParams } from 'next/navigation';
 
 const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSearchText}) => {
     const {
@@ -19,6 +20,7 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
     } = useForm({
         resolver: zodResolver(SaveStorySchema),
     });
+    const pathName = useParams()
     useEffect(() => {
         if (graphData?.query) {
             reset({
@@ -31,7 +33,7 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
         try {
             const response = await Axios({
                 ...summary.saveStory,
-                // url:`/api/integration/v1/saveStory/${}`,
+                url:`/api/integration/v1/saveStory/${pathName.storyBoardId}`,
                 data
             })
             if(response.data.success){

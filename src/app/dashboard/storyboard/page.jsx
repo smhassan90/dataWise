@@ -20,7 +20,7 @@ const StoryBorad = () => {
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
-  const {level , _id} = useSelector(state => state?.auth?.user)
+  const user = useSelector(state => state?.auth?.user)
 
   const {
     register,
@@ -47,7 +47,7 @@ const StoryBorad = () => {
     try {
       const response = await Axios({
         ...summary.fetchSingleEmployee,
-        url: `/api/employee/v1/getEmployee/${_id}`
+        url: `/api/employee/v1/getEmployee/${user?._id}`
       });
       if (response.data.success) {
         setStoryBoards(response.data.data.storyBoards)
@@ -58,7 +58,7 @@ const StoryBorad = () => {
     }
   }
   useEffect(() => {
-    if (level <= 3) {
+    if (user?.level <= 3) {
       getStoryBoards()
     } else {
       getEmployeeStoryBoards()
@@ -89,7 +89,7 @@ const StoryBorad = () => {
   return (
     <div className="">
       {/* Button to open dialog */}
-      {level <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
+      {user?.level <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
       {/* Dialog overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">

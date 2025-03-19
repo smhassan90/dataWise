@@ -32,6 +32,12 @@ const Pagination = ({ data, columns, page, storyBoards, employees }) => {
             columns={columns}
             currentItems={currentItems}
             indexOfFirstItem={indexOfFirstItem}
+            expandedViewRow={expandedViewRow}
+            setExpandedViewRow={setExpandedViewRow}
+            expandedEditRow={expandedEditRow}
+            setExpandedEditRow={setExpandedEditRow}
+            storyBoards={storyBoards}
+            employees={employees}
           />}
         {page === "employees" &&
           <EmployeesList columns={columns}
