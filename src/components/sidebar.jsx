@@ -20,7 +20,8 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false)
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
-
+  const userLevel = useSelector((state) => state?.auth?.user?.level)
+  console.log(userLevel)
   const showHide = sidebarOpen || isMobileMenuOpen ? "block" : "hidden"
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Sidebar = () => {
 
   const navigateTo = (menu) => {
     setLoading(true);
-    if(menu.title === 'Logout') {
+    if (menu.title === 'Logout') {
       console.log("Click Hua")
       localStorage.removeItem("token")
       dispatch(logout())
@@ -105,28 +106,23 @@ const Sidebar = () => {
               OVERVIEW
             </p>
             <ul className="mt-2 flex flex-col">
-              {sideBarMenu.map((menu, index) => (
-                <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
-                  <p className={`w-full flex items-center space-x-3 py-3 px-4 ${active === menu.title && sidebarOpen
-                    ? "bg-white text-black"
-                    : ""
-                    }`}
-                    onClick={() => navigateTo(menu)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    {menu.icon}
-                    <span
-                      className={`${showHide} transition-all duration-300 text-labelSize`}
+              {sideBarMenu.filter(menu => menu.level.includes(parseInt(userLevel)))
+                .map((menu, index) => (
+                  <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
+                    <p className={`w-full flex items-center space-x-3 py-3 px-4 ${active === menu.title && sidebarOpen ? "bg-white text-black" : ""}`}
+                      onClick={() => navigateTo(menu)}
+                      role="button"
+                      tabIndex={0}
                     >
-                      {menu.title}
-                    </span>
-                  </p>
-                  <span
-                    className={`${active === menu.title ? "bg-orange-600 w-1" : ""} rounded-l-lg`}
-                  ></span>
-                </li>
-              ))}
+                      {menu.icon}
+                      <span className={`${showHide} transition-all duration-300 text-labelSize`}>
+                        {menu.title}
+                      </span>
+                    </p>
+                    <span className={`${active === menu.title ? "bg-orange-600 w-1" : ""} rounded-l-lg`}></span>
+                  </li>
+                ))}
+
             </ul>
           </nav>
 

@@ -25,9 +25,9 @@ const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRo
         }
     }
     return (
-        <table className="w-full border-collapse">
+        <table className="w-full">
             <thead>
-                <tr className="bg-gray-50 border-b">
+                <tr className="border-b">
                     {columns.map((column, index) => (
                         <th key={index} className="p-normal text-left font-semibold text-gray-600 whitespace-nowrap">{column}</th>
                     ))}
@@ -36,11 +36,12 @@ const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRo
             <tbody>
                 {currentItems.map((employee, index) => (
                     <>
-                        <tr key={employee.id} className="border-b hover:bg-gray-50">
-                            <td className="p-normal w-1/6 font-medium whitespace-nowrap">{indexOfFirstItem + index + 1}</td>
-                            <td className="p-normal w-3/6 whitespace-nowrap">{employee.employeeName}</td>
-                            <td className="p-normal w-1/6 whitespace-nowrap">{new Date(employee.createdAt).toLocaleDateString()}</td>
-                            <td className="p-normal w-1/6 whitespace-nowrap flex gap-3">
+                        <tr key={employee.id} className="border-b">
+                            <td className="p-normal w-1/12 font-medium whitespace-nowrap">{indexOfFirstItem + index + 1}</td>
+                            <td className="p-normal w-3/12 whitespace-nowrap">{employee.firstName}</td>
+                            <td className="p-normal w-4/12 whitespace-nowrap">{employee.email}</td>
+                            <td className="p-normal w-2/12 whitespace-nowrap">{new Date(employee.createdAt).toLocaleDateString()}</td>
+                            <td className="p-normal w-2/12 whitespace-nowrap flex gap-3">
                                 <button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
                                     {expandedViewRow === (indexOfFirstItem + index + 1) ?
                                         <FaRegEye className="w-5 h-5" /> : <FaRegEyeSlash className="w-5 h-5" />}

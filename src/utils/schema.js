@@ -156,35 +156,34 @@ export const editemployeeSchema = z.
 
 export const employeeSchema = z.
   object({
-    
-      firstName: z
+    firstName: z
       .string()
       .min(1, { message: "First Name is required" })
       .min(3, { message: "First Name must be at least 3 characters" })
       .trim(),
 
-      lastName: z
+    lastName: z
       .string()
       .min(1, { message: "Last Name is required" })
       .min(3, { message: "Last Name must be at least 3 characters" })
       .trim(),
 
-      email: z
+    email: z
       .string()
       .min(1, { message: "Email is required" })
       .email("Invalid email address")
       .trim(),
 
-      password: z
+    password: z
       .string()
       .min(1, { message: "Password is required" })
       .min(6, { message: "Password must be at least 6 characters" })
       .trim(),
-      
-      level: z.
-      enum(["editor", "viewer"], {
-        errorMap: () => ({ message: "Invalid database type selected" })
+
+    level: z
+      .string()
+      .min(1, { message: "Please select a level" })
+      .refine((val) => ["2", "3", "4", "5"].includes(val), {
+        message: "Invalid database type selected",
       }),
-   
-      // level: z.enum(["editor", "viewer"], { message: "Invalid level selected" })
   });
