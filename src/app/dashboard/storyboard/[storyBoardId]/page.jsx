@@ -55,10 +55,9 @@ const Dashboard = () => {
                         {showSQL && (<SqlQuery SQLQuery={SQLQuery} setSQLQuery={setSQLQuery} activeTab={activeTab} setGraphData={setGraphData} />)}
                     </div>
                 </div>}
-                {/* Bar Charts */}
                 <div className="flex flex-col gap-10 shadow-md my-normal">
-                    
-                    <ShowStories paramsId={storyBoardId}/>
+
+                    <ShowStories paramsId={storyBoardId} />
                 </div>
             </div>
         </div>

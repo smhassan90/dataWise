@@ -2,22 +2,21 @@
 import { TextInput } from "../utils/input"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { editemployeeSchema } from "../utils/schema";
+import { editEmployeeQuotaSchema } from "../utils/schema";
 import { Button } from "../utils/button";
 import { AxiosError } from "../utils/axiosError";
 import { Axios, summary } from "../config/summaryAPI";
-import { editEmployeeFields } from "../utils/formFields";
+import { editEmployeeQuotaFields } from "../utils/formFields";
 import toast from "react-hot-toast";
-const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow , employees}) => {
+const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees }) => {
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm({
-        resolver: zodResolver(editemployeeSchema),
+        resolver: zodResolver(editEmployeeQuotaSchema),
         defaultValues: {
-            employeeName: employee.employeeName || "",
             level: employee.level || "",
             quota: employee.quota || ""
         },
@@ -27,7 +26,7 @@ const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow , employees}) 
         try {
             const response = await Axios({
                 ...summary.editEmployee,
-                url: `/api/employee/v1/updateEmployee/${employee._id}`,
+                url: `/api/employee/v1/updateEmployeeQuota/${employee._id}`,
                 data: data
             })
             if (response.data.success) {
@@ -58,11 +57,16 @@ const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow , employees}) 
     return (
         <div className="w-full p-normal border-b">
             {/* Story Selection */}
-            <form onSubmit={handleSubmit(onSubmit)} className="px-normal m-auto flex flex-col gap-2 mt-normal md:px-0 md:gap-3"
+            <form onSubmit={handleSubmit(onSubmit)} className="px-normal mr-auto flex flex-col items-start gap-2 mt-normal md:px-0 md:gap-3"
             >
-                {editEmployeeFields.map((input, index) => (
-                    <TextInput input={input} key={index} errors={errors} register={register} />
-                ))}
+                {editEmployeeQuotaFields.map((input, index) => {
+                    if (input.name == "quota" && employee.level > 3) {
+                        return null
+                    }
+                    return (
+                        <TextInput input={input} key={index} errors={errors} register={register} />
+                    )
+                })}
                 <Button className="w-fit">Update</Button>
             </form>
         </div >

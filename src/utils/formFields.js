@@ -170,14 +170,7 @@ export const editStory = [
 ];
 
 
-export const editEmployeeFields = [
-  {
-    type: "text",
-    name: "employeeName",
-    placeholder: "Enter Employee Name",
-    require: true,
-    label: "Employee Name",
-  },
+export const editEmployeeQuotaFields = [
   {
     type: "number",
     name: "level",

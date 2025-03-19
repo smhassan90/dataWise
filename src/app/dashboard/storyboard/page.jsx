@@ -12,13 +12,16 @@ import toast from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
 import Pagination from '@/src/components/pagination'
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const StoryBorad = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [storyBoards, setStoryBoards] = useState([])
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
-  const columns = ["ID","Storyboard Name","Created Date","Status","Actions"]
+  const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
+  const {level , _id} = useSelector(state => state?.auth?.user)
+
   const {
     register,
     handleSubmit,
@@ -40,8 +43,26 @@ const StoryBorad = () => {
       AxiosError(error)
     }
   }
+  const getEmployeeStoryBoards = async (data) => {
+    try {
+      const response = await Axios({
+        ...summary.fetchSingleEmployee,
+        url: `/api/employee/v1/getEmployee/${_id}`
+      });
+      if (response.data.success) {
+        setStoryBoards(response.data.data.storyBoards)
+      }
+    } catch (error) {
+      console.log(error)
+      AxiosError(error)
+    }
+  }
   useEffect(() => {
-    getStoryBoards()
+    if (level <= 3) {
+      getStoryBoards()
+    } else {
+      getEmployeeStoryBoards()
+    }
   }, [])
 
   const onSubmit = async (data) => {
@@ -68,7 +89,7 @@ const StoryBorad = () => {
   return (
     <div className="">
       {/* Button to open dialog */}
-      <Button onClick={openDialog}>Add Story Board</Button>
+      {level <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
       {/* Dialog overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">
@@ -101,7 +122,7 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
-      {storyBoards.length > 0 && <Pagination data={storyBoards} columns={columns} page="storyBoard"/>}
+      {storyBoards.length > 0 && <Pagination data={storyBoards} columns={columns} page="storyBoard" />}
     </div>
   );
 }

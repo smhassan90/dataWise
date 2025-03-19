@@ -7,7 +7,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { Button } from '../utils/button'
 import EmployeeInfo from './employeeInfo'
 import EmployeeEdit from './employeeEdit';
-const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees}) => {
+const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees }) => {
     const toggleViewRow = (id) => {
         if (expandedViewRow === id) {
             setExpandedViewRow(null)
@@ -67,7 +67,7 @@ const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRo
                             <tr>
                                 <td colSpan={5} className="p-0">
                                     <div className="animate-slideDown overflow-hidden">
-                                        <EmployeeEdit employee={employee} storyBoards={storyBoards} setExpandedEditRow={setExpandedEditRow} employees={employees}/>
+                                        <EmployeeEdit employee={employee} storyBoards={storyBoards} setExpandedEditRow={setExpandedEditRow} employees={employees} />
                                     </div>
                                 </td>
                             </tr>

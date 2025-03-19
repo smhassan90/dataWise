@@ -128,13 +128,13 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       const response = await Axios({
         ...summary.deleteStoryBoardForUser,
         params: {
-          storyBoardId: story.id,
-          employeeId: employee._id
+          storyBoardId: story._id,
+          userId: employee._id
         }
       })
       if(response.data.success){
-        setEmployeeInfo((prev) => prev.filter(prevStory => prevStory.id !== story.id));
-        setFilterStory((prev) => [...prev, { _id: story.id, storyBoardName: story.name }]);
+        setEmployeeInfo((prev) => prev.filter(prevStory => prevStory._id !== story._id));
+        setFilterStory((prev) => [...prev, { _id: story._id, storyBoardName: story.storyBoardName }]);
       }
       console.log(response.data)
     } catch (error) {
@@ -146,7 +146,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
     try {
       const payload = {
         ...data,
-        employeeId: employee._id
+        userId: employee._id
       }
       const response = await Axios({
         ...summary.addStoryBoardForUser,
@@ -197,7 +197,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
         {employee.storyBoards.length > 0 && <div className="flex flex-wrap gap-2">
           {employeeInfo.map((story, index) => (
             <div key={index} className="flex items-center gap-1 bg-secondary text-white rounded-large py-1 px-3">
-              {story.name}
+              {story.storyBoardName}
               <span
                 onClick={() => handleDeleteStoryBoard(story)}
                 className="ml-1 rounded-full hover:bg-gray-200 p-0.5 w-5 h-5 flex items-center justify-center"
