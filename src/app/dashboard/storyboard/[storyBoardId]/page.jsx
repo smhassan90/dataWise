@@ -57,6 +57,7 @@ const Dashboard = () => {
                 </div>}
                 {/* Bar Charts */}
                 <div className="flex flex-col gap-10 shadow-md my-normal">
+                    
                     <ShowStories paramsId={storyBoardId}/>
                 </div>
             </div>
