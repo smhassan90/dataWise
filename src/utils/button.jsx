@@ -10,7 +10,6 @@
 //   );
 // };
 
-
 import React, { useState } from "react";
 
 export const Button = ({ children, className, onClick }) => {
@@ -22,10 +21,9 @@ export const Button = ({ children, className, onClick }) => {
       onClick(e);
     }
 
-    // 10 sec baad wapas default state par
     setTimeout(() => {
       setIsClicked(false);
-    }, 1000); // 10000ms = 10 seconds
+    }, 1000);
   };
 
   return (
