@@ -116,7 +116,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
     resolver: zodResolver(AddStoryBoardForUserSchema),
   });
   const filterStoryBoards = (a, b) => {
-    return a.filter(sb => !b.some(empSb => empSb.name === sb.storyBoardName))
+    return a.filter(sb => !b.some(empSb => empSb.storyBoardName === sb.storyBoardName))
   };
 
   const [filterStory, setFilterStory] = useState(filterStoryBoards(storyBoards, employee.storyBoards))

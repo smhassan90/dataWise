@@ -72,6 +72,10 @@ export const summary = {
         url:'/api/story/v1/getStoryBoard',
         method: 'get'
     },
+    fetchSingleStoryBoard:{
+        url:'/api/story/v1/getStoryBoard',
+        method: 'get'
+    },
     fetchSingleEmployee:{
         url:'/api/employee/v1/getEmployee',
         method: 'get'
@@ -91,5 +95,17 @@ export const summary = {
     addEmployee:{
         url:'/api/employee/v1/addEmployee',
         method: 'post'
+    },
+    getLevels:{
+        url:'/api/level/v1/getLevel',
+        method: 'get'
+    },
+    addStoryBoardLevel:{
+        url:'/api/level/v1/addStoryBoardLevel',
+        method: 'post'
+    },
+    deleteLevelForStory:{
+        url:'/api/level/v1/deleteLevelForStory',
+        method: 'delete'
     }
 }

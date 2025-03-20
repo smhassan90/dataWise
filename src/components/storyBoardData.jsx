@@ -8,7 +8,8 @@ import { TbViewportTall } from "react-icons/tb";
 import { Button } from '../utils/button'
 import EmployeeInfo from './employeeInfo'
 import EmployeeEdit from './employeeEdit';
-const StoryBoardList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees }) => {
+import StoryInfo from './storyInfo';
+const StoryBoardList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, levels }) => {
   const toggleViewRow = (id) => {
     if (expandedViewRow === id) {
       setExpandedViewRow(null)
@@ -58,15 +59,15 @@ const StoryBoardList = ({ columns, currentItems, indexOfFirstItem, expandedViewR
                 </Link>
               </td>
             </tr>
-            {/* {expandedViewRow === (indexOfFirstItem + index + 1) && (
+            {expandedViewRow === (indexOfFirstItem + index + 1) && (
               <tr>
                 <td colSpan={5} className="p-0">
                   <div className="animate-slideDown overflow-hidden">
-                    <EmployeeInfo employee={employee} storyBoards={storyBoards} />
+                    <StoryInfo levels={levels} story={story} storyBoards={storyBoards} />
                   </div>
                 </td>
               </tr>
-            )} */}
+            )}
             {/* {expandedEditRow === (indexOfFirstItem + index + 1) && (
               <tr>
                 <td colSpan={5} className="p-0">

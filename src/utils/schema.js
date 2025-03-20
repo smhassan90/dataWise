@@ -139,6 +139,12 @@ export const AddStoryBoardForUserSchema = z
       .string()
       .min(1, { message: "Story Board ID is required" }),
   })
+export const AddStoryBoardForLevelSchema = z
+  .object({
+    levelId: z
+      .string()
+      .min(1, { message: "Level ID is required" }),
+  })
 
 export const editemployeeSchema = z.
   object({

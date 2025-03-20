@@ -3,10 +3,10 @@ import { useState } from "react"
 import Link from "next/link"
 import { Eye } from "lucide-react"
 import { Button } from "../utils/button"
-import StoryBoardData from "./storyBoardData"
+import StoryBoardList from "./storyBoardData"
 import EmployeesList from "./employeesList"
 
-const Pagination = ({ data, columns, page, storyBoards, employees }) => {
+const Pagination = ({ data, columns, page, storyBoards, employees, levels }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [expandedViewRow, setExpandedViewRow] = useState(null)
   const [expandedEditRow, setExpandedEditRow] = useState(null)
@@ -28,7 +28,7 @@ const Pagination = ({ data, columns, page, storyBoards, employees }) => {
     <div className="w-full mt-normal">
       <div className="w-full overflow-x-auto">
         {page === "storyBoard" &&
-          <StoryBoardData
+          <StoryBoardList
             columns={columns}
             currentItems={currentItems}
             indexOfFirstItem={indexOfFirstItem}
@@ -37,7 +37,7 @@ const Pagination = ({ data, columns, page, storyBoards, employees }) => {
             expandedEditRow={expandedEditRow}
             setExpandedEditRow={setExpandedEditRow}
             storyBoards={storyBoards}
-            employees={employees}
+            levels={levels}
           />}
         {page === "employees" &&
           <EmployeesList columns={columns}

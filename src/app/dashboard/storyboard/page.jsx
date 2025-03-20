@@ -17,6 +17,7 @@ const StoryBorad = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [storyBoards, setStoryBoards] = useState([])
+  const [levels, setLevels] = useState([])
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
@@ -57,9 +58,22 @@ const StoryBorad = () => {
       AxiosError(error)
     }
   }
+  const getlevels = async (data) => {
+    try {
+      const response = await Axios({
+        ...summary.getLevels,
+      });
+      if (response.data.success) {
+        setLevels(response.data.data)
+      }
+    } catch (error) {
+      AxiosError(error)
+    }
+  }
   useEffect(() => {
     if (user?.level <= 3) {
       getStoryBoards()
+      getlevels()
     } else {
       getEmployeeStoryBoards()
     }
@@ -122,7 +136,7 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
-      {storyBoards.length > 0 && <Pagination data={storyBoards} columns={columns} page="storyBoard" />}
+      {storyBoards.length > 0 && <Pagination data={storyBoards} levels={levels} columns={columns} page="storyBoard" />}
     </div>
   );
 }
