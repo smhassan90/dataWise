@@ -23,13 +23,13 @@ export const Button = ({ children, className, onClick }) => {
 
     setTimeout(() => {
       setIsClicked(false);
-    }, 1000);
+    }, 700);
   };
 
   return (
     <button
       className={`items-center justify-center flex rounded-large shadow-md px-normal py-2 text-sm font-medium transition-all duration-300 ${
-        isClicked ? "bg-white text-secondary" : "bg-secondary text-white"
+        isClicked ? "bg-white text-secondary border border-secondary" : "bg-secondary text-white"
       } ${className}`}
       onClick={handleClick}
     >
