@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { login } from "@/src/redux/auth";
 
 const LoginPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     register,
@@ -31,47 +31,42 @@ const LoginPage = () => {
     try {
       const response = await Axios({
         ...summary.login,
-        data: data
+        data: data,
       });
 
       if (response.data.success) {
         toast.success(response.data.message);
-        localStorage.setItem("token", response.data.data.token)
-        dispatch(login(response.data.data))
-        router.push('/dashboard')
+        localStorage.setItem("token", response.data.data.token);
+        dispatch(login(response.data.data));
+        router.push("/dashboard");
       }
     } catch (error) {
       AxiosError(error);
     }
   };
 
-
-
   return (
     <div className="bg-primary min-h-screen flex justify-center items-center">
       <Container className="md:w-550 m-auto">
-        {/* <h2 className="text-large font-semibold text-center md:text-[44px]">
-          LOGO
-        </h2> */}
-        {/* <img className="w-32 shadow-md rounded-lg items-center text-center ml-40 h-11" src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless" alt="" /> */}
         <div className={`w-full  rounded-large transition-all duration-300`}>
-  <img className="w-32  ml-40 text-center h-11" 
-    src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless" 
-    alt="" 
-  />
-</div>
-        {/* <div className="mt-2 text-center">
-          <h3 className="text-medium font-semibold">Log In</h3>
-          <p className="w-2/3 text-labelSize text-gray tracking-tight leading-6 mx-auto md:w-1/2">
-            Your data, is your employee!
-          </p>
-        </div> */}
+          <img
+            className="w-32  ml-40 text-center h-11"
+            src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless"
+            alt=""
+          />
+        </div>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="px-4 m-auto flex flex-col gap-2 mt-5 md:px-0 md:gap-3"
         >
           {loginFields.map((input, index) => (
-            <TextInput input={input} key={index} errors={errors} register={register} />
+            <TextInput
+              input={input}
+              key={index}
+              errors={errors}
+              register={register}
+            />
           ))}
           <Button className="h-[40px] md:h-[45px]">Sign In</Button>
           <p className="text-center text-small text-gray tracking-tighter">
