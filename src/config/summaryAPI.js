@@ -68,6 +68,10 @@ export const summary = {
         url:'/api/story/v1/addStoryBoard',
         method: 'post'
     },
+    editStoryBoard:{
+        url:'/api/story/v1/updateStoryBoard',
+        method: 'put'
+    },
     getStoryBoard:{
         url:'/api/story/v1/getStoryBoard',
         method: 'get'

@@ -69,6 +69,7 @@ const DataTable = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         setShowEmployeeForm(false);
+        employees()
         reset();
       }
     } catch (error) {

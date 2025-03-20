@@ -142,30 +142,24 @@ export const addStoryBoardForUser = [
   }
 ];
 
-export const editStory = [
+export const editStoryBoardFields = [
   {
     type: "text",
-    name: "storyName",
-    placeholder: "Story Board Name",
+    name: "storyBoardName",
+    placeholder: "Enter Story Board Name",
     require: true,
-  },
-  {
-    type: "text",
-    name: "Descriptions",
-    placeholder: "Descriptions",
-    require: true,
+    label:"Story Board Name"
   },
   {
     type: "select",
-    name: "category",
-    placeholder: "Select Category",
+    name: "status",
+    placeholder: "Select Status",
     require: true,
     options: [
-      { label: "Adventure", value: "adventure" },
-      { label: "Horror", value: "horror" },
-      { label: "Fantasy", value: "fantasy" },
-      { label: "Sci-Fi", value: "sci-fi" },
+      { label: "InActive", value: "2" },
+      { label: "Active", value: "1" }
     ],
+    label:"Enter Status"
   },
 ];
 

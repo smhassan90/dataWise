@@ -120,9 +120,9 @@ export const SelectInputwithLabel = ({ input, register, errors }) => {
                     className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-3 pr-10 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
                     defaultValue=""
                 >
-                    {/* <option value="" disabled selected>
+                    <option value="" disabled selected>
                         {input.placeholder}
-                    </option> */}
+                    </option>
                     {input.options.map((option, index) => (
                         <option key={index} value={option.value}>{option.label}</option>
                     ))}

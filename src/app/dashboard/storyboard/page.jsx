@@ -136,7 +136,14 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
-      {storyBoards.length > 0 && <Pagination data={storyBoards} levels={levels} columns={columns} page="storyBoard" />}
+      {storyBoards.length > 0 &&
+        <Pagination
+          data={storyBoards}
+          levels={levels}
+          columns={columns}
+          page="storyBoard"
+          storyBoards={getStoryBoards}
+        />}
     </div>
   );
 }

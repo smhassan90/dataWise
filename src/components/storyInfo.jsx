@@ -205,7 +205,7 @@ import { AddStoryBoardForLevelSchema } from "../utils/schema";
 import { Button } from "../utils/button";
 import { AxiosError } from "../utils/axiosError";
 import { Axios, summary } from "../config/summaryAPI";
-const StoryInfo = ({ story, storyBoards, levels }) => {
+const StoryInfo = ({ story, levels }) => {
   const {
     register,
     handleSubmit,
