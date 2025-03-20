@@ -225,4 +225,52 @@ export const employeeFields = [
 },
 ];
 
+export const settings = [
+  {
+    type: "text",
+    name: "firstName",
+    placeholder: "Enter First Name",
+    label: "First Name",
+    required: true,
+  },
+  {
+    type: "text",
+    name: "lastName",
+    placeholder: "Enter Last Name",
+    label: "Last Name",
+    required: true,
+  },
+  {
+    type: "email",
+    name: "email",
+    placeholder: "comvi-dashboard@gmail.com",
+    label: "Email",
+    required: true,
+  },
+];
+
+export const changePassword=[
+  {
+      type: "password",
+      name: "oldpassword",
+      placeholder: "Enter your Old Passsword",
+      required: true,
+      label: "OLD PASSWORD",  
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "Enter your Old Passsword",
+      required: true,
+      label: "PASSWORD",  
+    },
+    {
+    type: "password",
+    name: "confirmPassword",
+    placeholder: "********",
+    required: true,
+    label: "CONFIRM PASSWORD",
+  },
+
+]
 
