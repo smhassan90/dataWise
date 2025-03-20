@@ -1,3 +1,4 @@
+
 "use client";
 import { useEffect, useState } from "react";
 import { Button } from "@/src/utils/button";
@@ -7,30 +8,40 @@ import LineChartComponent from "@/src/components/lineChart";
 import BarChartComponent from "@/src/components/barChart";
 import ShowStories from "@/src/components/showStories";
 import ReportChartComponent from "@/src/components/reportChart";
-import { useParams } from "next/navigation";
+import { useParams } from "next/navigation";  
 import { useSelector } from "react-redux";
+import { MdArrowBackIosNew } from "react-icons/md";
+import { useRouter } from "next/navigation";  
 
 const Dashboard = () => {
-    const { storyBoardId } = useParams()
+    const { storyBoardId } = useParams();
     const [showSQL, setShowSQL] = useState(false);
     const [graphData, setGraphData] = useState("");
-    const [activeTab, setActiveTab] = useState("Line Chart")
-    const [SQLQuery, setSQLQuery] = useState('')
-    const tabs = ["Line Chart", "Bar Chart", "Report"]
-    const { level } = useSelector(state => state?.auth?.user)
-    // const maxValue = Math.max(
-    //   ...keys.flatMap((key) => graphData.data.map((item) => item[key])).filter((val) => !isNaN(val))
-    // );
+    const [activeTab, setActiveTab] = useState("Line Chart");
+    const [SQLQuery, setSQLQuery] = useState('');
+    const tabs = ["Line Chart", "Bar Chart", "Report"];
+    const { level } = useSelector(state => state?.auth?.user);
+
+    const router = useRouter(); 
+
+    const handleBackClick = () => {
+        router.push("/dashboard/storyBoard"); 
+    };
 
     useEffect(() => {
-        setSQLQuery(graphData.query)
-    }, [graphData])
+        setSQLQuery(graphData.query);
+    }, [graphData]);
+
     return (
         <div>
-            <div className=" bg-white rounded-large p-normal">
-                {level <= 3 && <><h1 className="font-manrope font-light">
-                    Ask away, and feel the magic : &#41;
-                </h1>
+            <div className="bg-white rounded-large p-normal">
+                {level <= 3 && <>
+                    <div className="flex items-center">
+                        <MdArrowBackIosNew size={21} style={{ cursor: 'pointer' }} onClick={handleBackClick} />
+                        <h1 className="font-manrope font-light ml-2">
+                            Ask away, and feel the magic : &#41;
+                        </h1>
+                    </div>
                     <Suggestion storyBoardId={storyBoardId} graphData={graphData} setGraphData={setGraphData} tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
                     {graphData && <div className="p-normal rounded-large shadow-md before:bg-white w-full">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-normal">
@@ -46,9 +57,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="flex flex-col lg:flex-row gap-4">
-                            <div className={`${showSQL ? "lg:w-[930px]" : "w-full"
-                                } transition-all`}
-                            >
+                            <div className={`${showSQL ? "lg:w-[930px]" : "w-full"} transition-all`}>
                                 {activeTab === "Line Chart" && <LineChartComponent graphData={graphData} />}
                                 {activeTab === "Bar Chart" && <BarChartComponent graphData={graphData} />}
                                 {activeTab === "Report" && <ReportChartComponent graphData={graphData} />}
@@ -65,5 +74,4 @@ const Dashboard = () => {
     );
 }
 
-
-export default Dashboard
+export default Dashboard;
