@@ -1,31 +1,43 @@
-// "use client";
-// import { useEffect, useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { getChildrenWidth } from "@/src/utils/childrenWidth";
-// import { useSelector } from "react-redux";
+"use client";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Axios, summary } from "@/src/config/summaryAPI";
+import { AxiosError } from "@/src/utils/axiosError";
+import ShowStories from "@/src/components/showStories";
 
 const Dashboard = () => {
-  // const router = useRouter();
-  // const { sidebar } = useSelector((state) => state.sideBar);
-  // const childrenWidth = getChildrenWidth(sidebar);
-  // const [loading, setLoading] = useState(true);
+  const [activeBoard, setActiveBoard] = useState(null);
+  const user = useSelector(state => state?.auth?.user);
+  console.log(user)
+  const getEmployeeStoryBoards = async (data) => {
+    try {
+      const response = await Axios({
+        ...summary.fetchSingleEmployee,
+        url: `/api/employee/v1/getEmployee/${user?._id}`
+      });
+      if (response.data.success) {
+        console.log(response.data.data)
+        setActiveBoard(response.data.data.storyBoards.find(story => story.priority == 1))
+      }
+    } catch (error) {
+      AxiosError(error)
+    }
+  }
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("userToken");
-  //   if (!token) {
-  //     router.replace("/login"); // Redirect user to login page
-  //   } else {
-  //     setLoading(false); // Token mil gaya, dashboard show karo
-  //   }
-  // }, []);
+  useEffect(()=>{
+    getEmployeeStoryBoards()
+  },[])
 
-  // if (loading) return null; // Jab tak token check ho raha hai tab tak blank show karo
-
+  console.log(activeBoard)
   return (
     <div>
-      DashBoard Page
+      <div className="bg-white rounded-large p-normal">
+        <div className="flex flex-col gap-10 shadow-md my-normal">
+          {activeBoard && <ShowStories paramsId={activeBoard?._id} />}
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default Dashboard;

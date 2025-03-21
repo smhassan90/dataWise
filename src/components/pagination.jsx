@@ -6,7 +6,17 @@ import { Button } from "../utils/button"
 import StoryBoardList from "./storyBoardData"
 import EmployeesList from "./employeesList"
 
-const Pagination = ({ data, columns, page, storyBoards, employees, levels }) => {
+const Pagination = ({
+  data,
+  columns,
+  page,
+  storyBoards,
+  employees,
+  levels,
+  user,
+  selectedRadio,
+  changePriority
+}) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [expandedViewRow, setExpandedViewRow] = useState(null)
   const [expandedEditRow, setExpandedEditRow] = useState(null)
@@ -38,6 +48,9 @@ const Pagination = ({ data, columns, page, storyBoards, employees, levels }) => 
             setExpandedEditRow={setExpandedEditRow}
             storyBoards={storyBoards}
             levels={levels}
+            user={user}
+            selectedRadio={selectedRadio}
+            changePriority={changePriority}
           />}
         {page === "employees" &&
           <EmployeesList columns={columns}

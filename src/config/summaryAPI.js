@@ -64,6 +64,10 @@ export const summary = {
         url:'/api/employee/v1/getEmployee',
         method: 'get'
     },
+    changePriority:{
+        url:'/api/story/v1/changePriority',
+        method: 'post'
+    },
     addStoryBoard:{
         url:'/api/story/v1/addStoryBoard',
         method: 'post'

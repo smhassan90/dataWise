@@ -18,11 +18,11 @@ const StoryBorad = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [storyBoards, setStoryBoards] = useState([])
   const [levels, setLevels] = useState([])
+  const [selectedRadio, setSelectedRadio] = useState(null)
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
   const user = useSelector(state => state?.auth?.user)
-
   const {
     register,
     handleSubmit,
@@ -51,6 +51,7 @@ const StoryBorad = () => {
         url: `/api/employee/v1/getEmployee/${user?._id}`
       });
       if (response.data.success) {
+        setSelectedRadio(response.data.data.storyBoards.find(story => story.priority == 1))
         setStoryBoards(response.data.data.storyBoards)
       }
     } catch (error) {
@@ -100,11 +101,27 @@ const StoryBorad = () => {
     }
   };
 
+  const changePriority = async (story) => {
+    try {
+      const payload = {
+        userId: user?._id,
+        storyBoardId: story._id
+      }
+      const response = await Axios({
+        ...summary.changePriority,
+        data: payload
+      })
+      if (response.data.success) {
+        setSelectedRadio(story)
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      AxiosError(error)
+    }
+  }
   return (
     <div className="">
-      {/* Button to open dialog */}
       {user?.level <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
-      {/* Dialog overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">
           {/* Dialog box */}
@@ -143,6 +160,9 @@ const StoryBorad = () => {
           columns={columns}
           page="storyBoard"
           storyBoards={getStoryBoards}
+          user={user}
+          selectedRadio={selectedRadio}
+          changePriority={changePriority}
         />}
     </div>
   );

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Eye } from "lucide-react"
-import { AiTwotoneDelete } from 'react-icons/ai'
+import { RiDeleteBin7Line } from "react-icons/ri";
 import { LiaEditSolid } from 'react-icons/lia'
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
@@ -44,14 +44,14 @@ const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRo
                             <td className="p-normal w-2/12 whitespace-nowrap flex gap-3">
                                 <button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
                                     {expandedViewRow === (indexOfFirstItem + index + 1) ?
-                                        <FaRegEye className="w-5 h-5" /> : <FaRegEyeSlash className="w-5 h-5" />}
+                                        <FaRegEye className="w-5 h-5 text-green-700" /> : <FaRegEyeSlash className="w-5 h-5 text-green-700" />}
                                 </button>
                                 <button onClick={() => toggleEditRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
-                                    <LiaEditSolid className="w-5 h-5" />
+                                    <LiaEditSolid className="w-5 h-5 text-yellow-600" />
                                 </button>
-                                {/* <button className="text-gray-600 hover:text-gray-800">
-                                    <AiTwotoneDelete className="w-5 h-5" />
-                                </button> */}
+                                <button className="text-gray-600 hover:text-gray-800">
+                                    <RiDeleteBin7Line className="w-5 h-5 text-red-700" />
+                                </button>
                             </td>
                         </tr>
                         {expandedViewRow === (indexOfFirstItem + index + 1) && (
