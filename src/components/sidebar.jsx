@@ -10,6 +10,8 @@ import { debounce } from "lodash"
 import { formatTitle } from "../config/caplitalizeWords"
 import { logout } from "../redux/auth"
 import { Hidden } from "@mui/material"
+import Image from 'next/image'
+
 const Sidebar = () => {
   const router = useRouter()
   const dispatch = useDispatch()
@@ -85,11 +87,15 @@ const Sidebar = () => {
           <div className="flex items-center justify-between p-3">
             {/* <h1 className={`text-medium transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>LOGO</h1> */}
             <div className={`w-full rounded-large shadow-md bg-white h-14 transition-all duration-300 ${sidebarOpen ? "block" : "hidden"}`}>
-  <img className="w-32 mt-2 ml-12 items-center text-center h-10" 
-    src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless" 
-    alt="" 
-  />
-</div>
+              <Image 
+                src="/logo.png"
+                alt="Logo"
+                width={128}
+                height={40}
+                className="mt-3 ml-12 items-center text-center"
+                priority
+              />
+            </div>
 
             <button className="lg:hidden text-white"
               onClick={() => dispatch(toogleMobile(false))}

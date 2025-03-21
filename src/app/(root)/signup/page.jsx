@@ -12,6 +12,7 @@ import { TextInput } from "@/src/utils/input";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 // import {logo} from "@/public/logo.png"
+import Image from "next/image";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -41,10 +42,13 @@ const SignUpPage = () => {
   return (
     <div className="bg-primary min-h-screen flex justify-center items-center">
       <Container className="md:w-550 m-auto">
-        <img
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={128}
+          height={40}
           className="w-32  items-center text-center ml-40 h-11"
-          src="https://media.discordapp.net/attachments/1343572955614937144/1351789946670813245/Vizora-removebg-preview_1.png?ex=67dba7fe&is=67da567e&hm=51dc1cede0a3950f3fab8caa252c53c0c96f97dfb1daa33784a5628e127c6f63&=&format=webp&quality=lossless"
-          alt=""
+          priority
         />
 
         <form
