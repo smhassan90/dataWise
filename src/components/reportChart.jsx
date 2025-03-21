@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { Button } from "../utils/button"
 
 // Sample data generator
 const generateData = (graphData, keys) => {
@@ -17,7 +18,7 @@ const generateData = (graphData, keys) => {
     return data
 }
 
-const ReportChartComponent = ({ graphData }) => {
+const ReportChartComponent = ({ graphData,handleRefreshQuery }) => {
     const keys = Object.keys(graphData.data[0])
     const [data] = useState(generateData(graphData.data, keys))
     const [currentPage, setCurrentPage] = useState(1)
@@ -51,190 +52,193 @@ const ReportChartComponent = ({ graphData }) => {
     }
 
     return (
-        <div className="flex flex-col gap-4">
-            {/* Table with horizontal and vertical scrolling */}
-            <div className="rounded-large border border-secondary">
-                <div className="overflow-x-auto">
-                    <div className="max-h-[500px] overflow-y-auto ">
-                        <table className="w-full min-w-max table-auto">
-                            <thead className="sticky top-0">
-                                <tr className="border-b border-gray-200">
-                                    {columns.map((column) => (
-                                        <th
-                                            key={column.key}
-                                            className="whitespace-nowrap border-r border-gray-200 px-4 py-3 text-left font-medium text-gray-600 last:border-r-0"
-                                        >
-                                            {column.label}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentItems.map((row, rowIndex) => (
-                                    <tr
-                                        key={row.id}
-                                        className={`border-b border-secondary transition-colors hover:bg-gray-50 ${rowIndex === currentItems.length - 1 ? "border-b-0" : ""
-                                            }`}
-                                    >
+        <>
+            <Button onClick={handleRefreshQuery}>Refresh</Button>
+            <div className="flex flex-col gap-4">
+                {/* Table with horizontal and vertical scrolling */}
+                <div className="rounded-large border border-secondary">
+                    <div className="overflow-x-auto">
+                        <div className="max-h-[500px] overflow-y-auto ">
+                            <table className="w-full min-w-max table-auto">
+                                <thead className="sticky top-0">
+                                    <tr className="border-b border-gray-200">
                                         {columns.map((column) => (
-                                            <td
-                                                key={`${row.id}-${column.key}`}
-                                                className="border-r border-secondary px-normal py-2 last:border-r-0"
+                                            <th
+                                                key={column.key}
+                                                className="whitespace-nowrap border-r border-gray-200 px-4 py-3 text-left font-medium text-gray-600 last:border-r-0"
                                             >
-                                                {row[column.key]}
-                                            </td>
+                                                {column.label}
+                                            </th>
                                         ))}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {currentItems.map((row, rowIndex) => (
+                                        <tr
+                                            key={row.id}
+                                            className={`border-b border-secondary transition-colors hover:bg-gray-50 ${rowIndex === currentItems.length - 1 ? "border-b-0" : ""
+                                                }`}
+                                        >
+                                            {columns.map((column) => (
+                                                <td
+                                                    key={`${row.id}-${column.key}`}
+                                                    className="border-r border-secondary px-normal py-2 last:border-r-0"
+                                                >
+                                                    {row[column.key]}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Pagination controls */}
+                <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <span>Rows per page:</span>
+                        <select
+                            className="h-8 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            value={itemsPerPage}
+                            onChange={handleItemsPerPageChange}
+                        >
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span>
+                            {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, data.length)} of {data.length} items
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                        <button
+                            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+                                }`}
+                            onClick={() => goToPage(1)}
+                            disabled={currentPage === 1}
+                        >
+                            <span className="sr-only">First page</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="11 17 6 12 11 7"></polyline>
+                                <polyline points="18 17 13 12 18 7"></polyline>
+                            </svg>
+                        </button>
+                        <button
+                            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+                                }`}
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            <span className="sr-only">Previous page</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+
+                        <div className="flex items-center gap-1 px-1">
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                let pageNum
+
+                                if (totalPages <= 5) {
+                                    // If we have 5 or fewer pages, show all page numbers
+                                    pageNum = i + 1
+                                } else if (currentPage <= 3) {
+                                    // If we're near the start, show pages 1-5
+                                    pageNum = i + 1
+                                } else if (currentPage >= totalPages - 2) {
+                                    // If we're near the end, show the last 5 pages
+                                    pageNum = totalPages - 4 + i
+                                } else {
+                                    // Otherwise show 2 pages before and 2 pages after the current page
+                                    pageNum = currentPage - 2 + i
+                                }
+
+                                return (
+                                    <button
+                                        key={pageNum}
+                                        className={`h-8 w-8 rounded-md border ${currentPage === pageNum
+                                            ? "bg-secondary text-white"
+                                            : "hover:bg-Quinary hover:text-white"
+                                            }`}
+                                        onClick={() => goToPage(pageNum)}
+                                    >
+                                        {pageNum}
+                                    </button>
+                                )
+                            })}
+                        </div>
+
+                        <button
+                            className={`h-8 w-8 rounded-md border border-secondary flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+                                }`}
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            <span className="sr-only">Next page</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                        <button
+                            className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+                                }`}
+                            onClick={() => goToPage(totalPages)}
+                            disabled={currentPage === totalPages}
+                        >
+                            <span className="sr-only">Last page</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <polyline points="13 17 18 12 13 7"></polyline>
+                                <polyline points="6 17 11 12 6 7"></polyline>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            {/* Pagination controls */}
-            <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span>Rows per page:</span>
-                    <select
-                        className="h-8 rounded-md border border-gray-300 bg-white px-2 py-1 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        value={itemsPerPage}
-                        onChange={handleItemsPerPageChange}
-                    >
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    <span>
-                        {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, data.length)} of {data.length} items
-                    </span>
-                </div>
-
-                <div className="flex items-center gap-1">
-                    <button
-                        className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-                            }`}
-                        onClick={() => goToPage(1)}
-                        disabled={currentPage === 1}
-                    >
-                        <span className="sr-only">First page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <polyline points="11 17 6 12 11 7"></polyline>
-                            <polyline points="18 17 13 12 18 7"></polyline>
-                        </svg>
-                    </button>
-                    <button
-                        className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-                            }`}
-                        onClick={() => goToPage(currentPage - 1)}
-                        disabled={currentPage === 1}
-                    >
-                        <span className="sr-only">Previous page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                    </button>
-
-                    <div className="flex items-center gap-1 px-1">
-                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                            let pageNum
-
-                            if (totalPages <= 5) {
-                                // If we have 5 or fewer pages, show all page numbers
-                                pageNum = i + 1
-                            } else if (currentPage <= 3) {
-                                // If we're near the start, show pages 1-5
-                                pageNum = i + 1
-                            } else if (currentPage >= totalPages - 2) {
-                                // If we're near the end, show the last 5 pages
-                                pageNum = totalPages - 4 + i
-                            } else {
-                                // Otherwise show 2 pages before and 2 pages after the current page
-                                pageNum = currentPage - 2 + i
-                            }
-
-                            return (
-                                <button
-                                    key={pageNum}
-                                    className={`h-8 w-8 rounded-md border ${currentPage === pageNum
-                                        ? "bg-secondary text-white"
-                                        : "hover:bg-Quinary hover:text-white"
-                                        }`}
-                                    onClick={() => goToPage(pageNum)}
-                                >
-                                    {pageNum}
-                                </button>
-                            )
-                        })}
-                    </div>
-
-                    <button
-                        className={`h-8 w-8 rounded-md border border-secondary flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-                            }`}
-                        onClick={() => goToPage(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                    >
-                        <span className="sr-only">Next page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </button>
-                    <button
-                        className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-                            }`}
-                        onClick={() => goToPage(totalPages)}
-                        disabled={currentPage === totalPages}
-                    >
-                        <span className="sr-only">Last page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <polyline points="13 17 18 12 13 7"></polyline>
-                            <polyline points="6 17 11 12 6 7"></polyline>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
+        </>
     )
 }
 

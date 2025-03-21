@@ -52,8 +52,8 @@ export const summary = {
         url:'/api/integration/v1/saveStory',
         method: 'post'
     },
-    reRunQuery:{
-        url:'/api/integration/v1/reRunQuery',
+    refreshQuery:{
+        url:'/api/integration/v1/refreshQuery',
         method: 'post'
     },
     fetchStories:{
