@@ -174,10 +174,10 @@ const Integrations = () => {
       {isOpen && (
   <div className="fixed inset-0 mt-32 h-[500px] ml-[850px] items-end w-full sm:w-[450px] max-w-full rounded-large bg-black bg-opacity-50 z-40 flex justify-end ">
     <div
-      className="bg-secondary rounded-large mt-normal h-full w-full overflow-y-auto shadow"
-      // style={{
-      //   animation: "slideInRight 0.3s forwards",
-      // }}
+      className="bg-white rounded-large mt-normal h-full w-full overflow-y-auto shadow"
+      style={{
+        animation: "slideInRight 0.3s forwards",
+      }}
     >
       <div className="sticky top-0 z-2 bg-white">
         <div className="flex justify-between items-center p-normal">

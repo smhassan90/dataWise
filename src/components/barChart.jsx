@@ -1,5 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
+import { LuRefreshCcw } from "react-icons/lu";
+
 import {
   XAxis,
   YAxis,
@@ -13,16 +15,40 @@ import {
 import { Button } from "../utils/button";
 const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
   const [keys, setKeys] = useState()
+    const [isSpinning, setIsSpinning] = useState(false); // To track if the icon should spin
+  
   const fillsColor = ["#036666", '#ff8548']
   useEffect(() => {
     const keys = graphData && graphData?.data?.length > 0 ? Object.keys(graphData.data[0]) : [];
     setKeys(keys)
   }, [graphData])
   console.log(keys)
+
+  const handleIconClick = async () => {
+    setIsSpinning(true); // Start spinning the icon
+    await handleRefreshQuery(); // Trigger your refresh logic
+    setIsSpinning(false); // Stop spinning after refresh is done
+  };
+
   return (
     <>
-      <Button onClick={handleRefreshQuery}>Refresh</Button>
-      <ResponsiveContainer width="100%" margin-top={40} height={370}>
+     <div className="flex justify-end relative w-[100%]">
+            {/* Circle Button */}
+            <Button className="space-x-4" onClick={handleIconClick}>
+              <span>Sync</span>
+              <LuRefreshCcw
+                className=""
+                size={19}
+                style={{
+                  color: "white",
+                  transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)", // Rotate icon
+                  transition: "transform 0.9s ease", // Smooth rotation
+                }}
+              />
+            </Button>
+          </div>
+      {/* <Button onClick={handleRefreshQuery}>Refresh</Button> */}
+      <ResponsiveContainer className="mt-2" width="100%" margin-top={44} height={370}>
         <BarChart data={graphData.data}>
           <CartesianGrid strokeDasharray="3 3" />
           {keys && keys.length > 0 && (
