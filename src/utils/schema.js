@@ -216,3 +216,47 @@ export const employeeSchema = z.
         message: "Invalid database type selected",
       }),
   });
+
+  export const settings = z.
+   object({    
+    firstName: z
+    .string()
+    .min(1, { message: "First Name is required" })
+    .min(3, { message: "First Name must be at least 3 characters" })
+    .trim(),
+    
+    lastName: z
+      .string()
+      .min(1, { message: "Last Name is required" })
+      .min(3, { message: "Last Name must be at least 3 characters" })
+      .trim(),  
+  });
+
+
+
+
+
+
+
+
+
+   export const changePassword = z.
+   object({
+    oldpassword: z
+    .string()
+    .min(1, { message: "Password is required" })
+    .min(6, { message: "Password must be at least 6 characters" })
+    .trim(),
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(6, { message: "Password must be at least 6 characters" })
+      .trim(),
+      confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm Password is required" })
+      .min(6, { message: "Confirm Password must be at least 6 characters" })
+      .trim(),
+
+  
+  });
