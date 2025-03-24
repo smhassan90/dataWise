@@ -45,28 +45,28 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery }) => {
   );
 };
 
-const ShowStories = ({ paramsId }) => {
-  const [stories, setStories] = useState([]);
+const ShowStories = ({ stories , setStories}) => {
+  // const [stories, setStories] = useState([]);
   const [fullWidth, setFullWidth] = useState(false);
 
-  useEffect(() => {
-    fetchStories();
-  }, []);
+  // useEffect(() => {
+  //   fetchStories();
+  // }, []);
 
-  const fetchStories = async () => {
-    try {
-      const response = await Axios({
-        ...summary.fetchStories,
-        url: `/api/integration/v1/getAllStories/${paramsId}`
-      });
+  // const fetchStories = async () => {
+  //   try {
+  //     const response = await Axios({
+  //       ...summary.fetchStories,
+  //       url: `/api/integration/v1/getAllStories/${paramsId}`
+  //     });
 
-      if (response.data.success) {
-        setStories(response.data.data);
-      }
-    } catch (error) {
-      AxiosError(error);
-    }
-  };
+  //     if (response.data.success) {
+  //       setStories(response.data.data);
+  //     }
+  //   } catch (error) {
+  //     AxiosError(error);
+  //   }
+  // };
 
   const handleRefreshQuery = async (graphData,index) => {
     try {

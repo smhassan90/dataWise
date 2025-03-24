@@ -52,6 +52,7 @@ const StoryBorad = () => {
       });
       if (response.data.success) {
         setSelectedRadio(response.data.data.storyBoards.find(story => story.priority == 1))
+        console.log(response.data.data)
         setStoryBoards(response.data.data.storyBoards)
       }
     } catch (error) {
@@ -72,7 +73,7 @@ const StoryBorad = () => {
     }
   }
   useEffect(() => {
-    if (user?.level <= 3) {
+    if (user?.level?.levelNumber <= 3) {
       getStoryBoards()
       getlevels()
     } else {
@@ -121,7 +122,7 @@ const StoryBorad = () => {
   }
   return (
     <div className="">
-      {user?.level <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
+      {user?.level?.levelNumber <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">
           {/* Dialog box */}

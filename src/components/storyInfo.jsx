@@ -219,6 +219,7 @@ const StoryInfo = ({ story, levels }) => {
   };
 
   const [filterStoryLevel, setFilterStoryLevel] = useState(filterlevels(levels, story.levels))
+  console.log(filterStoryLevel)
   const [levelInfo, setLevelInfo] = useState(story.levels)
 
   const handleDeleteStoryLevel = async(level) => {
@@ -270,7 +271,6 @@ const StoryInfo = ({ story, levels }) => {
         reset()
       }
     } catch (error) {
-      clg
       AxiosError(error)
     }
   }

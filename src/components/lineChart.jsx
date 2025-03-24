@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import { AxiosError } from "../utils/axiosError";
 import { useState } from "react"; // To manage the spin state
 
-const LineChartComponent = ({ graphData, handleRefreshQuery }) => {
+const   LineChartComponent = ({ graphData, handleRefreshQuery }) => {
   const [isSpinning, setIsSpinning] = useState(false); // To track if the icon should spin
   const keys =
     graphData && graphData?.data?.length > 0

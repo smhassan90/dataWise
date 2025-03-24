@@ -61,7 +61,7 @@ const StoryBoardList = ({
                 <Link href={`/dashboard/storyBoard/${story._id}`} className="text-gray-600 hover:text-gray-800">
                   <MdReadMore className="w-6 h-6" />
                 </Link>
-                {user.level <= 3 && <><button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
+                {user?.level?.levelNumber <= 3 && <><button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
                   {expandedViewRow === (indexOfFirstItem + index + 1) ?
                     <FaRegEye className="w-5 h-5" /> : <FaRegEyeSlash className="w-5 h-5" />}
                 </button>
