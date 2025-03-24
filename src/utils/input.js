@@ -108,7 +108,7 @@ export const SelectInput = ({ input, register, errors }) => {
     )
 }
 
-export const SelectInputwithLabel = ({ input, register, errors }) => {
+export const SelectInputwithLabel = ({ input, register, errors,optionData }) => {
     return (
         <div className="flex flex-col gap-1 md:gap-2 justify-start w-full relative">
             <label htmlFor={input.name} className="text-labelSize text-gray font-medium mx-2">
@@ -123,8 +123,10 @@ export const SelectInputwithLabel = ({ input, register, errors }) => {
                     <option value="" disabled selected>
                         {input.placeholder}
                     </option>
-                    {input.options.map((option, index) => (
-                        <option key={index} value={option.value}>{option.label}</option>
+                    {optionData ? optionData.map((option, index) => (
+                        <option key={index} value={option?.value}>{option?.label}</option>
+                    )) : input.options.map((option, index) => (
+                        <option key={index} value={option?.value}>{option?.label}</option>
                     ))}
                 </select>
             </div>
