@@ -103,6 +103,19 @@ export const MetaIntegrationSchema = z.object({
   })
 });
 
+export const editMetaIntegrationSchema = z.object({
+  tableName: z
+    .string()
+    .min(1, { message: "Table Name is required" })
+    .min(3, { message: "Table Name be at least 3 characters" })
+    .trim(),
+    description: z
+    .string()
+    .min(1, { message: "Table Description is required" })
+    .min(3, { message: "Table Description be at least 12 characters" })
+    .trim(),
+});
+
 
 export const SaveStorySchema = z
   .object({
@@ -217,19 +230,19 @@ export const employeeSchema = z.
       }),
   });
 
-  export const settings = z.
-   object({    
+export const settings = z.
+  object({
     firstName: z
-    .string()
-    .min(1, { message: "First Name is required" })
-    .min(3, { message: "First Name must be at least 3 characters" })
-    .trim(),
-    
+      .string()
+      .min(1, { message: "First Name is required" })
+      .min(3, { message: "First Name must be at least 3 characters" })
+      .trim(),
+
     lastName: z
       .string()
       .min(1, { message: "Last Name is required" })
       .min(3, { message: "Last Name must be at least 3 characters" })
-      .trim(),  
+      .trim(),
   });
 
 
@@ -240,23 +253,23 @@ export const employeeSchema = z.
 
 
 
-   export const changePassword = z.
-   object({
+export const changePassword = z.
+  object({
     oldpassword: z
-    .string()
-    .min(1, { message: "Password is required" })
-    .min(6, { message: "Password must be at least 6 characters" })
-    .trim(),
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(6, { message: "Password must be at least 6 characters" })
+      .trim(),
     password: z
       .string()
       .min(1, { message: "Password is required" })
       .min(6, { message: "Password must be at least 6 characters" })
       .trim(),
-      confirmPassword: z
+    confirmPassword: z
       .string()
       .min(1, { message: "Confirm Password is required" })
       .min(6, { message: "Confirm Password must be at least 6 characters" })
       .trim(),
 
-  
+
   });

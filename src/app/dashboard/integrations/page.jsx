@@ -14,6 +14,7 @@ import { integrationFields } from "@/src/utils/formFields";
 import IntegrationForm from "@/src/components/integrationForm";
 import { motion, AnimatePresence } from "framer-motion";
 import FetchIntegrationTable from "@/src/components/fetchIntegrationTable";
+import IntegrationCard from "@/src/components/integrationCard";
 
 const Integrations = () => {
   const { sidebar } = useSelector((state) => state.sideBar);
@@ -84,11 +85,10 @@ const Integrations = () => {
                   <div className="flex justify-between relative">
                     <div className="flex flex-col items-center">
                       <div
-                        className={`w-14 h-14 rounded-full ${
-                          step === 1
-                            ? "bg-secondary text-white"
-                            : "bg-Quaternary text-secondary"
-                        } flex items-center justify-center text-white font-medium z-10 relative`}
+                        className={`w-14 h-14 rounded-full ${step === 1
+                          ? "bg-secondary text-white"
+                          : "bg-Quaternary text-secondary"
+                          } flex items-center justify-center text-white font-medium z-10 relative`}
                       >
                         01
                       </div>
@@ -99,11 +99,10 @@ const Integrations = () => {
 
                     <div className="flex flex-col items-center">
                       <div
-                        className={`w-14 h-14 rounded-full ${
-                          step === 2
-                            ? "bg-secondary text-white"
-                            : "bg-Quaternary text-secondary"
-                        } flex items-center justify-center text-[#036666] font-medium z-10 relative`}
+                        className={`w-14 h-14 rounded-full ${step === 2
+                          ? "bg-secondary text-white"
+                          : "bg-Quaternary text-secondary"
+                          } flex items-center justify-center text-[#036666] font-medium z-10 relative`}
                       >
                         02
                       </div>
@@ -131,16 +130,15 @@ const Integrations = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div
-        className={`grid items-center gap-8 py-normal ${
-          sidebar
+      {/* <div
+        className={`grid items-center gap-8 py-normal ${sidebar
             ? isCardClicked
               ? "md:grid-cols-1 w-[500px]"
               : "md:grid-cols-2"
             : isCardClicked
-            ? "md:grid-cols-1"
-            : "md:grid-cols-3"
-        }`}
+              ? "md:grid-cols-1"
+              : "md:grid-cols-3"
+          }`}
       >
         {cards.map((card, index) => (
           <div
@@ -150,7 +148,6 @@ const Integrations = () => {
               (e.currentTarget.style.transform = "scale(1.02)")
             }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            // onClick={handleCardClick} // Add onClick to toggle card state
           >
             <div className="space-y-2">
               <span className="flex justify-between items-center">
@@ -161,7 +158,6 @@ const Integrations = () => {
                   onClick={handleCardClick}
                   className="text-white cursor-pointer text-small"
                 />
-                {/* <MyComponent/> */}
               </span>
               <p className="text-small font-poppins font-light">
                 {card.details}
@@ -172,113 +168,114 @@ const Integrations = () => {
         ))}
       </div>
       {isOpen && (
-  <div className="fixed inset-0 mt-32 h-[500px] ml-[850px] items-end w-full sm:w-[450px] max-w-full rounded-large bg-black bg-opacity-50 z-40 flex justify-end ">
-    <div
-      className="bg-white rounded-large mt-normal h-full w-full overflow-y-auto shadow"
-      style={{
-        animation: "slideInRight 0.3s forwards",
-      }}
-    >
-      <div className="sticky top-0 z-2 bg-white">
-        <div className="flex justify-between items-center p-normal">
-          <h2 className="text-xl font-semibold text-gray-800">Edit Integration</h2>
-          <button
-            onClick={handleClose} // Ensure modal closes
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+        <div className="fixed inset-0 mt-32 h-[500px] ml-[850px] items-end w-full sm:w-[450px] max-w-full rounded-large bg-black bg-opacity-50 z-40 flex justify-end ">
+          <div
+            className="bg-white rounded-large mt-normal h-full w-full overflow-y-auto shadow"
+            style={{
+              animation: "slideInRight 0.3s forwards",
+            }}
           >
-            <FaTimes />
-          </button>
-        </div>
-      </div>
-
-      <div className="p-4 space-y-6">
-        {/* Form Fields */}
-        {cardData.map((card) => (
-          <div key={card.id} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Integration Name
-              </label>
-              <input
-                type="text"
-                value={card.title}
-                onChange={(e) =>
-                  handleInputChange(card.id, "title", e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Details
-              </label>
-              <input
-                type="text"
-                value={card.details}
-                onChange={(e) =>
-                  handleInputChange(card.id, "details", e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description
-              </label>
-              <textarea
-                value={card.description}
-                onChange={(e) =>
-                  handleInputChange(card.id, "description", e.target.value)
-                }
-                rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                API Key
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={card.apiKey}
-                  onChange={(e) =>
-                    handleInputChange(card.id, "apiKey", e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">
-                  Copy
+            <div className="sticky top-0 z-2 bg-white">
+              <div className="flex justify-between items-center p-normal">
+                <h2 className="text-xl font-semibold text-gray-800">Edit Integration</h2>
+                <button
+                  onClick={handleClose}
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  <FaTimes />
                 </button>
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
-              <select
-                value={card.status}
-                onChange={(e) =>
-                  handleInputChange(card.id, "status", e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-              >
-                <option value="Connected">Connected</option>
-                <option value="Disconnected">Disconnected</option>
-                <option value="Pending">Pending</option>
-              </select>
+            <div className="p-4 space-y-6">
+              {cardData.map((card) => (
+                <div key={card.id} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Integration Name
+                    </label>
+                    <input
+                      type="text"
+                      value={card.title}
+                      onChange={(e) =>
+                        handleInputChange(card.id, "title", e.target.value)
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Details
+                    </label>
+                    <input
+                      type="text"
+                      value={card.details}
+                      onChange={(e) =>
+                        handleInputChange(card.id, "details", e.target.value)
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      value={card.description}
+                      onChange={(e) =>
+                        handleInputChange(card.id, "description", e.target.value)
+                      }
+                      rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      API Key
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={card.apiKey}
+                        onChange={(e) =>
+                          handleInputChange(card.id, "apiKey", e.target.value)
+                        }
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      />
+                      <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded">
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Status
+                    </label>
+                    <select
+                      value={card.status}
+                      onChange={(e) =>
+                        handleInputChange(card.id, "status", e.target.value)
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    >
+                      <option value="Connected">Connected</option>
+                      <option value="Disconnected">Disconnected</option>
+                      <option value="Pending">Pending</option>
+                    </select>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        </div>
+      )} */}
+      <div className="relative">
+        <IntegrationCard />
       </div>
-    </div>
-  </div>
-)}
-
     </div>
   );
 };

@@ -23,7 +23,7 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false)
   const sidebarOpen = useSelector((state) => state.sideBar.sidebar)
   const isMobileMenuOpen = useSelector((state) => state.sideBar.isMobileMenuOpen)
-  const {level} = useSelector((state) => state?.auth?.user)
+  const level = useSelector((state) => state?.auth?.user?.level)
   const showHide = sidebarOpen || isMobileMenuOpen ? "block" : "hidden"
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const Sidebar = () => {
               OVERVIEW
             </p>
             <ul className="mt-2 flex flex-col">
-              {sideBarMenu.filter(menu => menu.level.includes(parseInt(level.levelNumber)))
+              {sideBarMenu.filter(menu => menu.level.includes(parseInt(level?.levelNumber)))
                 .map((menu, index) => (
                   <li key={index} className="cursor-pointer hover:text-gray-300 flex justify-between">
                     <p className={`w-full flex items-center space-x-3 py-3 px-4 ${active === menu.title && sidebarOpen ? "bg-white text-black" : ""}`}

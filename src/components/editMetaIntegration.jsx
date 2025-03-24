@@ -1,0 +1,131 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
+import { editMetaIntegrationSchema } from '../utils/schema';
+import { editMetaIntegrationFields } from '../utils/formFields';
+import { SelectInputwithLabel, TextInput } from '../utils/input';
+import { Button } from '../utils/button';
+import { Axios, summary } from '../config/summaryAPI';
+import toast from 'react-hot-toast';
+import { AxiosError } from '../utils/axiosError';
+import { FiTrash2 } from 'react-icons/fi';
+import { RiDeleteBin7Line } from 'react-icons/ri';
+import { motion, AnimatePresence } from "framer-motion";
+
+const EditMetaIntegration = ({ showEditCard, tables }) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(editMetaIntegrationSchema),
+    });
+    const [metaIntegrationList, setMetaIntegrationList] = useState([])
+    const onSubmit = async (data) => {
+        try {
+            const response = await Axios({
+                ...summary.editMetaTable,
+                url: `/api/integration/v1/updateMetaIntegrationDetails/${showEditCard}`,
+                data: data
+            });
+            if (response.data.success) {
+                toast.success(response.data.message)
+            }
+        } catch (error) {
+            console.log(error)
+            AxiosError(error);
+        }
+    }
+    const getMetaIntegration = async () => {
+        try {
+            const response = await Axios({
+                ...summary.getMetaIntegration,
+                url: `/api/integration/v1/getMetaIntegration/${showEditCard}`,
+            });
+            if (response.data.success) {
+                setMetaIntegrationList(response.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+            AxiosError(error);
+        }
+    }
+    const handleDelete = async (id) => {
+        try {
+            const response = await Axios({
+                ...summary.deleteMetaIntegration,
+                url: `/api/integration/v1/deleteMetaIntegration/${id}`,
+            });
+            if (response.data.success) {
+                toast.success(response.data.message)
+            }
+        } catch (error) {
+            console.log(error)
+            AxiosError(error);
+        }
+    }
+
+    useEffect(() => {
+        showEditCard && getMetaIntegration()
+    }, [showEditCard])
+    const tableOptions = tables.map((table, index) => {
+        return {
+            label: table,
+            value: table
+        }
+    })
+    return (
+        <>
+            {showEditCard !== null && (
+                <div className='w-1/2'>
+                    <AnimatePresence>
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 50 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="sticky top-16"
+                        >
+                            <div className="bg-white rounded-large border border-secondary shadow-md  pr-0">
+                                <form onSubmit={handleSubmit(onSubmit)} className="px-normal pt-normal flex flex-col gap-2">
+                                    {editMetaIntegrationFields?.map((input, index) => {
+                                        if (input.type === "select") {
+                                            return <SelectInputwithLabel input={input} key={index} errors={errors} register={register} optionData={tableOptions} />
+                                        } else if (input.type === "text") {
+                                            return <TextInput input={input} key={index} errors={errors} register={register} />
+                                        }
+                                    })}
+                                    <Button className="w-fit px-3">Add Table</Button>
+                                </form>
+                                <div className="space-y-3 overflow-auto min-h-[calc(100vh-22.8rem)] max-h-[calc(100vh-22.8rem)] mt-normal">
+                                    {metaIntegrationList.map((table, index) => (
+                                        <div key={index} className={`mx-normal bg-primary rounded-large border border-[#EBF0ED]`}>
+                                            <div className="flex justify-between items-center p-normal">
+                                                <div className='space-y-2'>
+                                                    <h2 className="text-small font-medium text-neutral-900">{table.tableName}</h2>
+                                                    <p className="text-labelSize text-neutral-900">{table.description}</p>
+                                                </div>
+                                                <span
+                                                    onClick={() => handleDelete(table._id)}
+                                                    className="text-red-500 transition-colors"
+                                                    aria-label={`Delete ${table.name} table`}
+                                                >
+                                                    <RiDeleteBin7Line className="h-5 w-5" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {metaIntegrationList.length === 0 && <div className="p-8 text-center text-gray-500">No tables available</div>}
+                                </div>
+                            </div>
+                        </motion.div>
+
+                    </AnimatePresence>
+                </div>
+            )}
+        </>
+    )
+}
+
+export default EditMetaIntegration

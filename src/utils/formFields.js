@@ -102,6 +102,23 @@ export const integrationFields = [
   }
 ];
 
+export const editMetaIntegrationFields = [
+  {
+    label: "Table Name",
+    type: "select",
+    name: "tableName",
+    placeholder: "Select Table Name",
+    require: true,
+  },
+  {
+    label: "Table Description",
+    type: "text",
+    name: "description",
+    placeholder: "Enter Table Description",
+    require: true,
+  },
+];
+
 
 export const saveStoryFields = [
   {

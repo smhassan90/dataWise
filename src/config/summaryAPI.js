@@ -40,6 +40,10 @@ export const summary = {
         url: '/api/integration/v1/metaIntegrationDetails',
         method: 'post'
     },
+    getIntegrations: {
+        url: '/api/integration/v1/getIntegration',
+        method: 'get'
+    },
     generateSuggestions:{
         url: '/api/integration/v1/sugestionQuestion',
         method: 'post'
@@ -114,6 +118,22 @@ export const summary = {
     },
     deleteLevelForStory:{
         url:'/api/level/v1/deleteLevelForStory',
+        method: 'delete'
+    },
+    editFetchTable:{
+        url:'/api/integration/v1/filterFetchTables',
+        method: 'get'
+    },
+    editMetaTable:{
+        url:'/api/integration/v1/updateMetaIntegrationDetails',
+        method: 'post'
+    },
+    getMetaIntegration:{
+        url:'/api/integration/v1/getMetaIntegration',
+        method: 'get'
+    },
+    deleteMetaIntegration:{
+        url:'/api/integration/v1/deleteMetaIntegration',
         method: 'delete'
     }
 }
