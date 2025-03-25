@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 
-export const TextInput = ({ input, register, errors }) => {
+export const TextInput = ({ input, register, errors, disabled }) => {
     const [showPassword, setShowPassword] = useState({
         password: false,
         confirmPassword: false,
@@ -14,7 +14,7 @@ export const TextInput = ({ input, register, errors }) => {
                 {input.label}
             </label>
             <div className="relative w-full">
-                <input type={(input.name === "password" ||
+                <input disabled={disabled} type={(input.name === "password" ||
                     input.name === "confirmPassword") &&
                     showPassword[input.name] ? "text" : input.type}
                     placeholder={input.placeholder}

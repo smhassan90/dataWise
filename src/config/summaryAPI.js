@@ -140,6 +140,10 @@ export const summary = {
         url:'/api/user/v1/uploadImage',
         method: 'post'
     },
+    updateUser:{
+        url:'/api/user/v1/updateUser',
+        method: 'put'
+    },
     changePassword:{
         url:'/api/user/v1/changePassword',
         method:'put'

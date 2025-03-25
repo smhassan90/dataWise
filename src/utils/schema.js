@@ -109,7 +109,7 @@ export const editMetaIntegrationSchema = z.object({
     .min(1, { message: "Table Name is required" })
     .min(3, { message: "Table Name be at least 3 characters" })
     .trim(),
-    description: z
+  description: z
     .string()
     .min(1, { message: "Table Description is required" })
     .min(3, { message: "Table Description be at least 12 characters" })
@@ -230,28 +230,24 @@ export const employeeSchema = z.
       }),
   });
 
-export const settings = z.
+export const settingSchema = z.
   object({
     firstName: z
       .string()
       .min(1, { message: "First Name is required" })
       .min(3, { message: "First Name must be at least 3 characters" })
       .trim(),
-
     lastName: z
       .string()
       .min(1, { message: "Last Name is required" })
       .min(3, { message: "Last Name must be at least 3 characters" })
       .trim(),
+    email: z
+      .string()
+      .min(1, { message: "Email is required" })
+      .email("Invalid email address")
+      .trim(),
   });
-
-
-
-
-
-
-
-
 
 export const changePassword = z.
   object({
