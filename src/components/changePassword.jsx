@@ -1,6 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 import { Button } from '../utils/button'
+import { Axios, summary } from "../config/summaryAPI";
+import { toast } from "react-hot-toast";
+
 
 const ChangePassword = () => {
     const [showPasswordForm, setShowPasswordForm] = useState(false)
@@ -9,7 +12,6 @@ const ChangePassword = () => {
             toast.error("New passwords do not match")
             return
         }
-
         try {
             await Axios.put(summary.changePassword.url, {
                 oldPassword: passwordData.oldPassword,
