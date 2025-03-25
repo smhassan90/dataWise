@@ -275,10 +275,10 @@ const StoryInfo = ({ story, levels }) => {
     }
   }
   return (
-    <div className="w-full p-1 border-b">
+    <div className="w-full p-3 border-b">
       <div className="">
-        <h3 className="text-small font-medium">Selected Levels:</h3>
-        {levels.length > 0 && <div className="flex flex-wrap gap-2">
+        <h3 className="text-small  font-medium">Selected Levels:</h3>
+        {levels.length > 0 && <div className=" mb-normal flex flex-wrap gap-2">
           {levelInfo.map((level, index) => (
             <div key={index} className="flex items-center gap-1 bg-secondary text-white rounded-large py-1 px-3">
               {level.displayName}
