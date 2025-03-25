@@ -48,7 +48,7 @@ const   LineChartComponent = ({ graphData, handleRefreshQuery }) => {
           </Button>
         </div>
 
-        <ResponsiveContainer className="mt-2" width="100%" height={370}>
+        <ResponsiveContainer className="mt-normal" width="100%" height={370}>
           <LineChart data={graphData.data} margin={{ left: 20, right: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
             {keys && keys.length > 0 && (

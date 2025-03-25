@@ -7,7 +7,15 @@ import { AxiosError } from '../utils/axiosError'
 import { ClipLoader } from "react-spinners";
 import toast from 'react-hot-toast'
 import SaveStory from './saveStory'
-const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData,setStories}) => {
+const Suggestion = ({
+    setGraphData,
+    tabs,
+    activeTab,
+    setActiveTab,
+    graphData,
+    setStories,
+    stories
+}) => {
     const [showSuggestions, setShowSuggestions] = useState(false)
     const [showStoryForm, setShowStoryForm] = useState(false)
     const [searchText, setSearchText] = useState("")
@@ -73,7 +81,7 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData,set
                 ...summary.generateGraph,
                 data: {
                     customText: searchText,
-                    requiredGraph:activeTab
+                    requiredGraph: activeTab
                 }
             })
             if (response.data.success) {
@@ -108,7 +116,7 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData,set
                     ))}
                 </div>
                 <div className='flex gap-3'>
-                    {!showStoryForm && <Button className="text-labelSize" onClick={()=>setShowStoryForm((prev)=>!prev)}>
+                    {!showStoryForm && <Button className="text-labelSize" onClick={() => setShowStoryForm((prev) => !prev)}>
                         Save Graph
                     </Button>}
                     <Button onClick={suggestQuestion} className="text-labelSize">
@@ -140,7 +148,15 @@ const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData,set
                     </div>
                 </div>
             )}
-            {showStoryForm && <SaveStory activeTab={activeTab} graphData={graphData} setGraphData={setGraphData} setShowStoryForm={setShowStoryForm} setSearchText={setSearchText}/>}
+            {showStoryForm && <SaveStory
+                activeTab={activeTab}
+                graphData={graphData}
+                setGraphData={setGraphData}
+                setShowStoryForm={setShowStoryForm}
+                setSearchText={setSearchText}
+                setStories={setStories}
+                stories={stories}
+            />}
 
             {/* Search Input */}
             <div className="relative mt-normal  bg-[#fdfbf6]">

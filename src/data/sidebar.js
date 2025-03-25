@@ -51,7 +51,7 @@ export const sideBarMenu = [
 
 export const others = [
   {
-    title: "Settings",
+    title: "Setting",
     icon: <FaCog className="text-small" />,
     link: "/dashboard/setting",
   },

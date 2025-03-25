@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import { AxiosError } from '../utils/axiosError';
 import { useParams } from 'next/navigation';
 
-const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSearchText}) => {
+const SaveStory = ({ activeTab, graphData, setGraphData, setShowStoryForm, setSearchText, setStories,stories }) => {
     const {
         register,
         handleSubmit,
@@ -20,6 +20,7 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
     } = useForm({
         resolver: zodResolver(SaveStorySchema),
     });
+    console.log(stories)
     const pathName = useParams()
     useEffect(() => {
         if (graphData?.query) {
@@ -29,18 +30,22 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
             });
         }
     }, [graphData, reset]);
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         try {
             const response = await Axios({
                 ...summary.saveStory,
-                url:`/api/integration/v1/saveStory/${pathName.storyBoardId}`,
+                url: `/api/integration/v1/saveStory/${pathName.storyBoardId}`,
                 data
             })
-            if(response.data.success){
+            if (response.data.success) {
+                console.log(response.data.data)
                 toast.success(response.data.message)
                 setShowStoryForm(false)
                 setGraphData('')
                 setSearchText('')
+                const copyArrStories = [...stories]
+                copyArrStories.push(response.data.data)
+                setStories(copyArrStories)
             }
         } catch (error) {
             AxiosError(error)
@@ -50,7 +55,7 @@ const SaveStory = ({activeTab, graphData, setGraphData, setShowStoryForm,setSear
         <form action="" onSubmit={handleSubmit(onSubmit)} className="px-normal m-auto flex flex-col gap-2 mt-normal md:px-0 md:gap-3">
             {saveStoryFields.map((input, index) => {
                 if (input.type === 'text' || input.type === 'password') {
-                    return <TextInputWithoutLabel className={`${(input.name === "query" || input.name === "resultType") && 'hidden' }`} input={input} key={index} errors={errors} register={register} />
+                    return <TextInputWithoutLabel className={`${(input.name === "query" || input.name === "resultType") && 'hidden'}`} input={input} key={index} errors={errors} register={register} />
                 } else {
                     return <SelectInput input={input} key={index} errors={errors} register={register} />
                 }

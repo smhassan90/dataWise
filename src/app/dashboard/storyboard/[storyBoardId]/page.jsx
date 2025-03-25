@@ -22,8 +22,6 @@ const Dashboard = () => {
   const [SQLQuery, setSQLQuery] = useState("");
   const [stories, setStories] = useState([]);
 
-  console.log(stories)
-
   const tabs = ["Line Chart", "Bar Chart", "Report"];
   const { level } = useSelector((state) => state?.auth?.user);
 
@@ -79,6 +77,7 @@ const Dashboard = () => {
               activeTab={activeTab}
               setActiveTab={setActiveTab}
               setStories={setStories}
+              stories={stories}
             />
             {graphData && (
               <div className="p-normal rounded-large shadow-md before:bg-white w-full">

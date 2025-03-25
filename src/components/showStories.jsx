@@ -28,24 +28,33 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery }) => {
   return (
     <div
       ref={(node) => ref(drop(node))}
-      className="shadow-lg border border-gray-300 rounded-xl p-4 cursor-move bg-gradient-to-br from-blue-100 to-white hover:shadow-2xl transition duration-30"
+      className="rounded-xl cursor-move transition duration-30"
     >
-      <div className="w-full rounded-xl h-[400px] bg-white p-4 shadow-md">
+      <div className="w-full border border-secondary rounded-large bg-white p-normal shadow-md">
         {story.resultType === "Line Chart" && (
-          <LineChartComponent graphData={story} handleRefreshQuery={()=>handleRefreshQuery(story, index)}/>
+          <>
+            <span>{story.storyName}</span>
+            <LineChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
+          </>
         )}
         {story.resultType === "Bar Chart" && (
-          <BarChartComponent graphData={story} handleRefreshQuery={()=>handleRefreshQuery(story, index)}/>
+          <>
+            <span>{story.storyName}</span>
+            <BarChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
+          </>
         )}
         {story.resultType === "Report" && (
-          <ReportChartComponent graphData={story} handleRefreshQuery={()=>handleRefreshQuery(story, index)}/>
+          <>
+            <span>{story.storyName}</span>
+            <ReportChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
+          </>
         )}
       </div>
     </div>
   );
 };
 
-const ShowStories = ({ stories , setStories}) => {
+const ShowStories = ({ stories, setStories }) => {
   // const [stories, setStories] = useState([]);
   const [fullWidth, setFullWidth] = useState(false);
 
@@ -68,7 +77,7 @@ const ShowStories = ({ stories , setStories}) => {
   //   }
   // };
 
-  const handleRefreshQuery = async (graphData,index) => {
+  const handleRefreshQuery = async (graphData, index) => {
     try {
       const payload = {
         Query: graphData.query
@@ -105,7 +114,7 @@ const ShowStories = ({ stories , setStories}) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-normal">
+      <div className="">
         {/* <Button onClick={toggleWidth} className="flex items-center gap-3 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
           {fullWidth ? "Show 2 Graphs per Row" : "Expand Graphs Full Width"}
           {fullWidth ? <AiOutlineFullscreenExit size={24} /> : <AiOutlineFullscreen size={24} />}

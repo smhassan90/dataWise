@@ -161,7 +161,6 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               onClick={() => goToPage(1)}
               disabled={currentPage === 1}
             >
-              <span className="sr-only">First page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -186,7 +185,6 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <span className="sr-only">Previous page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -245,7 +243,6 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
-              <span className="sr-only">Next page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -269,7 +266,6 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               onClick={() => goToPage(totalPages)}
               disabled={currentPage === totalPages}
             >
-              <span className="sr-only">Last page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
