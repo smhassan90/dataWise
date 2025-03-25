@@ -135,5 +135,13 @@ export const summary = {
     deleteMetaIntegration:{
         url:'/api/integration/v1/deleteMetaIntegration',
         method: 'delete'
+    },
+    uploadImage:{
+        url:'/api/user/v1/uploadImage',
+        method: 'post'
+    },
+    changePassword:{
+        url:'/api/user/v1/changePassword',
+        method:'put'
     }
 }
