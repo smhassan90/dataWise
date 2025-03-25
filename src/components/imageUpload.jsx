@@ -6,6 +6,7 @@ const ImageUpload = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
+  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -25,10 +26,6 @@ const ImageUpload = () => {
       const formData = new FormData();
       formData.append("profilePicture", file);
 
-      for (let pair of formData.entries()) {
-        console.log("FormData contents:", pair[0] + ": " + pair[1]);
-      }
-
       const response = await Axios({
         url: summary.uploadImage.url,
         method: summary.uploadImage.method,
@@ -39,26 +36,33 @@ const ImageUpload = () => {
       });
 
       if (response.data.success) {
-        setProfileImage(response.data.data.avatar);
+        let imageUrl = response.data.data.avatar;
+        console.log("Uploaded Image URL:", imageUrl);
+
+        if (!imageUrl) {
+          toast.error("No image URL returned from server");
+          return;
+        }
+
+        // Convert backslashes (\) to forward slashes (/)
+        imageUrl = imageUrl.replace(/\\/g, "/");
+
+        // Add server base URL
+        const fullImageUrl = `https://yourserver.com/${imageUrl}`;
+
+        setProfileImage(`${fullImageUrl}?t=${new Date().getTime()}`); // Cache bypass
+
         toast.success("Profile picture updated successfully");
       } else {
         toast.error(response.data.message || "Failed to upload image");
       }
     } catch (error) {
-      console.error("Upload error details:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-      });
+      console.error("Upload error details:", error);
 
       if (error.response?.status === 500) {
-        toast.error(
-          "Server error: Please check if the uploads directory exists"
-        );
+        toast.error("Server error: Please check if the uploads directory exists");
       } else if (error.response?.data?.message) {
         toast.error(error.response.data.message);
-      } else if (error.message.includes("ENOENT")) {
-        toast.error("Server error: Upload directory not found");
       } else {
         toast.error("Error uploading image. Please try again.");
       }
@@ -67,6 +71,7 @@ const ImageUpload = () => {
     }
   };
 
+  
   return (
     <div className="relative group">
       <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
