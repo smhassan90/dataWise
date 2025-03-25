@@ -112,7 +112,7 @@ const ShowStories = ({ stories , setStories}) => {
         </Button> */}
 
         <div className={`grid ${fullWidth ? "grid-cols-1" : "grid-cols-1"} gap-3 mt-normal`}>
-          {stories.map((story, index) => (
+          {stories?.map((story, index) => (
             <DraggableGraph key={index} index={index} story={story} handleRefreshQuery={handleRefreshQuery} />
           ))}
         </div>

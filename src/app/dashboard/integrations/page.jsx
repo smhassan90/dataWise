@@ -46,7 +46,7 @@ const Integrations = () => {
   ];
 
   return (
-    <div className="bg-white rounded-large p-normal">
+    <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5rem)]">
       <Button className="gap-2" onClick={() => setShowForm(true)}>
         Add Integrations
         <span>
