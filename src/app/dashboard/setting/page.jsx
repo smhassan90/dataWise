@@ -4,8 +4,10 @@ import { Button } from "@/src/utils/button"
 import { useState, useEffect } from "react"
 import { Axios, summary } from "@/src/config/summaryAPI"
 import { toast } from "react-hot-toast"
+import ChangePassword from "@/src/components/changePassword"
 
 export default function SettingsPage() {
+  console.log("hello")
   const [profileImage, setProfileImage] = useState(null)
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [userData, setUserData] = useState({
@@ -13,50 +15,13 @@ export default function SettingsPage() {
     lastName: "",
     email: "",
   })
-  const [passwordData, setPasswordData] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: ""
-  })
-
- 
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target
-    setPasswordData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
 
   
-  const handlePasswordUpdate = async () => {
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      toast.error("New passwords do not match")
-      return
-    }
-
-    try {
-      await Axios.put(summary.changePassword.url, {
-        oldPassword: passwordData.oldPassword,
-        newPassword: passwordData.newPassword
-      })
-      toast.success("Password updated successfully")
-      setShowPasswordForm(false)
-      setPasswordData({
-        oldPassword: "",
-        newPassword: "",
-        confirmPassword: ""
-      })
-    } catch (error) {
-      toast.error("Failed to update password")
-    }
-  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-normal px-normal sm:px-6 lg:px-normal">
       <div className="mx-auto">
         <div className="bg-white rounded-large shadow-md overflow-hidden mb-normal">
-          <div className="w-full   bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
+          <div className="w-full bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
             <div className="relative group">
               <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
                 {profileImage ? (
@@ -171,80 +136,8 @@ placeholder="Enter your first name"
         </div>
        {/* password api  */}
         {/* Password Section */}
-        <div className="bg-white rounded-large shadow-md overflow-hidden">
-          <div className="p-8">
-            <div className="flex items-center justify-between mb-normal">
-              <h2 className="text-2xl font-bold text-gray-800">Password Settings</h2>
-              <Button
-                onClick={() => setShowPasswordForm(!showPasswordForm)}
-                
-              >
-                {showPasswordForm ? "Cancel" : "Change Password"}
-              </Button>
-            </div>
-
-            {showPasswordForm ? (
-              <div className="">
-                <div className="space-y-6">
-                  <div>
-                    <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                      Current Password
-                    </label>
-                    <input
-                      id="oldPassword"
-                      name="oldPassword"
-                      type="password"
-                      value={passwordData.oldPassword}
-                      onChange={handlePasswordChange}
-                      className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-normal pr-16 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
-                      placeholder="Enter your current password"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                        New Password
-                      </label>
-                      <input
-                        id="newPassword"
-                        name="newPassword"
-                        type="password"
-                        value={passwordData.newPassword}
-                        onChange={handlePasswordChange}
-                        className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-normal pr-16 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
-                        placeholder="Enter new password"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                        Confirm New Password
-                      </label>
-                      <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        value={passwordData.confirmPassword}
-                        onChange={handlePasswordChange}
-                        className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-normal pr-16 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
-                        placeholder="Confirm new password"
-                      />
-                    </div>
-                  </div>
-                    <Button onClick={handlePasswordUpdate}>
-                      Update Password
-                      </Button>
-                </div>
-              </div>
-            ) : (
-              <p className="text-gray-500">
-                For security reasons, we recommend changing your password regularly. Your password must be at least 8
-                characters long and include a mix of letters, numbers, and special characters.
-              </p>
-            )}
-          </div>
-        </div>
+        <ChangePassword/>
       </div>
-    </div>
   )
 }
 
