@@ -15,7 +15,7 @@ import {
 import { Button } from "../utils/button";
 const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
   const [keys, setKeys] = useState()
-    const [isSpinning, setIsSpinning] = useState(false); // To track if the icon should spin
+    const [isSpinning, setIsSpinning] = useState(false); 
   
   const fillsColor = ["#036666", '#ff8548']
   useEffect(() => {
@@ -25,9 +25,9 @@ const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
   console.log(keys)
 
   const handleIconClick = async () => {
-    setIsSpinning(true); // Start spinning the icon
-    await handleRefreshQuery(); // Trigger your refresh logic
-    setIsSpinning(false); // Stop spinning after refresh is done
+    setIsSpinning(true);
+    await handleRefreshQuery(); 
+    setIsSpinning(false);
   };
 
   return (
