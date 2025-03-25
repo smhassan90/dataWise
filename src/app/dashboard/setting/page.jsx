@@ -1,5 +1,5 @@
 "use client"
-
+import { useState, useEffect } from "react";
 import { Button } from "@/src/utils/button"
 import ChangePassword from "@/src/components/changePassword"
 import { settings } from "@/src/utils/formFields"
@@ -12,10 +12,6 @@ import { Axios, summary } from "@/src/config/summaryAPI"
 import { AxiosError } from "@/src/utils/axiosError"
 import { login } from "@/src/redux/auth"
 import toast from "react-hot-toast"
-
-import { Button } from "@/src/utils/button";
-import { useState, useEffect } from "react";
-import ChangePassword from "@/src/components/changePassword";
 import ImageUpload from "@/src/components/imageUpload";
 export default function SettingsPage() {
   const user = useSelector(state => state?.auth?.user)
@@ -57,7 +53,7 @@ export default function SettingsPage() {
   return (
     <div className="mx-auto space-y-3">
       <div className="bg-white rounded-large shadow-md overflow-hidden">
-        <ImageUpload/>
+        {/* <ImageUpload/> */}
         {/* <div className="w-full bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
           <div className="relative group">
             <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
@@ -142,7 +138,7 @@ export default function SettingsPage() {
           </form>
         </div>
       </div>
-      <ChangePassword />
+      <ChangePassword/>
     </div>
   )
 }

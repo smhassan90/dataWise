@@ -166,7 +166,7 @@ const DataTable = () => {
         </form>
       )}
 
-      {loading ? <div className="loader">Loading...</div> : employee.length < 0 ? (
+      {loading ? <div className="loader">Loading...</div> : employee.length > 0 ? (
         <Pagination
           data={employee}
           employees={employees}
