@@ -121,7 +121,7 @@ const StoryBorad = () => {
     }
   }
   return (
-    <div className="">
+    <div className="bg-white rounded-large py-normal min-h-[calc(100vh-5.2rem)]">
       {user?.level?.levelNumber <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">

@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5rem)]">
+      <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)]">
         {level?.levelNumber <= 3 && (
           <>
             <div className="flex items-center">
@@ -78,6 +78,7 @@ const Dashboard = () => {
               tabs={tabs}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              setStories={setStories}
             />
             {graphData && (
               <div className="p-normal rounded-large shadow-md before:bg-white w-full">

@@ -7,7 +7,7 @@ import { AxiosError } from '../utils/axiosError'
 import { ClipLoader } from "react-spinners";
 import toast from 'react-hot-toast'
 import SaveStory from './saveStory'
-const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData}) => {
+const Suggestion = ({ setGraphData, tabs, activeTab, setActiveTab, graphData,setStories}) => {
     const [showSuggestions, setShowSuggestions] = useState(false)
     const [showStoryForm, setShowStoryForm] = useState(false)
     const [searchText, setSearchText] = useState("")

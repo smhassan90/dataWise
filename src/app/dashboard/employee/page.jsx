@@ -9,13 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { employeeFields } from "@/src/utils/formFields";
 import { employeeSchema } from "@/src/utils/schema";
 import toast from "react-hot-toast";
-import {
-  SelectInput,
-  TextInputWithoutLabel,
-  TextInput,
-  SelectInputwithLabel,
-} from "@/src/utils/input";
+import { TextInput, SelectInputwithLabel } from "@/src/utils/input";
 import { useSelector } from "react-redux";
+import Image from 'next/image';
+import gifImage from '@/src/assets/images/noDataGif.gif'
 
 const DataTable = () => {
   const {
@@ -31,11 +28,12 @@ const DataTable = () => {
   const [employee, setEmployee] = useState([]);
   const [storyBoards, setStoryBoards] = useState([]);
   const [levels, setLevels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   const employees = async () => {
     try {
+      setLoading(true);
       const response = await Axios({
         ...summary.fetchEmployees,
       });
@@ -112,14 +110,12 @@ const DataTable = () => {
   const columns = ["ID", "First Name", "Email", "Created Date", "Actions"];
   console.log(levels);
   return (
-    <div className="">
+    <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)]">
       {user?.level?.levelNumber <= 3 && !showEmployeeForm && (
         <div>
           <Button onClick={() => openForm()}>Add New Employee</Button>
         </div>
       )}
-
-      {loading && <div className="loader">Loading...</div>}
 
       {showEmployeeForm && (
         <form
@@ -170,7 +166,7 @@ const DataTable = () => {
         </form>
       )}
 
-      {employee.length > 0 && !loading && (
+      {loading ? <div className="loader">Loading...</div> : employee.length < 0 ? (
         <Pagination
           data={employee}
           employees={employees}
@@ -178,6 +174,10 @@ const DataTable = () => {
           page="employees"
           storyBoards={storyBoards}
         />
+      ) : (
+        <div className="flex justify-center items-center h-[500px]">
+          <Image src={gifImage} alt='No Data Found' height={150} width={150} />
+        </div>
       )}
     </div>
   );

@@ -62,6 +62,7 @@ const Pagination = ({
             setExpandedEditRow={setExpandedEditRow}
             storyBoards={storyBoards}
             employees={employees}
+            data={data}
           />}
       </div>
 
