@@ -8,14 +8,23 @@ import { Button } from '../utils/button'
 import EmployeeInfo from './employeeInfo'
 import EmployeeEdit from './employeeEdit';
 const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees }) => {
+    // const toggleViewRow = (id) => {
+    //     if (expandedViewRow === id) {
+    //         setExpandedViewRow(null)
+    //     } else {
+    //         setExpandedViewRow(id)
+    //         setExpandedEditRow(null);
+    //     }
+    // }
+
     const toggleViewRow = (id) => {
         if (expandedViewRow === id) {
-            setExpandedViewRow(null)
+          setExpandedViewRow(null);
         } else {
-            setExpandedViewRow(id)
-            setExpandedEditRow(null);
+          setExpandedViewRow(id);
+          setExpandedEditRow(null);
         }
-    }
+      };
     const toggleEditRow = (id) => {
         if (expandedEditRow === id) {
             setExpandedEditRow(null)
@@ -36,7 +45,9 @@ const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRo
             <tbody>
                 {currentItems.map((employee, index) => (
                     <>
-                        <tr key={employee.id} className="border-b">
+                                <tr key={employee._id} className={`${expandedViewRow === (indexOfFirstItem + index + 1) ? "" : "border-b"}`}>
+
+                        {/* <tr key={employee.id} className="border-b"> */}
                             <td className="p-normal w-1/12 font-medium whitespace-nowrap">{indexOfFirstItem + index + 1}</td>
                             <td className="p-normal w-3/12 whitespace-nowrap">{employee.firstName}</td>
                             <td className="p-normal w-4/12 whitespace-nowrap">{employee.email}</td>

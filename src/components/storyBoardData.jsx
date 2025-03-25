@@ -24,14 +24,24 @@ const StoryBoardList = ({
   selectedRadio,
   changePriority
 }) => {
+  // const toggleViewRow = (id) => {
+  //   if (expandedViewRow === id) {
+  //     setExpandedViewRow(null)
+  //   } else {
+  //     setExpandedViewRow(id)
+  //     setExpandedEditRow(null);
+  //   }
+  // }
   const toggleViewRow = (id) => {
     if (expandedViewRow === id) {
-      setExpandedViewRow(null)
+      setExpandedViewRow(null);
     } else {
-      setExpandedViewRow(id)
+      setExpandedViewRow(id);
       setExpandedEditRow(null);
     }
-  }
+  };
+  
+
   const toggleEditRow = (id) => {
     if (expandedEditRow === id) {
       setExpandedEditRow(null)
@@ -52,7 +62,8 @@ const StoryBoardList = ({
       <tbody>
         {currentItems?.map((story, index) => (
           <>
-            <tr key={story._id} className="border-b">
+            {/* <tr key={story._id} className="border-b"> */}
+            <tr key={story._id} className={`${expandedViewRow === (indexOfFirstItem + index + 1) ? "" : "border-b"}`}>
               <td className="p-normal w-1/12 font-medium whitespace-nowrap">{indexOfFirstItem + index + 1}</td>
               <td className="p-normal w-4/12 whitespace-nowrap">{story.storyBoardName}</td>
               <td className="p-normal w-2/12 whitespace-nowrap">{new Date(story.createdAt).toLocaleDateString()}</td>
