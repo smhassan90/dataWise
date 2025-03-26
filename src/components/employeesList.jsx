@@ -1,10 +1,7 @@
-import Link from 'next/link'
-import { Eye } from "lucide-react"
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { LiaEditSolid } from 'react-icons/lia'
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
-import { Button } from '../utils/button'
 import EmployeeInfo from './employeeInfo'
 import EmployeeEdit from './employeeEdit';
 const EmployeesList = ({ columns, currentItems, indexOfFirstItem, expandedViewRow, setExpandedViewRow, expandedEditRow, setExpandedEditRow, storyBoards, employees, data }) => {

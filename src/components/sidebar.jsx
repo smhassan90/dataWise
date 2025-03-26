@@ -9,7 +9,6 @@ import { RxCross2 } from "react-icons/rx";
 import { debounce } from "lodash"
 import { formatTitle } from "../config/caplitalizeWords"
 import { logout } from "../redux/auth"
-import { Hidden } from "@mui/material"
 import Image from 'next/image'
 import { Button } from "../utils/button"
 

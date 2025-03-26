@@ -1,7 +1,5 @@
 "use client"
 import { useState } from "react"
-import Link from "next/link"
-import { Eye } from "lucide-react"
 import { Button } from "../utils/button"
 import StoryBoardList from "./storyBoardData"
 import EmployeesList from "./employeesList"
