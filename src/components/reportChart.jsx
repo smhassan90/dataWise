@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "../utils/button";
 import { LuRefreshCcw } from "react-icons/lu";
+import { PuffLoader } from "react-spinners";
 
 // Sample data generator
 const generateData = (graphData, keys) => {
@@ -19,7 +20,7 @@ const generateData = (graphData, keys) => {
   return data;
 };
 
-const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
+const ReportChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
   const keys = Object.keys(graphData.data[0]);
   const [data] = useState(generateData(graphData.data, keys));
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,9 +34,9 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleIconClick = async () => {
-    setIsSpinning(true); // Start spinning the icon
-    await handleRefreshQuery(); // Trigger your refresh logic
-    setIsSpinning(false); // Stop spinning after refresh is done
+    setIsSpinning(true);
+    await handleRefreshQuery();
+    setIsSpinning(false);
   };
 
   // Column headers
@@ -56,41 +57,52 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(e.target.value);
-    setCurrentPage(1); // Reset to first page when changing items per page
+    setCurrentPage(1);
+  };
+
+  const downloadCSV = () => {
+    const csvHeader = columns.map((col) => col.label).join(",") + "\n";
+    const csvRows = data.map((row) =>
+        columns.map((col) => (row[col.key] ? row[col.key] : "")).join(",")
+      )
+      .join("\n");
+
+    const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(csvHeader + csvRows);
+    const link = document.createElement("a");
+    link.href = csvContent;
+    link.download = `${graphData.storyName}.csv`;
+    link.click();
   };
 
   return (
     <>
-      {/* <Button className="space-x-4" onClick={handleIconClick}>
+      {graphData.storyName && <div className="flex justify-between items-center relative w-[100%]">
+        <span>{graphData.storyName}</span>
+        <div className="flex gap-3">
+          <Button onClick={downloadCSV}
+          >
+            Download CSV
+          </Button>
+          <Button className="space-x-4" onClick={handleIconClick}>
             <span>Sync</span>
             <LuRefreshCcw
               className=""
               size={19}
               style={{
                 color: "white",
-                transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)", // Rotate icon
-                transition: "transform 0.9s ease", // Smooth rotation
+                transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)",
+                transition: "transform 0.9s ease",
               }}
             />
-          </Button>       */}
-      <div className="flex justify-end relative w-[100%]">
-        {/* Circle Button */}
-        <Button className="space-x-4" onClick={handleIconClick}>
-          <span>Sync</span>
-          <LuRefreshCcw
-            className=""
-            size={19}
-            style={{
-              color: "white",
-              transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)", // Rotate icon
-              transition: "transform 0.9s ease", // Smooth rotation
-            }}
-          />
-        </Button>
-      </div>
+          </Button>
+        </div>
+      </div>}
 
-      <div className="flex flex-col gap-4 mt-2">
-        {/* Table with horizontal and vertical scrolling */}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[300px]">
+          <PuffLoader color="#036666" size={100} />
+        </div>
+      ) : <div className="flex flex-col gap-4 mt-2">
         <div className="rounded-large border border-secondary">
           <div className="overflow-x-auto">
             <div className="max-h-[500px] overflow-y-auto ">
@@ -111,9 +123,8 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
                   {currentItems.map((row, rowIndex) => (
                     <tr
                       key={row.id}
-                      className={`border-b border-secondary transition-colors hover:bg-gray-50 ${
-                        rowIndex === currentItems.length - 1 ? "border-b-0" : ""
-                      }`}
+                      className={`border-b border-secondary transition-colors hover:bg-gray-50 ${rowIndex === currentItems.length - 1 ? "border-b-0" : ""
+                        }`}
                     >
                       {columns.map((column) => (
                         <td
@@ -131,7 +142,6 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
           </div>
         </div>
 
-        {/* Pagination controls */}
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <span>Rows per page:</span>
@@ -153,11 +163,10 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
 
           <div className="flex items-center gap-1">
             <button
-              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${
-                currentPage === 1
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-50"
-              }`}
+              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-gray-50"
+                }`}
               onClick={() => goToPage(1)}
               disabled={currentPage === 1}
             >
@@ -177,11 +186,10 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               </svg>
             </button>
             <button
-              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${
-                currentPage === 1
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-50"
-              }`}
+              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === 1
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-gray-50"
+                }`}
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -221,11 +229,10 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
                 return (
                   <button
                     key={pageNum}
-                    className={`h-8 w-8 rounded-md border ${
-                      currentPage === pageNum
-                        ? "bg-secondary text-white"
-                        : "hover:bg-Quinary hover:text-white"
-                    }`}
+                    className={`h-8 w-8 rounded-md border ${currentPage === pageNum
+                      ? "bg-secondary text-white"
+                      : "hover:bg-Quinary hover:text-white"
+                      }`}
                     onClick={() => goToPage(pageNum)}
                   >
                     {pageNum}
@@ -235,11 +242,10 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
             </div>
 
             <button
-              className={`h-8 w-8 rounded-md border border-secondary flex items-center justify-center ${
-                currentPage === totalPages
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-50"
-              }`}
+              className={`h-8 w-8 rounded-md border border-secondary flex items-center justify-center ${currentPage === totalPages
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-gray-50"
+                }`}
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
@@ -258,11 +264,10 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
               </svg>
             </button>
             <button
-              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${
-                currentPage === totalPages
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-50"
-              }`}
+              className={`h-8 w-8 rounded-md border border-gray-300 flex items-center justify-center ${currentPage === totalPages
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-gray-50"
+                }`}
               onClick={() => goToPage(totalPages)}
               disabled={currentPage === totalPages}
             >
@@ -283,7 +288,7 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery }) => {
             </button>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

@@ -13,10 +13,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Button } from "../utils/button";
-const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
+import { PuffLoader } from "react-spinners";
+const BarChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
   const [keys, setKeys] = useState()
-    const [isSpinning, setIsSpinning] = useState(false); 
-  
+  const [isSpinning, setIsSpinning] = useState(false);
+
   const fillsColor = ["#036666", '#ff8548']
   useEffect(() => {
     const keys = graphData && graphData?.data?.length > 0 ? Object.keys(graphData.data[0]) : [];
@@ -26,30 +27,33 @@ const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
 
   const handleIconClick = async () => {
     setIsSpinning(true);
-    await handleRefreshQuery(); 
+    await handleRefreshQuery();
     setIsSpinning(false);
   };
 
   return (
     <>
-     <div className="flex justify-end relative w-[100%]">
-            {/* Circle Button */}
-            <Button className="space-x-4" onClick={handleIconClick}>
-              <span>Sync</span>
-              <LuRefreshCcw
-                className=""
-                size={19}
-                style={{
-                  color: "white",
-                  transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)", // Rotate icon
-                  transition: "transform 0.9s ease", // Smooth rotation
-                }}
-              />
-            </Button>
-          </div>
-      {/* <Button onClick={handleRefreshQuery}>Refresh</Button> */}
+      {graphData.storyName && <div className="flex justify-between items-center relative w-[100%]">
+        <span>{graphData.storyName}</span>
+        <Button className="space-x-4" onClick={handleIconClick}>
+          <span>Sync</span>
+          <LuRefreshCcw
+            className=""
+            size={19}
+            style={{
+              color: "white",
+              transform: isSpinning ? "rotate(360deg)" : "rotate(0deg)", // Rotate icon
+              transition: "transform 0.9s ease", // Smooth rotation
+            }}
+          />
+        </Button>
+      </div>}
       <ResponsiveContainer className="mt-2" width="100%" margin-top={44} height={370}>
-        <BarChart data={graphData.data}>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-[300px]">
+            <PuffLoader color="#036666" size={100} />
+          </div>
+        ) : <BarChart data={graphData.data}>
           <CartesianGrid strokeDasharray="3 3" />
           {keys && keys.length > 0 && (
             <XAxis
@@ -74,6 +78,7 @@ const BarChartComponent = ({ graphData,handleRefreshQuery }) => {
               dot={{ r: 6 }}
             />))}
         </BarChart>
+        }
       </ResponsiveContainer>
     </>
   );

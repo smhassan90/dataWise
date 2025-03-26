@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 const ItemType = "CHART";
 
-const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery }) => {
+const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery, isLoading }) => {
   const [, ref] = useDrag({ type: ItemType, item: { index } });
   const [, drop] = useDrop({
     accept: ItemType,
@@ -32,22 +32,25 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery }) => {
     >
       <div className="w-full border border-secondary rounded-large bg-white p-normal shadow-md">
         {story.resultType === "Line Chart" && (
-          <>
-            <span>{story.storyName}</span>
-            <LineChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
-          </>
+          <LineChartComponent
+            graphData={story}
+            handleRefreshQuery={() => handleRefreshQuery(story, index)}
+            isLoading={isLoading}
+          />
         )}
         {story.resultType === "Bar Chart" && (
-          <>
-            <span>{story.storyName}</span>
-            <BarChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
-          </>
+          <BarChartComponent
+            graphData={story}
+            handleRefreshQuery={() => handleRefreshQuery(story, index)}
+            isLoading={isLoading}
+          />
         )}
         {story.resultType === "Report" && (
-          <>
-            <span>{story.storyName}</span>
-            <ReportChartComponent graphData={story} handleRefreshQuery={() => handleRefreshQuery(story, index)} />
-          </>
+          <ReportChartComponent
+            graphData={story}
+            handleRefreshQuery={() => handleRefreshQuery(story, index)}
+            isLoading={isLoading}
+          />
         )}
       </div>
     </div>
@@ -55,30 +58,17 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery }) => {
 };
 
 const ShowStories = ({ stories, setStories }) => {
-  // const [stories, setStories] = useState([]);
   const [fullWidth, setFullWidth] = useState(false);
-
-  // useEffect(() => {
-  //   fetchStories();
-  // }, []);
-
-  // const fetchStories = async () => {
-  //   try {
-  //     const response = await Axios({
-  //       ...summary.fetchStories,
-  //       url: `/api/integration/v1/getAllStories/${paramsId}`
-  //     });
-
-  //     if (response.data.success) {
-  //       setStories(response.data.data);
-  //     }
-  //   } catch (error) {
-  //     AxiosError(error);
-  //   }
-  // };
-
+  const [loader, setLoader] = useState(Array(stories.length).fill(false))
+  console.log(loader)
   const handleRefreshQuery = async (graphData, index) => {
     try {
+      setLoader((prev) => {
+        const updated = [...prev];
+        updated[index] = true;
+        return updated;
+      });
+      console.log(loader)
       const payload = {
         Query: graphData.query
       }
@@ -98,6 +88,12 @@ const ShowStories = ({ stories, setStories }) => {
     } catch (error) {
       console.log(error)
       AxiosError(error)
+    } finally {
+      setLoader((prev) => {
+        const updated = [...prev];
+        updated[index] = false;
+        return updated;
+      });
     }
   }
 
@@ -115,14 +111,15 @@ const ShowStories = ({ stories, setStories }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="">
-        {/* <Button onClick={toggleWidth} className="flex items-center gap-3 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-          {fullWidth ? "Show 2 Graphs per Row" : "Expand Graphs Full Width"}
-          {fullWidth ? <AiOutlineFullscreenExit size={24} /> : <AiOutlineFullscreen size={24} />}
-        </Button> */}
-
         <div className={`grid ${fullWidth ? "grid-cols-1" : "grid-cols-1"} gap-3 mt-normal`}>
           {stories?.map((story, index) => (
-            <DraggableGraph key={index} index={index} story={story} handleRefreshQuery={handleRefreshQuery} />
+            <DraggableGraph
+              key={index}
+              index={index}
+              story={story}
+              handleRefreshQuery={handleRefreshQuery}
+              isLoading={loader[index]}
+            />
           ))}
         </div>
       </div>
