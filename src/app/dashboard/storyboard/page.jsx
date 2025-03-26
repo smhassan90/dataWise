@@ -13,12 +13,15 @@ import { RxCross2 } from "react-icons/rx";
 import Pagination from '@/src/components/pagination'
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { PuffLoader } from "react-spinners";
 const StoryBorad = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [storyBoards, setStoryBoards] = useState([])
   const [levels, setLevels] = useState([])
   const [selectedRadio, setSelectedRadio] = useState(null)
+ const [loading, setLoading] = useState(false);
+  
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
@@ -33,15 +36,20 @@ const StoryBorad = () => {
   });
   const getStoryBoards = async () => {
     try {
+      setLoading(true);
       const response = await Axios({
         ...summary.getStoryBoard
       })
       if (response.data.success) {
         setStoryBoards(response.data.data)
+        setLoading(false);
+
       }
     } catch (error) {
       console.log(error)
       AxiosError(error)
+      setLoading(false);
+
     }
   }
   const getEmployeeStoryBoards = async (data) => {
@@ -154,7 +162,11 @@ const StoryBorad = () => {
           </div>
         </div>
       )}
-      {storyBoards.length > 0 &&
+      {loading ? (
+              <div className="flex justify-center items-center h-[300px]">
+                <PuffLoader color="#036666" size={100} />
+              </div>
+            ) :storyBoards.length > 0 &&
         <Pagination
           data={storyBoards}
           levels={levels}

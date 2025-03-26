@@ -2,6 +2,7 @@
 import { useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { PuffLoader } from "react-spinners";
 
 const ProtectedRoute = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const ProtectedRoute = ({ children }) => {
     if (loading && !noAuthRequired.includes(pathname)) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <p>Loading...</p>
+          <PuffLoader color="#036666" size={100} />
             </div>
         );
     }
