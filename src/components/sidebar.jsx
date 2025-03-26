@@ -11,6 +11,7 @@ import { formatTitle } from "../config/caplitalizeWords"
 import { logout } from "../redux/auth"
 import { Hidden } from "@mui/material"
 import Image from 'next/image'
+import { Button } from "../utils/button"
 
 const Sidebar = () => {
   const router = useRouter()
@@ -79,7 +80,7 @@ const Sidebar = () => {
 
       <div className={`fixed top-0 left-0 bg-secondary text-white transition-all duration-300 ease-in-out z-40
           ${sidebarOpen ? "lg:w-[16rem] lg:rounded-large" : "lg:w-[3rem] lg:rounded-large"}
-          ${isMobileMenuOpen ? "w-[80%] max-w-[25rem]" : "w-0 -translate-x-full"}
+          ${isMobileMenuOpen ? "w-[80%] max-w-[25rem] rounded-large h-full" : "w-0 -translate-x-full"}
           lg:translate-x-0 lg:m-normal lg:h-[calc(100vh-24px)]`}
       >
         <div className={`h-full overflow-y-auto flex flex-col`}>
@@ -96,15 +97,15 @@ const Sidebar = () => {
               />
             </div>
 
-            <button className="lg:hidden text-white"
+            <Button className="lg:hidden text-white ml-normal"
               onClick={() => dispatch(toogleMobile(false))}
               aria-label="Close sidebar"
             >
               <RxCross2 size={25} />
-            </button>
+            </Button>
           </div>
 
-          <div className="flex items-center gap-3 md:hidden cursor-pointer hover:text-gray-300 p-5 pt-0">
+          {/* <div className="flex items-center gap-3 md:hidden cursor-pointer hover:text-gray-300 p-5 pt-0">
             <div className="p-2 bg-gray-300 rounded-full flex items-center justify-center border border-gray-400">
               <span className="text-xs">GK</span>
             </div>
@@ -112,7 +113,7 @@ const Sidebar = () => {
               <p className="text-lg">Gladys Kanyinda</p>
               <p className="text-gray-600 text-lg bg-gray-500 rounded-md ">Admin</p>
             </div>
-          </div>
+          </div> */}
 
           <nav className="pt-0">
             <p className={`text-neutral-300 text-labelSize mb-4 px-4 transition-all duration-300 ${showHide}`}>
