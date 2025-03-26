@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { FaChevronDown, FaBars } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { navbarTitle, toogleMobile } from "../redux/sidebar";
 import { sideBarMenu, others } from "../data/sidebar";
@@ -8,6 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import { debounce } from "lodash";
 import { formatTitle } from "../config/caplitalizeWords";
 import { logout } from "../redux/auth";
+import { Hidden } from "@mui/material";
 import Image from "next/image";
 import { Button } from "../utils/button";
 import { motion } from "framer-motion";
