@@ -8,11 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { settingSchema } from "@/src/utils/schema"
 import { useDispatch, useSelector } from "react-redux"
-import { Axios, summary } from "@/src/config/summaryAPI"
+import { Axios, baseURL, summary } from "@/src/config/summaryAPI"
 import { AxiosError } from "@/src/utils/axiosError"
 import { login } from "@/src/redux/auth"
 import toast from "react-hot-toast"
 import ImageUpload from "@/src/components/imageUpload";
+import Image from "next/image";
 export default function SettingsPage() {
   const user = useSelector(state => state?.auth?.user)
   const dispatch = useDispatch()
@@ -49,16 +50,17 @@ export default function SettingsPage() {
       AxiosError(error);
     }
   }
+  const profileImage = `${baseURL}/${user.profilePicture}`
 
   return (
     <div className="mx-auto space-y-3">
       <div className="bg-white rounded-large shadow-md overflow-hidden">
         {/* <ImageUpload/> */}
-        {/* <div className="w-full bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
+        <div className="w-full bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
           <div className="relative group">
             <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
               {profileImage ? (
-                <img src={profileImage || "/placeholder.svg"} alt="Profile" className="h-full w-full object-cover" />
+                <Image src={profileImage} alt="Profile" width={1000} height={1000} className="h-full w-full" />
               ) : (
                 <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-secondary to-secondary">
                   <svg
@@ -107,10 +109,10 @@ export default function SettingsPage() {
             />
           </div>
           <h2 className="mt-6 text-2xl font-bold">
-            {userData.firstName} {userData.lastName}
+            {user.firstName} {user.lastName}
           </h2>
-          <p className="text-indigo-200">{userData.email}</p>
-        </div> */}
+          <p className="text-indigo-200">{user.email}</p>
+        </div>
         <div className="p-normal">
           <h2 className="text-medium font-bold text-gray-800 mb-normal">Personal Information</h2>
           <form action="" onSubmit={handleSubmit(onSubmit)} className="space-y-3">
