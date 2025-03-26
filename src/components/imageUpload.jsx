@@ -73,6 +73,8 @@ const ImageUpload = () => {
 
   
   return (
+    <div className="w-full bg-gradient-to-r from-secondary to-secondary py-normal flex flex-col items-center justify-center text-white">
+
     <div className="relative group">
       <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
         {profileImage ? (
@@ -135,6 +137,13 @@ const ImageUpload = () => {
         onChange={handleImageUpload}
         disabled={isUploading}
       />
+    </div>
+    <h2 className="mt-6 text-2xl font-bold">
+            {/* {userData.firstName} {userData.lastName} */}
+          </h2>
+          <p className="text-indigo-200">
+            {/* {userData.email} */}
+            </p>
     </div>
   );
 };
