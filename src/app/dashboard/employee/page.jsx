@@ -168,8 +168,8 @@ const DataTable = () => {
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center h-[300px]">
-          <PuffLoader color="#036666" size={100} />
+        <div className="justify-center items-center absolute">
+          {/* <PuffLoader color="#036666" size={100} /> */}
         </div>
       ) : employee.length > 0 ? (
         <Pagination
