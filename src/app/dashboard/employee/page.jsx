@@ -11,8 +11,9 @@ import { employeeSchema } from "@/src/utils/schema";
 import toast from "react-hot-toast";
 import { TextInput, SelectInputwithLabel } from "@/src/utils/input";
 import { useSelector } from "react-redux";
-import Image from 'next/image';
-import gifImage from '@/src/assets/images/noDataGif.gif'
+import Image from "next/image";
+import gifImage from "@/src/assets/images/noDataGif.gif";
+import { PuffLoader } from "react-spinners";
 
 const DataTable = () => {
   const {
@@ -166,7 +167,11 @@ const DataTable = () => {
         </form>
       )}
 
-      {loading ? <div className="loader">Loading...</div> : employee.length > 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-[300px]">
+          <PuffLoader color="#036666" size={100} />
+        </div>
+      ) : employee.length > 0 ? (
         <Pagination
           data={employee}
           employees={employees}
@@ -175,8 +180,8 @@ const DataTable = () => {
           storyBoards={storyBoards}
         />
       ) : (
-        <div className="flex justify-center items-center h-[500px]">
-          <Image src={gifImage} alt='No Data Found' height={150} width={150} />
+        <div className="flex justify-center items-center h-[300px]">
+          <Image src={gifImage} alt="No Data Found" height={150} width={150} />
         </div>
       )}
     </div>
