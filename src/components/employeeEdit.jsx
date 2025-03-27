@@ -1,7 +1,4 @@
 
-
-
-
 "use client"
 import { motion } from "framer-motion";
 import { TextInput } from "../utils/input"
@@ -53,7 +50,7 @@ const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees }) 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-            <form onSubmit={handleSubmit(onSubmit)} className="px-normal mr-auto flex flex-col items-start gap-2 mt-normal md:px-0 md:gap-3">
+            <form onSubmit={handleSubmit(onSubmit)} className="px-normal  mr-auto flex flex-col items-start gap-2 mt-normal md:px-0 md:gap-3">
                 {editEmployeeQuotaFields.map((input, index) => {
                     if (input.name == "quota" && employee.level > 3) {
                         return null

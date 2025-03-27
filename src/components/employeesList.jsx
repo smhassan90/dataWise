@@ -1,4 +1,6 @@
 
+
+
 "use client"
 
 import { RiDeleteBin7Line } from "react-icons/ri"
@@ -97,7 +99,7 @@ const EmployeesList = ({
               <>
                 <tr
                   key={employee._id}
-                  className={`${expandedViewRow === (indexOfFirstItem + index + 1) ? "" : "border-b"} transition-all duration-300 hover:bg-gray-50`}
+                  className={`${(expandedEditRow ||expandedViewRow ) === (indexOfFirstItem + index + 1) ? "" : "border-b"} transition-all duration-300 hover:bg-gray-50`}
                   style={{
                     animation: `fadeIn 0.5s ease-out forwards`,
                     animationDelay: `${index * 0.05}s`,
@@ -166,7 +168,7 @@ const EmployeesList = ({
                   </td>
                 </tr>
                 {expandedViewRow === indexOfFirstItem + index + 1 && (
-                  <tr className="bg-gray-50 transition-all duration-500">
+                  <tr className="transition-all duration-500">
                     <td colSpan={5} className="p-0">
                       <div
                         className="overflow-hidden"
@@ -181,7 +183,8 @@ const EmployeesList = ({
                   </tr>
                 )}
                 {expandedEditRow === indexOfFirstItem + index + 1 && (
-                  <tr className="bg-gray-50 transition-all duration-500">
+                  <tr 
+                  className="bg-gray-50 transition-all duration-500">
                     <td colSpan={5} className="p-0">
                       <div
                         className="overflow-hidden"
@@ -210,4 +213,3 @@ const EmployeesList = ({
 }
 
 export default EmployeesList
-
