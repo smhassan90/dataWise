@@ -5,22 +5,24 @@ import { AxiosError } from '../utils/axiosError'
 import { Axios, summary } from '../config/summaryAPI'
 import toast from 'react-hot-toast'
 
-const SqlQuery = ({ SQLQuery, setSQLQuery , activeTab, setGraphData}) => {
-    const handleReRunQuery = async() => {
+const SqlQuery = ({ SQLQuery, setSQLQuery, activeTab, setGraphData, storyBoardId }) => {
+    const handleReRunQuery = async () => {
         try {
             const payload = {
-                requiredGraph:activeTab,
-                newQuery:SQLQuery
+                storyBoardId,
+                requiredGraph: activeTab,
+                newQuery: SQLQuery
             }
             const response = await Axios({
                 ...summary.reRunQuery,
-                data:payload
+                data: payload
             })
-            if(response.data.success){
+            if (response.data.success) {
                 toast.success(response.data.message)
                 setGraphData(response.data.data)
             }
         } catch (error) {
+            console.log(error)
             AxiosError(error)
         }
     }

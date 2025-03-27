@@ -49,7 +49,7 @@ const Dashboard = () => {
         setStories(response.data.data);
       }
     } catch (error) {
-        console.log(error)
+      console.log(error)
       AxiosError(error);
     }
   };
@@ -98,9 +98,8 @@ const Dashboard = () => {
 
                 <div className="flex flex-col lg:flex-row gap-4">
                   <div
-                    className={`${
-                      showSQL ? "lg:w-[930px]" : "w-full"
-                    } transition-all`}
+                    className={`${showSQL ? "lg:w-[930px]" : "w-full"
+                      } transition-all`}
                   >
                     {activeTab === "Line Chart" && (
                       <LineChartComponent graphData={graphData} />
@@ -115,6 +114,7 @@ const Dashboard = () => {
 
                   {showSQL && (
                     <SqlQuery
+                      storyBoardId={storyBoardId}
                       SQLQuery={SQLQuery}
                       setSQLQuery={setSQLQuery}
                       activeTab={activeTab}
@@ -128,7 +128,7 @@ const Dashboard = () => {
         )}
         {stories.length > 0 && <div className="flex flex-col gap-10 bg-white my-normal">
           {/* <ShowStories paramsId={storyBoardId} /> */}
-          <ShowStories stories={stories} setStories={setStories}/>
+          <ShowStories stories={stories} setStories={setStories} />
         </div>}
       </div>
     </div>

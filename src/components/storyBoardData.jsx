@@ -82,7 +82,7 @@ const StoryBoardList = ({
                   <button className="text-gray-600 hover:text-gray-800">
                     <RiDeleteBin7Line className="w-5 h-5" />
                   </button></>}
-                <div className="relative cursor-pointer">
+                {user?.level?.levelNumber > 3 && <div className="relative cursor-pointer">
                   <input
                     type="radio"
                     id={`radio-${story?._id}`}
@@ -101,7 +101,7 @@ const StoryBoardList = ({
                         }`}
                     ></span>
                   </label>
-                </div>
+                </div>}
               </td>
             </tr>
             {expandedViewRow === (indexOfFirstItem + index + 1) && (

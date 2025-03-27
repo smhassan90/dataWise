@@ -3,7 +3,7 @@ import { Axios, summary } from "@/src/config/summaryAPI";
 import { AxiosError } from "@/src/utils/axiosError";
 import { Button } from "@/src/utils/button";
 import { addStoryBoard } from "@/src/utils/formFields";
-import { TextInput } from "@/src/utils/input";
+import { SelectInputwithLabel, TextInput } from "@/src/utils/input";
 import { AddStoryBoardSchema } from "@/src/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -20,8 +20,9 @@ const StoryBorad = () => {
   const [storyBoards, setStoryBoards] = useState([])
   const [levels, setLevels] = useState([])
   const [selectedRadio, setSelectedRadio] = useState(null)
- const [loading, setLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
+  const [integrations, setintegrations] = useState([])
+
   const openDialog = () => setIsOpen(true);
   const closeDialog = () => setIsOpen(false);
   const columns = ["ID", "Storyboard Name", "Created Date", "Status", "Actions"]
@@ -80,10 +81,28 @@ const StoryBorad = () => {
       AxiosError(error)
     }
   }
+  const getIntegration = async (data) => {
+    try {
+      const response = await Axios({
+        ...summary.getIntegrations,
+      });
+      if (response.data.success) {
+        setintegrations(
+          response.data.data.map((integration) => ({
+              label: integration.integrationName,
+              value: integration._id,
+            }))
+        );
+      }
+    } catch (error) {
+      AxiosError(error)
+    }
+  }
   useEffect(() => {
     if (user?.level?.levelNumber <= 3) {
       getStoryBoards()
       getlevels()
+      getIntegration()
     } else {
       getEmployeeStoryBoards()
     }
@@ -144,10 +163,11 @@ const StoryBorad = () => {
             </div>
             <form action="" onSubmit={handleSubmit(onSubmit)}>
               {/* Dialog content */}
-              <div className="p-normal">
-                {addStoryBoard.map((input, index) => (
-                  <TextInput input={input} key={index} errors={errors} register={register} />
-                ))}
+              <div className="p-normal space-y-3">
+                {addStoryBoard.map((input, index) => {
+                  if (input.type == "text") return <TextInput input={input} key={index} errors={errors} register={register} />
+                  else if (input.type == "select") return <SelectInputwithLabel input={input} key={index} errors={errors} register={register} optionData={integrations} />
+                })}
 
               </div>
 
@@ -163,20 +183,20 @@ const StoryBorad = () => {
         </div>
       )}
       {loading ? (
-              <div className="flex justify-center items-center h-[300px]">
-                <PuffLoader color="#036666" size={100} />
-              </div>
-            ) :storyBoards.length > 0 &&
-        <Pagination
-          data={storyBoards}
-          levels={levels}
-          columns={columns}
-          page="storyBoard"
-          storyBoards={getStoryBoards}
-          user={user}
-          selectedRadio={selectedRadio}
-          changePriority={changePriority}
-        />}
+        <div className="flex justify-center items-center h-[300px]">
+          <PuffLoader color="#036666" size={100} />
+        </div>
+      ) : storyBoards.length > 0 &&
+      <Pagination
+        data={storyBoards}
+        levels={levels}
+        columns={columns}
+        page="storyBoard"
+        storyBoards={getStoryBoards}
+        user={user}
+        selectedRadio={selectedRadio}
+        changePriority={changePriority}
+      />}
     </div>
   );
 }

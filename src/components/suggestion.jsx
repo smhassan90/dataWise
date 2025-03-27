@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import toast from 'react-hot-toast'
 import SaveStory from './saveStory'
 const Suggestion = ({
+    storyBoardId,
     setGraphData,
     tabs,
     activeTab,
@@ -48,10 +49,15 @@ const Suggestion = ({
             return setShowSuggestions((prev) => !prev)
         }
         try {
+            const payload = {
+                storyBoardId,
+                requiredGraph:activeTab
+            }
             setShowSuggestions((prev) => !prev)
             setLoader(true)
             const response = await Axios({
-                ...summary.generateSuggestions
+                ...summary.generateSuggestions,
+                data:payload
             })
             if (response.data.success) {
                 const suggestionList = response.data.data.split("\n").filter((item) => item.trim() !== "")
@@ -80,6 +86,7 @@ const Suggestion = ({
             const response = await Axios({
                 ...summary.generateGraph,
                 data: {
+                    storyBoardId,
                     customText: searchText,
                     requiredGraph: activeTab
                 }

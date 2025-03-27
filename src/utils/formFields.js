@@ -147,6 +147,14 @@ export const addStoryBoard = [
     name: "storyBoardName",
     placeholder: "Enter Story Board Name",
     require: true,
+    label: "Story Board Name",
+  },
+  {
+    type: "select",
+    name: "integrationId",
+    placeholder: "Select Integration",
+    require: true,
+    label: "Select Integration",
   }
 ];
 

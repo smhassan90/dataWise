@@ -144,6 +144,9 @@ export const AddStoryBoardSchema = z
       .min(1, { message: "Story Board Name is required" })
       .min(3, { message: "Story Board Name be at least 3 characters" })
       .trim(),
+    integrationId: z
+      .string()
+      .min(1, { message: "Integration Id is required" })
   })
 
 export const editStoryBoardSchema = z

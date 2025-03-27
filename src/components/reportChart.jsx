@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../utils/button";
 import { LuRefreshCcw } from "react-icons/lu";
 import { PuffLoader } from "react-spinners";
@@ -22,17 +22,19 @@ const generateData = (graphData, keys) => {
 
 const ReportChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
   const keys = Object.keys(graphData.data[0]);
-  const [data] = useState(generateData(graphData.data, keys));
+  const [data,setData] = useState(generateData(graphData.data, keys));
+  console.log(data,"data")
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [isSpinning, setIsSpinning] = useState(false); // To track if the icon should spin
-
   // Calculate pagination
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-
+  useEffect(()=>{
+    setData(generateData(graphData.data, keys))
+  },[graphData])
   const handleIconClick = async () => {
     setIsSpinning(true);
     await handleRefreshQuery();
