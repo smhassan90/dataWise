@@ -1,6 +1,6 @@
 
- 
-  "use client";
+
+"use client";
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/src/utils/button";
 import Suggestion from "@/src/components/suggestion";
@@ -39,7 +39,7 @@ const Dashboard = () => {
   useEffect(() => {
     setSQLQuery(graphData.query);
   }, [graphData]);
-  
+
   useEffect(() => {
     fetchStories();
     // Add fade-in animation on initial page load
@@ -67,31 +67,31 @@ const Dashboard = () => {
 
   const handleTabChange = (tab) => {
     if (tab === activeTab || isAnimating) return;
-    
+
     // Determine slide direction based on tab index
     const currentIndex = tabs.indexOf(activeTab);
     const newIndex = tabs.indexOf(tab);
     const direction = newIndex > currentIndex ? "left" : "right";
-    
+
     setSlideDirection(direction);
     setIsAnimating(true);
-    
+
     // Start slide-out animation
     if (contentRef.current) {
       contentRef.current.classList.remove("animate-slideInLeft", "animate-slideInRight");
       contentRef.current.classList.add(direction === "right" ? "animate-slideOutLeft" : "animate-slideOutRight");
     }
-    
+
     // Change tab after animation completes
     setTimeout(() => {
       setActiveTab(tab);
-      
+
       // Start slide-in animation
       if (contentRef.current) {
         contentRef.current.classList.remove("animate-slideOutLeft", "animate-slideOutRight");
         contentRef.current.classList.add(direction === "left" ? "animate-slideInRight" : "animate-slideInLeft");
       }
-      
+
       setTimeout(() => {
         setIsAnimating(false);
       }, 300);
@@ -148,9 +148,8 @@ const Dashboard = () => {
 
                 <div className="flex flex-col lg:flex-row gap-4 overflow-x-hidden">
                   <div
-                    className={`${
-                      showSQL ? "lg:w-[930px]" : "w-full"
-                    } transition-all duration-300 overflow-x-hidden`}
+                    className={`${showSQL ? "lg:w-[930px]" : "w-full"
+                      } transition-all duration-300 overflow-x-hidden`}
                   >
                     {/* Tab content with swipe animation - fixed to prevent scrollbar */}
                     <div ref={contentRef} className="w-full overflow-hidden relative">
@@ -172,6 +171,7 @@ const Dashboard = () => {
                   <div className={`transition-all duration-300 ease-in-out ${showSQL ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'}`}>
                     {showSQL && (
                       <SqlQuery
+                        storyBoardId={storyBoardId}
                         SQLQuery={SQLQuery}
                         setSQLQuery={setSQLQuery}
                         activeTab={activeTab}
@@ -185,7 +185,7 @@ const Dashboard = () => {
           </>
         )}
         {stories.length > 0 && <div className="flex flex-col gap-10 bg-white my-normal">
-          <ShowStories stories={stories} setStories={setStories}/>
+          <ShowStories stories={stories} setStories={setStories} />
         </div>}
       </div>
 

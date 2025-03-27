@@ -51,13 +51,13 @@ const Suggestion = ({
         try {
             const payload = {
                 storyBoardId,
-                requiredGraph:activeTab
+                requiredGraph: activeTab
             }
             setShowSuggestions((prev) => !prev)
             setLoader(true)
             const response = await Axios({
                 ...summary.generateSuggestions,
-                data:payload
+                data: payload
             })
             if (response.data.success) {
                 const suggestionList = response.data.data.split("\n").filter((item) => item.trim() !== "")
@@ -82,6 +82,7 @@ const Suggestion = ({
         }
     }
     const generateGraph = async () => {
+        if (!searchText.trim()) return;
         try {
             const response = await Axios({
                 ...summary.generateGraph,
@@ -104,7 +105,6 @@ const Suggestion = ({
     const handleSuggestionClick = (suggestion) => {
         setSearchText(`${suggestion.heading}:${suggestion.description}`)
         setShowSuggestions(false)
-        generateGraph()
     }
     return (
         <div className="my-normal relative">
@@ -174,10 +174,9 @@ const Suggestion = ({
                     placeholder="Search a Metric ..."
                     className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-normal pr-16 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
                 />
-                <FaSearch className="absolute right-3 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 text-gray" />
+                <FaSearch className="absolute right-3 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 text-gray" onClick={generateGraph}/>
                 <FaMicrophone className={`absolute right-10 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 ${isListening ? "text-secondary" : "text-gray"
                     }`}
-                // onClick={startListening}
                 />
             </div>
         </div>

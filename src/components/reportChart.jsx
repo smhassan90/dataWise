@@ -21,7 +21,7 @@ const generateData = (graphData, keys) => {
 };
 
 const ReportChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
-  const keys = Object.keys(graphData.data[0]);
+  const keys = graphData.data.length > 0 && Object.keys(graphData.data[0]);
   const [data,setData] = useState(generateData(graphData.data, keys));
   console.log(data,"data")
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,13 +42,13 @@ const ReportChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
   };
 
   // Column headers
-  const columns = [
+  const columns = keys.length > 0 ? [
     { key: "id", label: "Id" },
     ...keys.map((key) => ({
       key: key,
       label: key.charAt(0).toUpperCase() + key.slice(1).toLowerCase(),
     })),
-  ];
+  ] : [];
 
   // Pagination handlers
   const goToPage = (page) => {
