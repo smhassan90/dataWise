@@ -59,8 +59,7 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery, isLoading 
 
 const ShowStories = ({ stories, setStories }) => {
   const [fullWidth, setFullWidth] = useState(false);
-  const [loader, setLoader] = useState(Array(stories.length).fill(false))
-  console.log(loader)
+  const [loader, setLoader] = useState(Array(stories?.length).fill(false))
   const handleRefreshQuery = async (graphData, index) => {
     try {
       setLoader((prev) => {
