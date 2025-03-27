@@ -192,10 +192,10 @@ const EmployeesList = ({
                         onClick={() =>
                           toggleEditRow(indexOfFirstItem + index + 1)
                         }
-                        className="text-gray-600 hover:text-gray-800 transition-all duration-300"
-                        style={{
-                          transition: "all 0.3s ease",
-                        }}
+                        className="text-gray-600 hover:text-gray-800 transition-all 0.9s ease duration-300"
+                        // style={{
+                        //   transition: "all 0.3s ease",
+                        // }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.transform =
                             "scale(1.1) rotate(-3deg)";
