@@ -1,11 +1,6 @@
-
-
-
 "use client";
-
 import { useState } from "react";
-import { motion } from "framer-motion";  // Importing Framer Motion
-import { SelectInput } from "../utils/input";
+import { motion } from "framer-motion";
 import { RxCross2 } from "react-icons/rx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -25,10 +20,14 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
   });
 
   const filterStoryBoards = (a, b) => {
-    return a.filter(sb => !b.some(empSb => empSb.storyBoardName === sb.storyBoardName));
+    return a.filter(
+      (sb) => !b.some((empSb) => empSb.storyBoardName === sb.storyBoardName)
+    );
   };
 
-  const [filterStory, setFilterStory] = useState(filterStoryBoards(storyBoards, employee.storyBoards));
+  const [filterStory, setFilterStory] = useState(
+    filterStoryBoards(storyBoards, employee.storyBoards)
+  );
   const [employeeInfo, setEmployeeInfo] = useState(employee.storyBoards);
 
   const handleDeleteStoryBoard = async (story) => {
@@ -42,8 +41,13 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       });
 
       if (response.data.success) {
-        setEmployeeInfo((prev) => prev.filter(prevStory => prevStory._id !== story._id));
-        setFilterStory((prev) => [...prev, { _id: story._id, storyBoardName: story.storyBoardName }]);
+        setEmployeeInfo((prev) =>
+          prev.filter((prevStory) => prevStory._id !== story._id)
+        );
+        setFilterStory((prev) => [
+          ...prev,
+          { _id: story._id, storyBoardName: story.storyBoardName },
+        ]);
       }
     } catch (error) {
       AxiosError(error);
@@ -78,7 +82,9 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       });
 
       if (response.data.success) {
-        setFilterStory(filterStoryBoards(storyBoards, response.data.data.storyBoards));
+        setFilterStory(
+          filterStoryBoards(storyBoards, response.data.data.storyBoards)
+        );
         setEmployeeInfo(response.data.data.storyBoards);
       }
     } catch (error) {
@@ -88,9 +94,9 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -50 }}  // Start from the top with opacity 0
-      animate={{ opacity: 1, y: 0 }}    // Move to normal position
-      transition={{ duration: 0.5, ease: "easeOut" }}  // Smooth animation
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="w-full p-normal border-b"
     >
       <div className="pb-normal space-y-2 border-b w-1/4">
@@ -104,12 +110,15 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-small font-medium">Utilized Quota:</span>
-          <span className="text-small font-medium">{employee.quotaUtilize}</span>
+          <span className="text-small font-medium">
+            {employee.quotaUtilize}
+          </span>
         </div>
       </div>
-
       <div className="mt-normal">
-        <h3 className="text-small font-medium mb-normal">Selected Story Boards:</h3>
+        <h3 className="text-small font-medium mb-normal">
+          Selected Story Boards:
+        </h3>
         {employee.storyBoards.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {employeeInfo.map((story, index) => (
@@ -171,4 +180,3 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
 };
 
 export default EmployeeInfo;
-
