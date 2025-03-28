@@ -26,7 +26,7 @@ export const sideBarMenu = [
   {
     title: "StoryBoard",
     icon: <FaBook className="text-small" />,
-    link: "/dashboard/storyBoard",
+    link: "/dashboard/storyboard",
     level:[1,2,3,4,5]
   },
   {
