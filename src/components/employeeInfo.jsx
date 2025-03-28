@@ -82,6 +82,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       });
 
       if (response.data.success) {
+        console.log(response.data.data)
         setFilterStory(
           filterStoryBoards(storyBoards, response.data.data.storyBoards)
         );
@@ -91,7 +92,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       AxiosError(error);
     }
   };
-
+  console.log(employee)
   return (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
@@ -102,7 +103,7 @@ const EmployeeInfo = ({ employee, storyBoards }) => {
       <div className="pb-normal space-y-2 border-b w-1/4">
         <div className="flex justify-between items-center">
           <span className="text-small font-medium">Level:</span>
-          <span className="text-small font-medium">{employee.level}</span>
+          <span className="text-small font-medium">{employee.level.displayName}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-small font-medium">Quota:</span>

@@ -70,17 +70,17 @@ const StoryBoardList = ({
               <td className={`${story.status == "1" ? "text-green-800" : story.status == "2" ? "text-red-700" : ""} px-4 py-3 w-2/12 whitespace-nowrap`}>{story.status == "1" ? "Active" : "InActive"}</td>
               <td className="p-normal w-3/12 whitespace-nowrap flex items-center gap-3">
                 <Link href={`/dashboard/storyBoard/${story._id}`} className="text-gray-600 hover:text-gray-800">
-                  <MdReadMore className="w-6 h-6" />
+                  <MdReadMore className="w-6 h-6 text-gray" />
                 </Link>
                 {user?.level?.levelNumber <= 3 && <><button onClick={() => toggleViewRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
                   {expandedViewRow === (indexOfFirstItem + index + 1) ?
-                    <FaRegEye className="w-5 h-5" /> : <FaRegEyeSlash className="w-5 h-5" />}
+                    <FaRegEye className="w-5 h-5 text-green-700" /> : <FaRegEyeSlash className="w-5 h-5 text-green-700" />}
                 </button>
                   <button onClick={() => toggleEditRow(indexOfFirstItem + index + 1)} className="text-gray-600 hover:text-gray-800">
-                    <LiaEditSolid className="w-5 h-5" />
+                    <LiaEditSolid className="w-5 h-5 text-yellow-600" />
                   </button>
                   <button className="text-gray-600 hover:text-gray-800">
-                    <RiDeleteBin7Line className="w-5 h-5" />
+                    <RiDeleteBin7Line className="w-5 h-5 text-red-700" />
                   </button></>}
                 {user?.level?.levelNumber > 3 && <div className="relative cursor-pointer">
                   <input

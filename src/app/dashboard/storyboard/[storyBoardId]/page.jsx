@@ -28,7 +28,7 @@ const Dashboard = () => {
   const contentRef = useRef(null);
 
   const tabs = ["Line Chart", "Bar Chart", "Report"];
-  const { level } = useSelector((state) => state?.auth?.user);
+  const user = useSelector((state) => state?.auth?.user);
 
   const router = useRouter();
 
@@ -105,7 +105,7 @@ const Dashboard = () => {
   return (
     <div id="dashboard-container" className="opacity-0 overflow-x-hidden">
       <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)] overflow-x-hidden">
-        {level?.levelNumber <= 3 && (
+        {user?.level?.levelNumber <= 3 && (
           <>
             <div className="flex items-center">
               <MdArrowBackIosNew
