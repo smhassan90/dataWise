@@ -33,7 +33,7 @@ const Dashboard = () => {
   const router = useRouter();
 
   const handleBackClick = () => {
-    router.push("/dashboard/storyBoard");
+    router.push("/dashboard/storyboard");
   };
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const Dashboard = () => {
           </>
         )}
         {stories.length > 0 && <div className="flex flex-col gap-10 bg-white my-normal">
-          <ShowStories stories={stories} setStories={setStories} />
+          <ShowStories paramsId={storyBoardId} />
         </div>}
       </div>
 

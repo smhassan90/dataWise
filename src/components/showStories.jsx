@@ -13,7 +13,13 @@ import toast from "react-hot-toast";
 
 const ItemType = "CHART";
 
-const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery, isLoading }) => {
+const DraggableGraph = ({
+  story,
+  index,
+  moveCard,
+  handleRefreshQuery,
+  isLoading,
+}) => {
   const [, ref] = useDrag({ type: ItemType, item: { index } });
   const [, drop] = useDrop({
     accept: ItemType,
@@ -57,9 +63,27 @@ const DraggableGraph = ({ story, index, moveCard, handleRefreshQuery, isLoading 
   );
 };
 
-const ShowStories = ({ stories, setStories }) => {
+const ShowStories = ({ paramsId }) => {
+  const [stories, setStories] = useState([]);
   const [fullWidth, setFullWidth] = useState(false);
-  const [loader, setLoader] = useState(Array(stories?.length).fill(false))
+  const [loader, setLoader] = useState(Array(stories?.length).fill(false));
+  useEffect(() => {
+    fetchStories();
+  }, []);
+  const fetchStories = async () => {
+    try {
+      const response = await Axios({
+        ...summary.fetchStories,
+        url: `/api/integration/v1/getAllStories/${paramsId}`,
+      });
+
+      if (response.data.success) {
+        setStories(response.data.data);
+      }
+    } catch (error) {
+      AxiosError(error);
+    }
+  };
   const handleRefreshQuery = async (graphData, index) => {
     try {
       setLoader((prev) => {
@@ -67,26 +91,26 @@ const ShowStories = ({ stories, setStories }) => {
         updated[index] = true;
         return updated;
       });
-      console.log(loader)
+      console.log(loader);
       const payload = {
-        Query: graphData.query
-      }
+        Query: graphData.query,
+      };
       const response = await Axios({
         ...summary.refreshQuery,
-        data: payload
-      })
+        data: payload,
+      });
       if (response.data.success) {
-        toast.success(response.data.message)
+        toast.success(response.data.message);
         const updatedStories = [...stories];
         updatedStories[index] = {
           ...updatedStories[index],
-          data: response.data.data
+          data: response.data.data,
         };
         setStories(updatedStories);
       }
     } catch (error) {
-      console.log(error)
-      AxiosError(error)
+      console.log(error);
+      AxiosError(error);
     } finally {
       setLoader((prev) => {
         const updated = [...prev];
@@ -94,7 +118,7 @@ const ShowStories = ({ stories, setStories }) => {
         return updated;
       });
     }
-  }
+  };
 
   const moveCard = (fromIndex, toIndex) => {
     const updatedStories = [...stories];
@@ -110,7 +134,11 @@ const ShowStories = ({ stories, setStories }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="">
-        <div className={`grid ${fullWidth ? "grid-cols-1" : "grid-cols-1"} gap-3 mt-normal`}>
+        <div
+          className={`grid ${
+            fullWidth ? "grid-cols-1" : "grid-cols-1"
+          } gap-3 mt-normal`}
+        >
           {stories?.map((story, index) => (
             <DraggableGraph
               key={index}
