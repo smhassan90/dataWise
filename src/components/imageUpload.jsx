@@ -60,7 +60,7 @@ const ImageUpload = () => {
         <div className="h-40 w-40 rounded-full overflow-hidden bg-white/20 ring-4 ring-white/30 shadow-lg">
           {profileImage ? (
             <Image
-              src={"http://localhost:4000/uploads/1743144649906-avatar.png"}
+              src={profileImage}
               alt="Profile"
               width={1000}
               height={1000}
