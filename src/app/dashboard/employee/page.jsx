@@ -69,7 +69,7 @@ const DataTable = () => {
       if (response.data.success) {
         setLevels(
           response.data.data
-            .filter((level) => level.displayName !== "Owner") // Filter kar diya
+            .filter((level) => level.displayName !== "Owner")
             .map((level) => ({
               label: level.displayName,
               value: level.levelNumber,
@@ -168,8 +168,8 @@ const DataTable = () => {
       )}
 
       {loading ? (
-        <div className="justify-center items-center absolute">
-          {/* <PuffLoader color="#036666" size={100} /> */}
+        <div className="flex justify-center items-center h-[300px]">
+          <PuffLoader color="#036666" size={100} />
         </div>
       ) : employee.length > 0 ? (
         <Pagination

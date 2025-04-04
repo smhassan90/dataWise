@@ -23,7 +23,6 @@ const generateData = (graphData, keys) => {
 const ReportChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
   const keys = graphData.data.length > 0 && Object.keys(graphData.data[0]);
   const [data,setData] = useState(generateData(graphData.data, keys));
-  console.log(data,"data")
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [isSpinning, setIsSpinning] = useState(false); // To track if the icon should spin

@@ -23,7 +23,6 @@ const BarChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
     const keys = graphData && graphData?.data?.length > 0 ? Object.keys(graphData.data[0]) : [];
     setKeys(keys)
   }, [graphData])
-  console.log(keys)
 
   const handleIconClick = async () => {
     setIsSpinning(true);

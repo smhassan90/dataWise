@@ -10,11 +10,11 @@ import toast from 'react-hot-toast';
 
 const FetchIntegrationTable = ({ integration ,setShowForm}) => {
     const inte = {
-        integrationName: "OsamaIntegration",
-        password: "Pma_109c",
-        platformName: "mysql",
-        url: "jdbc:mysql://66.135.60.203:3308/dbtabib",
-        username: "kamran"
+        integrationName: integration.integrationName,
+        password: integration.password,
+        platformName: integration.platformName,
+        url: integration.url,
+        username: integration.username,
     }
     const {
         register,
@@ -70,6 +70,7 @@ const FetchIntegrationTable = ({ integration ,setShowForm}) => {
             }));
             const response = await Axios({
                 ...summary.metaIntegrations,
+                url:`/api/integration/v1/metaIntegrationDetails/${integration.integrationId}`,
                 data: {
                     tables
                 }

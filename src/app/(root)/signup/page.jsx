@@ -11,7 +11,6 @@ import Container from "@/src/utils/container";
 import { TextInput } from "@/src/utils/input";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-// import {logo} from "@/public/logo.png"
 import Image from "next/image";
 
 const SignUpPage = () => {

@@ -60,6 +60,7 @@ const LineChartComponent = ({ graphData, handleRefreshQuery, isLoading }) => {
               />
             )}
             <YAxis />
+            <Tooltip />
             {keys.map((key) => {
               const isNumeric = graphData.data.some(
                 (item) => !isNaN(item[key])

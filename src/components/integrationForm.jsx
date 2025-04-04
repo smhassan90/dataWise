@@ -9,7 +9,7 @@ import { Button } from '../utils/button';
 import { useSelector } from 'react-redux';
 import { Axios, summary } from '../config/summaryAPI';
 import toast from 'react-hot-toast';
-const IntegrationForm = ({setShowForm,setStep,setIntegration}) => {
+const IntegrationForm = ({ setShowForm, setStep, setIntegration }) => {
     const user = useSelector(state => state.auth.user)
     const {
         register,
@@ -25,11 +25,15 @@ const IntegrationForm = ({setShowForm,setStep,setIntegration}) => {
                 data: data
             })
             if (response.data.success) {
-                setIntegration(data)
+                setIntegration({
+                    ...data,
+                    integrationId: response.data.data._id,
+                })
                 toast.success(response.data.message);
                 setStep(2)
             }
         } catch (error) {
+            console.log(error)
             AxiosError(error)
         }
     };
@@ -43,7 +47,7 @@ const IntegrationForm = ({setShowForm,setStep,setIntegration}) => {
                 }
             })}
             <div className="flex justify-end items-center gap-5">
-                <Button type="button" onClick={(e)=>{
+                <Button type="button" onClick={(e) => {
                     e.preventDefault()
                     setShowForm(false)
                 }} className="!bg-transparent !text-neutral-900 !px-5 !py-[6px] border">Close</Button>

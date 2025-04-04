@@ -76,7 +76,7 @@ export const integrationFields = [
     require: true,
     options: [
       { label: "MySql", value: "mysql" },
-      { label: "Acuity", value: "acuity" }
+      { label: "Oracle", value: "oracle" }
     ],
   },
   {
