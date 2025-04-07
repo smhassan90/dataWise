@@ -84,6 +84,7 @@ const Suggestion = ({
     const generateGraph = async () => {
         if (!searchText.trim()) return;
         try {
+            setLoader(true)
             const response = await Axios({
                 ...summary.generateGraph,
                 data: {
@@ -95,11 +96,12 @@ const Suggestion = ({
             if (response.data.success) {
                 toast.success(response.data.message)
                 setGraphData(response.data.data)
-                console.log("dataaadda", response.data.data)
-                // console.log(gra)
+                setSearchText("")
             }
         } catch (error) {
             AxiosError(error)
+        } finally {
+            setLoader(false)
         }
     }
     const handleSuggestionClick = (suggestion) => {
@@ -174,7 +176,8 @@ const Suggestion = ({
                     placeholder="Search a Metric ..."
                     className="h-[40px] w-full border border-[#EBF0ED] rounded-large bg-primary px-normal pr-16 focus:border-secondary focus:outline-none text-labelSize md:h-[45px]"
                 />
-                <FaSearch className="absolute right-3 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 text-gray" onClick={generateGraph}/>
+                {loader ? <ClipLoader color='#036666' className='absolute right-3 top-4' size={16} /> : 
+                    <FaSearch className="absolute right-3 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 text-gray" onClick={generateGraph} />}
                 <FaMicrophone className={`absolute right-10 top-4 h-4 w-4 cursor-pointer transition-colors duration-300 ${isListening ? "text-secondary" : "text-gray"
                     }`}
                 />

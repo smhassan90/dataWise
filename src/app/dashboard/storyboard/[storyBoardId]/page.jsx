@@ -14,6 +14,9 @@ import { useRouter } from "next/navigation";
 import { Axios, summary } from "@/src/config/summaryAPI";
 import { AxiosError } from "@/src/utils/axiosError";
 import { dashboardAnimations } from "@/src/components/dashboardAnimation";
+import Image from "next/image";
+import gifImage from "@/src/assets/images/noDataGif.gif";
+import { PuffLoader } from "react-spinners";
 
 // const MemoizedLineChart = memo(LineChartComponent)
 // const MemoizedBarChart = memo(BarChartComponent)
@@ -72,7 +75,7 @@ const Dashboard = () => {
     setSQLQuery(graphData.query);
   }, [graphData]);
 
-  const { stories, setStories } = useStories(storyBoardId)
+  const { stories, setStories, loading } = useStories(storyBoardId)
 
   useEffect(() => {
     // Add fade-in animation on initial page load
@@ -213,9 +216,15 @@ const Dashboard = () => {
             )}
           </>
         )}
-        {stories.length > 0 && <div className="flex flex-col gap-10 bg-white my-normal">
-          <ShowStories paramsId={storyBoardId} />
-        </div>}
+        {loading ?
+          <div className="flex justify-center items-center h-[300px]">
+            <PuffLoader color="#036666" size={100} />
+          </div> : stories.length > 0 ? <div className="flex flex-col gap-10 bg-white my-normal">
+            <ShowStories paramsId={storyBoardId} />
+          </div> :
+            <div className="flex justify-center items-center h-[300px]">
+              <Image src={gifImage} alt="No Data Found" height={150} width={150} />
+            </div>}
       </div>
 
       <style jsx>{dashboardAnimations}</style>

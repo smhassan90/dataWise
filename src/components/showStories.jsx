@@ -97,6 +97,7 @@ const ShowStories = ({ paramsId }) => {
       };
       const response = await Axios({
         ...summary.refreshQuery,
+        url:`/api/integration/v1/refreshQuery/${paramsId}`,
         data: payload,
       });
       if (response.data.success) {
