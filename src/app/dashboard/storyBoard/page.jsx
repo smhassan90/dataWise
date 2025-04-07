@@ -55,6 +55,7 @@ const StoryBorad = () => {
   }
   const getEmployeeStoryBoards = async (data) => {
     try {
+      setLoading(true);
       const response = await Axios({
         ...summary.fetchSingleEmployee,
         url: `/api/employee/v1/getEmployee/${user?._id}`
@@ -63,9 +64,11 @@ const StoryBorad = () => {
         setSelectedRadio(response.data.data.storyBoards.find(story => story.priority == 1))
         console.log(response.data.data)
         setStoryBoards(response.data.data.storyBoards)
+        setLoading(false);
       }
     } catch (error) {
       console.log(error)
+      setLoading(false);
       AxiosError(error)
     }
   }

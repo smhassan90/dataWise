@@ -24,17 +24,26 @@ const Dashboard = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getEmployeeStoryBoards()
-  },[])
+  }, [])
 
   console.log(activeBoard)
   return (
     <div>
-      <div className="bg-white rounded-large p-normal">
-        <div className="flex flex-col gap-10 shadow-md my-normal">
-          {activeBoard && <ShowStories paramsId={activeBoard?._id} />}
-        </div>
+      <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)]">
+        {/* {loading ?
+          <div className="flex justify-center items-center h-[300px]">
+            <PuffLoader color="#036666" size={100} />
+          </div> : stories.length > 0 ? <div className="flex flex-col gap-10 bg-white my-normal">
+            {activeBoard && <ShowStories paramsId={activeBoard?._id} />}
+          </div> :
+            <div className="flex justify-center items-center h-[300px]">
+              <Image src={gifImage} alt="No Data Found" height={150} width={150} />
+            </div>} */}
+        {/* <div className="flex flex-col gap-10 shadow-md my-normal"> */}
+        {activeBoard && <ShowStories paramsId={activeBoard?._id} />}
+        {/* </div> */}
       </div>
     </div>
   );
