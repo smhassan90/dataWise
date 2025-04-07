@@ -173,7 +173,7 @@ export const editStoryBoardFields = [
     name: "storyBoardName",
     placeholder: "Enter Story Board Name",
     require: true,
-    label:"Story Board Name"
+    label: "Story Board Name"
   },
   {
     type: "select",
@@ -184,18 +184,24 @@ export const editStoryBoardFields = [
       { label: "InActive", value: "2" },
       { label: "Active", value: "1" }
     ],
-    label:"Enter Status"
+    label: "Enter Status"
   },
 ];
 
 
 export const editEmployeeQuotaFields = [
   {
-    type: "number",
+    label: "Employee Level",
+    type: "select",
     name: "level",
-    placeholder: "Enter Employee Level (1-5)",
+    placeholder: "Enter Employee Level",
     require: true,
-    label: "Level",
+    options: [
+      { label: "2", value: "2" },
+      { label: "3", value: "3" },
+      { label: "4", value: "4" },
+      { label: "5", value: "5" }
+    ],
   },
   {
     type: "number",
@@ -235,19 +241,19 @@ export const employeeFields = [
     required: true,
     label: "PASSWORD",
   },
-{
-  label: "Employee Level",
-  type: "select",
-  name: "level",
-  placeholder: "level",
-  require: true,
-  options: [
-    { label: "2", value: "2" },
-    { label: "3", value: "3" },
-    { label: "4", value: "4" },
-    { label: "5", value: "5" }
-  ],
-},
+  {
+    label: "Employee Level",
+    type: "select",
+    name: "level",
+    placeholder: "level",
+    require: true,
+    options: [
+      { label: "2", value: "2" },
+      { label: "3", value: "3" },
+      { label: "4", value: "4" },
+      { label: "5", value: "5" }
+    ],
+  },
 ];
 
 export const settings = [
@@ -274,22 +280,22 @@ export const settings = [
   },
 ];
 
-export const changePassword=[
+export const changePassword = [
   {
-      type: "password",
-      name: "oldpassword",
-      placeholder: "Enter your Old Passsword",
-      required: true,
-      label: "OLD PASSWORD",  
-    },
-    {
-      type: "password",
-      name: "password",
-      placeholder: "Enter your Old Passsword",
-      required: true,
-      label: "PASSWORD",  
-    },
-    {
+    type: "password",
+    name: "oldpassword",
+    placeholder: "Enter your Old Passsword",
+    required: true,
+    label: "OLD PASSWORD",
+  },
+  {
+    type: "password",
+    name: "password",
+    placeholder: "Enter your Old Passsword",
+    required: true,
+    label: "PASSWORD",
+  },
+  {
     type: "password",
     name: "confirmPassword",
     placeholder: "********",

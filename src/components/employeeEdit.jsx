@@ -1,7 +1,7 @@
 
 "use client"
 import { motion } from "framer-motion";
-import { TextInput } from "../utils/input"
+import { SelectInputwithLabel, TextInput } from "../utils/input"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { editEmployeeQuotaSchema } from "../utils/schema";
@@ -11,7 +11,7 @@ import { Axios, summary } from "../config/summaryAPI";
 import { editEmployeeQuotaFields } from "../utils/formFields";
 import toast from "react-hot-toast";
 
-const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees }) => {
+const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees,levels }) => {
     const {
         register,
         handleSubmit,
@@ -20,7 +20,7 @@ const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees }) 
     } = useForm({
         resolver: zodResolver(editEmployeeQuotaSchema),
         defaultValues: {
-            level: employee.level || "",
+            level: employee.level.displayName || "",
             quota: employee.quota || ""
         },
     });
@@ -44,20 +44,31 @@ const EmployeeEdit = ({ employee, storyBoards, setExpandedEditRow, employees }) 
     }
 
     return (
-        <motion.div 
+        <motion.div
             className="w-full p-normal border-b"
-            initial={{ opacity: 0, y: -50 }} 
-            animate={{ opacity: 1, y: 0 }} 
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
         >
             <form onSubmit={handleSubmit(onSubmit)} className="px-normal  mr-auto flex flex-col items-start gap-2 mt-normal md:px-0 md:gap-3">
                 {editEmployeeQuotaFields.map((input, index) => {
-                    if (input.name == "quota" && employee.level > 3) {
+                    if (input.name == "quota" && employee.level.levelNumber > 3) {
                         return null
+                    } else if (input.type === "select") {
+                        return (
+                            <SelectInputwithLabel
+                                input={input}
+                                key={index}
+                                errors={errors}
+                                register={register}
+                                optionData={levels}
+                            />
+                        );
+                    } else if (input.type === "number") {
+                        return (
+                            <TextInput input={input} key={index} errors={errors} register={register} />
+                        )
                     }
-                    return (
-                        <TextInput input={input} key={index} errors={errors} register={register} />
-                    )
                 })}
                 <Button className="w-fit">Update</Button>
             </form>

@@ -13,7 +13,7 @@ const Pagination = ({
   levels,
   user,
   selectedRadio,
-  changePriority
+  changePriority,
 }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [expandedViewRow, setExpandedViewRow] = useState(null)
@@ -61,6 +61,7 @@ const Pagination = ({
             storyBoards={storyBoards}
             employees={employees}
             data={data}
+            levels={levels}
           />}
       </div>
 

@@ -109,7 +109,6 @@ const DataTable = () => {
   };
 
   const columns = ["ID", "First Name", "Email", "Created Date", "Actions"];
-  console.log(levels);
   return (
     <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)]">
       {user?.level?.levelNumber <= 3 && !showEmployeeForm && (
@@ -178,6 +177,7 @@ const DataTable = () => {
           columns={columns}
           page="employees"
           storyBoards={storyBoards}
+          levels={levels}
         />
       ) : (
         <div className="flex justify-center items-center h-[300px]">

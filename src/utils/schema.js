@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-export const signInSchema = z
-  .object({
+export const signInSchema = z.object({
     firstName: z
       .string()
       .min(1, { message: "First Name is required" })
@@ -57,8 +56,7 @@ export const loginSchema = z.object({
     .trim(),
 });
 
-export const IntegrationSchema = z
-  .object({
+export const IntegrationSchema = z.object({
     integrationName: z
       .string()
       .min(1, { message: "Integration Name is required" })
@@ -117,8 +115,7 @@ export const editMetaIntegrationSchema = z.object({
 });
 
 
-export const SaveStorySchema = z
-  .object({
+export const SaveStorySchema = z.object({
     storyName: z
       .string()
       .min(1, { message: "Story Name is required" })
@@ -137,8 +134,7 @@ export const SaveStorySchema = z
   })
 
 
-export const AddStoryBoardSchema = z
-  .object({
+export const AddStoryBoardSchema = z.object({
     storyBoardName: z
       .string()
       .min(1, { message: "Story Board Name is required" })
@@ -149,8 +145,7 @@ export const AddStoryBoardSchema = z
       .min(1, { message: "Integration Id is required" })
   })
 
-export const editStoryBoardSchema = z
-  .object({
+export const editStoryBoardSchema = z.object({
     storyBoardName: z
       .string()
       .min(1, { message: "Story Board Name is required" })
@@ -191,10 +186,9 @@ export const editemployeeSchema = z.
 
 export const editEmployeeQuotaSchema = z.
   object({
-    level: z.coerce.
-      number().int()
-      .min(1, { message: "Level is required" })
-      .max(5, { message: "Level must be between 1 and 5" }),
+    level: z
+    .string()
+      .min(1, { message: "Please select a level" }),
     quota: z.coerce.
       number().int().optional()
   });
@@ -228,9 +222,6 @@ export const employeeSchema = z.
     level: z
       .string()
       .min(1, { message: "Please select a level" })
-      .refine((val) => ["2", "3", "4", "5"].includes(val), {
-        message: "Invalid database type selected",
-      }),
   });
 
 export const settingSchema = z.

@@ -19,6 +19,7 @@ const EmployeesList = ({
   storyBoards,
   employees,
   data,
+  levels
 }) => {
   const [deletingRows, setDeletingRows] = useState({});
   const [selectedRowId, setSelectedRowId] = useState(null);
@@ -263,6 +264,7 @@ const EmployeesList = ({
                             storyBoards={storyBoards}
                             setExpandedEditRow={setExpandedEditRow}
                             employees={employees}
+                            levels={levels}
                           />
                         </div>
                       </td>
