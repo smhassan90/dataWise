@@ -1,5 +1,6 @@
 import axios from "axios"
 // export const baseURL = 'http://localhost:4000'
+
 const baseURL = 'https://vizora-backend.vercel.app/'
 
 export const Axios = axios.create({
