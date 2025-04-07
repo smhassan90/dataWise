@@ -15,7 +15,7 @@ export const sideBarMenu = [
     title: "DashBoard",
     icon: <MdDashboard className="text-small" />,
     link: "/dashboard",
-    level:[1,2,3,4,5]
+    level:[1,2,3,4,5,7,8,9,0]
   },
   {
     title: "Employee",
@@ -27,7 +27,7 @@ export const sideBarMenu = [
     title: "StoryBoard",
     icon: <FaBook className="text-small" />,
     link: "/dashboard/storyBoard",
-    level:[1,2,3,4,5]
+    level:[1,2,3,4,5,7,8,9,0]
   },
   {
     title: "Investigations",
