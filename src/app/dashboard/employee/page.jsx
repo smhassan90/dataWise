@@ -110,7 +110,7 @@ const DataTable = () => {
 
   const columns = ["ID", "First Name", "Email", "Created Date", "Actions"];
   return (
-    <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)]">
+    <div className="bg-white rounded-large p-normal min-h-[calc(100vh-5.2rem)] relative">
       {user?.level?.levelNumber <= 3 && !showEmployeeForm && (
         <div>
           <Button onClick={() => openForm()}>Add New Employee</Button>
@@ -180,7 +180,7 @@ const DataTable = () => {
           levels={levels}
         />
       ) : (
-        <div className="flex justify-center items-center h-[300px]">
+        <div className="flex justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Image src={gifImage} alt="No Data Found" height={150} width={150} />
         </div>
       )}

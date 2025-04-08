@@ -14,6 +14,8 @@ import Pagination from '@/src/components/pagination'
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { PuffLoader } from "react-spinners";
+import gifImage from "@/src/assets/images/noDataGif.gif";
+import Image from "next/image";
 const StoryBorad = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
@@ -92,9 +94,9 @@ const StoryBorad = () => {
       if (response.data.success) {
         setintegrations(
           response.data.data.map((integration) => ({
-              label: integration.integrationName,
-              value: integration._id,
-            }))
+            label: integration.integrationName,
+            value: integration._id,
+          }))
         );
       }
     } catch (error) {
@@ -151,7 +153,7 @@ const StoryBorad = () => {
     }
   }
   return (
-    <div className="bg-white rounded-large py-normal min-h-[calc(100vh-5.2rem)]">
+    <div className="bg-white rounded-large py-normal min-h-[calc(100vh-5.2rem)] relative">
       {user?.level?.levelNumber <= 3 && <Button onClick={openDialog}>Add Story Board</Button>}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-35 flex items-center justify-center z-auto">
@@ -189,17 +191,21 @@ const StoryBorad = () => {
         <div className="flex justify-center items-center h-[300px]">
           <PuffLoader color="#036666" size={100} />
         </div>
-      ) : storyBoards.length > 0 &&
-      <Pagination
-        data={storyBoards}
-        levels={levels}
-        columns={columns}
-        page="storyBoard"
-        storyBoards={getStoryBoards}
-        user={user}
-        selectedRadio={selectedRadio}
-        changePriority={changePriority}
-      />}
+      ) : storyBoards.length > 0 ?
+        <Pagination
+          data={storyBoards}
+          levels={levels}
+          columns={columns}
+          page="storyBoard"
+          storyBoards={getStoryBoards}
+          user={user}
+          selectedRadio={selectedRadio}
+          changePriority={changePriority}
+        /> : (
+          <div className="flex justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Image src={gifImage} alt="No Data Found" height={150} width={150} />
+          </div>
+        )}
     </div>
   );
 }
